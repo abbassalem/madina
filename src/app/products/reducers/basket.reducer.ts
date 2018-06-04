@@ -1,0 +1,68 @@
+import {
+  BasketActionTypes,
+  BasketActionsUnion,
+} from './../actions/basket.actions';
+
+export interface State {
+  loaded: boolean;
+  loading: boolean;
+  ids: string[];
+}
+
+const initialState: State = {
+  loaded: false,
+  loading: false,
+  ids: [],
+};
+
+export function reducer(
+  state = initialState,
+  action: BasketActionsUnion
+): State {
+  switch (action.type) {
+    case BasketActionTypes.Load: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+
+    case BasketActionTypes.LoadSuccess: {
+      return {
+        loaded: true,
+        loading: false,
+        ids: action.payload.map(book => book.id.toString()),
+      };
+    }
+
+    case BasketActionTypes.AddProductSuccess:
+    case BasketActionTypes.RemoveProductFail: {
+      if (state.ids.indexOf(action.payload.id.toString()) > -1) {
+        return state;
+      }
+
+      return {
+        ...state,
+        ids: [...state.ids, action.payload.id.toString()],
+      };
+    }
+
+    case BasketActionTypes.RemoveProductSuccess:
+    case BasketActionTypes.AddProductFail: {
+      return {
+        ...state,
+        ids: state.ids.filter(id => id !== action.payload.id.toString()),
+      };
+    }
+
+    default: {
+      return state;
+    }
+  }
+}
+
+export const getLoaded = (state: State) => state.loaded;
+
+export const getLoading = (state: State) => state.loading;
+
+export const getIds = (state: State) => state.ids;
