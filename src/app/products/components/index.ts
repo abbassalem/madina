@@ -9,11 +9,14 @@ import { PipesModule } from '../../shared/pipes';
 import { MaterialModule } from '../../material';
 import { ProductPreviewComponent } from './product-preview.component';
 import { ProductDetailComponent } from './product-detail.component';
+import { ProductSearchComponent } from './product-search.component';
+import { ViewProductPageComponent } from '../containers/view-product-page.component';
 
 export const PRODUCTS_COMPONENTS = [
   ProductPreviewListComponent,
   ProductPreviewComponent,
-  ProductDetailComponent
+  ProductDetailComponent,
+  ProductSearchComponent
 ];
 
 @NgModule({

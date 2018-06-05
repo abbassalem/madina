@@ -93,8 +93,12 @@ export class ProductPreviewComponent {
 
   get thumbnail(): string | boolean {
     if (this.product.image) {
-      return this.product.image;
+      return 'assets/imgs/'+ `${this.product.image}`;
     }
     return false;
+  }
+
+  constructor() {
+    console.log('ProductPreviewComponent');
   }
 }

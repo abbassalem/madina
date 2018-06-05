@@ -31,7 +31,7 @@ import * as fromProducts from '../reducers';
   `,
   ],
 })
-export class ProductPageComponent implements OnInit {
+export class BasketPageComponent implements OnInit {
   products$: Observable<Product[]>;
 
   constructor(private store: Store<fromProducts.State>) {

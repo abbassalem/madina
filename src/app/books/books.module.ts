@@ -54,7 +54,7 @@ import { reducers } from './reducers';
     FindBookPageComponent,
     ViewBookPageComponent,
     SelectedBookPageComponent,
-    CollectionPageComponent,
+    CollectionPageComponent
   ],
   providers: [BookExistsGuard],
 })

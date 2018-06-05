@@ -17,7 +17,7 @@ export const BOOKS_COMPONENTS = [
   BookDetailComponent,
   BookPreviewComponent,
   BookPreviewListComponent,
-  BookSearchComponent,
+  BookSearchComponent
 ];
 
 @NgModule({

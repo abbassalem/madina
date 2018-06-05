@@ -1,19 +1,22 @@
 {
   "orders": [],
-  "users": [{
-    "id": 1,
-    "email": "abbas.salem.water@gmail.com",
-    "password": "password",
-    "firstName": "Adam",
-    "lastName": "Salem"
-
-  }],
-  "categories": [
+  "users": [
     {
       "id": 1,
-      "name": "Pains",
-      "description": "Pains chocolat description",
-      "products": [
+      "email": "adam.salem.water@gmail.com",
+      "password": "password",
+      "firstName": "Adam",
+      "lastName": "Salem"
+    },
+    {
+      "id": 2,
+      "email": "abbas.salem.water@gmail.com",
+      "password": "password",
+      "firstName": "Abbas",
+      "lastName": "Salem"
+    }
+  ],
+  "products": [
         {
           "id": 1,
           "name": "Baguette",
@@ -86,14 +89,7 @@
           "image": "slice-white-small.jpg",
           "price": "1.70"
         }
-
-      ]
-    },
-    {
-      "id": 2,
-      "name": "Couques",
-      "description": "Couques chocolat description",
-      "products": [
+        , 
         {
           "id": 30,
           "name": "Couque au Raisin",
@@ -157,14 +153,7 @@
           "reference": "x22",
           "image": "suisse-rond.jpg",
           "price": "0.85"
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "name": "Patisserie",
-      "description": "Patisserie",
-      "products": [
+        },
         {
           "id": 45,
           "name": "Gaussette",
@@ -182,6 +171,4 @@
           "price": "1.00"
         }
       ]
-    }
-  ]
 }

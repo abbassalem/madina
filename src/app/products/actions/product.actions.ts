@@ -39,7 +39,7 @@ export class Load implements Action {
 export class LoadComplete implements Action {
   readonly type = ProductActionTypes.LoadComplete;
 
-  constructor(public payload: Category[]) {}
+  constructor(public payload: Product[]) {}
 }
 
 export class LoadError implements Action {

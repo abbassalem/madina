@@ -17,5 +17,8 @@ import { Product } from '../models/product.model';
   ],
 })
 export class ProductPreviewListComponent {
-  @Input() products: Product[];
+  @Input() products: Product[]
+  
+  constructor() {
+  }
 }
