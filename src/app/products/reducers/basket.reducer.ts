@@ -31,19 +31,19 @@ export function reducer(
       return {
         loaded: true,
         loading: false,
-        ids: action.payload.map(book => book.id.toString()),
+        ids: action.payload.map(book => book.id),
       };
     }
 
     case BasketActionTypes.AddProductSuccess:
     case BasketActionTypes.RemoveProductFail: {
-      if (state.ids.indexOf(action.payload.id.toString()) > -1) {
+      if (state.ids.indexOf(action.payload.id) > -1) {
         return state;
       }
 
       return {
         ...state,
-        ids: [...state.ids, action.payload.id.toString()],
+        ids: [...state.ids, action.payload.id],
       };
     }
 
@@ -51,7 +51,7 @@ export function reducer(
     case BasketActionTypes.AddProductFail: {
       return {
         ...state,
-        ids: state.ids.filter(id => id !== action.payload.id.toString()),
+        ids: state.ids.filter(id => id !== action.payload.id),
       };
     }
 
@@ -62,7 +62,5 @@ export function reducer(
 }
 
 export const getLoaded = (state: State) => state.loaded;
-
 export const getLoading = (state: State) => state.loading;
-
 export const getIds = (state: State) => state.ids;

@@ -16,6 +16,7 @@ import { SelectedProductPageComponent } from './containers/selected-product-page
 import { BasketPageComponent } from './containers/basket-page.component';
 import { ProductService } from '../core/services/product.service';
 import { NotFoundPageComponent } from '../core/containers/not-found-page.component';
+import { BasketEffects } from './effects/basket.effects';
 
 @NgModule({
   imports: [
@@ -25,21 +26,21 @@ import { NotFoundPageComponent } from '../core/containers/not-found-page.compone
 
     RouterModule.forChild([
       { path: 'list', component: ProductPreviewListPageComponent },
+      { path: 'basket', component: BasketPageComponent },
       { path: ':id', component: ViewProductPageComponent},
       { path: '', component: ProductPreviewListPageComponent}
-      // { path: '', redirectTo:'/list', pathMatch:'full'}
     ]),
 
     
     StoreModule.forFeature('products', reducers),
 
-    EffectsModule.forFeature([ProductEffects]),
+    EffectsModule.forFeature([ProductEffects, BasketEffects]),
   ],
   declarations: [
     SelectedProductPageComponent,
     ViewProductPageComponent,
-    ProductPreviewListPageComponent
-    // BasketPageComponent,
+    ProductPreviewListPageComponent,
+    BasketPageComponent
   ],
   providers: [],
 })

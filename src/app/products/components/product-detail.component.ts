@@ -49,7 +49,7 @@ import { Product } from '../models/product.model';
     }
     mat-card-actions {
       margin: 25px 0 0 !important;
-    }
+    }¦
     mat-card-footer {
       padding: 0 25px 25px;
       position: relative;

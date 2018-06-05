@@ -20,16 +20,7 @@ import {
 
 @Injectable()
 export class BasketEffects {
-  /**
-   * This effect does not yield any actions back to the store. Set
-   * `dispatch` to false to hint to @ngrx/effects that it should
-   * ignore any elements of this effect stream.
-   *
-   * The `defer` observable accepts an observable factory function
-   * that is called when the observable is subscribed to.
-   * Wrapping the database open call in `defer` makes
-   * effect easier to test.
-   */
+ 
   @Effect({ dispatch: false })
   openDB$: Observable<any> = defer(() => {
     return this.db.open('onweb');
@@ -43,7 +34,7 @@ export class BasketEffects {
         .query('products')
         .pipe(
           toArray(),
-          map((products: Product[]) => new LoadSuccess(products)),
+          map((products: Product[]) => {console.log('loadBasket'); console.dir(products); return new LoadSuccess(products)}),
           catchError(error => of(new LoadFail(error)))
         )
     )

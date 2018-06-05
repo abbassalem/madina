@@ -16,12 +16,6 @@ import * as fromProducts from '../reducers';
 
     <bc-product-preview-list [products]="products$ | async"></bc-product-preview-list>
   `,
-  /**
-   * Container components are permitted to have just enough styles
-   * to bring the view together. If the number of styles grow,
-   * consider breaking them out into presentational
-   * components.
-   */
   styles: [
     `
     mat-card-title {
@@ -35,7 +29,7 @@ export class BasketPageComponent implements OnInit {
   products$: Observable<Product[]>;
 
   constructor(private store: Store<fromProducts.State>) {
-    this.products$ = store.pipe(select(fromProducts.getAllProducts));
+    this.products$ = store.pipe(select(fromProducts.getBasketProducts));
   }
 
   ngOnInit() {

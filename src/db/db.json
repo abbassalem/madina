@@ -18,7 +18,7 @@
   ],
   "products": [
         {
-          "id": 1,
+          "id": "1",
           "name": "Baguette",
           "description": "Baguette description",
           "reference": "x21",
@@ -26,7 +26,7 @@
           "price": "0.80"
         },
         {
-          "id": 2,
+          "id": "2",
           "name": "Pain Francais",
           "description": "Pain Francais description",
           "reference": "x22",
@@ -34,7 +34,7 @@
           "price": "0.75"
         },
         {
-          "id": 3,
+          "id": "3",
           "name": "Pain Francais Gris",
           "description": "Pain Fr,ancais Gris description",
           "reference": "x22",
@@ -42,7 +42,7 @@
           "price": "0.75"
         },
         {
-          "id": 4,
+          "id": "4",
           "name": "Piccolo Gris",
           "description": "Piccolo Gris description",
           "reference": "x22",
@@ -50,7 +50,7 @@
           "price": "0.50"
         },
         {
-          "id": 5,
+          "id": "5",
           "name": "Tartine Grid",
           "description": "Tartine Grid description",
           "reference": "x22",
@@ -58,7 +58,7 @@
           "price": "1.80"
         },
         {
-          "id": 6,
+          "id": "6",
           "name": "10 Cereal  Grand",
           "description": "Cereal Grand description",
           "reference": "x22",
@@ -66,7 +66,7 @@
           "price": "1.90"
         },
         {
-          "id": 7,
+          "id": "7",
           "name": "Compagne Grand",
           "description": "Compagne Grand description",
           "reference": "x22",
@@ -74,7 +74,7 @@
           "price": "1.70"
         },
         {
-          "id": 8,
+          "id": "8",
           "name": "Carre Blanc Grand",
           "description": "Carre Bland Grand description",
           "reference": "x22",
@@ -82,7 +82,7 @@
           "price": "1.70"
         },
         {
-          "id": 9,
+          "id": "9",
           "name": "arre Blanc Petit",
           "description": "Caree Blanc Petit description",
           "reference": "x22",
@@ -91,7 +91,7 @@
         }
         , 
         {
-          "id": 30,
+          "id": "30",
           "name": "Couque au Raisin",
           "description": "Couque au Raisin description",
           "reference": "x21",
@@ -99,7 +99,7 @@
           "price": "0.70"
         },
         {
-          "id": 31,
+          "id": "31",
           "name": "Couque Huit",
           "description": "Couque Huit description",
           "reference": "x21",
@@ -107,7 +107,7 @@
           "price": "0.80"
         },
         {
-          "id": 32,
+          "id": "32",
           "name": "Noix Piquant",
           "description": "Noix Piquant description",
           "reference": "x21",
@@ -115,7 +115,7 @@
           "price": "0.80"
         },
         {
-          "id": 33,
+          "id": "33",
           "name": "Couque a la Creme",
           "description": "Couque a la Creme description",
           "reference": "x21",
@@ -123,7 +123,7 @@
           "price": "0.90"
         },
         {
-          "id": 34,
+          "id": "34",
           "name": "Croissant",
           "description": "Croissant description",
           "reference": "x21",
@@ -131,7 +131,7 @@
           "price": "0.90"
         },
         {
-          "id": 35,
+          "id": "35",
           "name": "Pain Chocolat",
           "description": "Pain Chocolat description",
           "reference": "x22",
@@ -139,7 +139,7 @@
           "price": "0.85"
         },
         {
-          "id": 36,
+          "id": "36",
           "name": "Suisse Long",
           "description": "Suisse Long description",
           "reference": "x22",
@@ -147,7 +147,7 @@
           "price": "0.85"
         },
         {
-          "id": 37,
+          "id": "37",
           "name": "Suisse Rond",
           "description": "Suisse Rond description",
           "reference": "x22",
@@ -155,7 +155,7 @@
           "price": "0.85"
         },
         {
-          "id": 45,
+          "id": "45",
           "name": "Gaussette",
           "description": "Gausette description",
           "reference": "x21",
@@ -163,7 +163,7 @@
           "price": "1.00"
         },
         {
-          "id": 46,
+          "id": "46",
           "name": "Patte Feuillete",
           "description": "Patte Feuillete description",
           "reference": "x22",

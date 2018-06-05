@@ -38,8 +38,8 @@ export class Load implements Action {
 
 export class LoadComplete implements Action {
   readonly type = ProductActionTypes.LoadComplete;
-
   constructor(public payload: Product[]) {}
+
 }
 
 export class LoadError implements Action {
@@ -51,7 +51,8 @@ export class LoadError implements Action {
 export class Select implements Action {
   readonly type = ProductActionTypes.Select;
 
-  constructor(public payload: string) {}
+  constructor(public payload: string) {
+  }
 }
 
 export type ProductActionsUnion =

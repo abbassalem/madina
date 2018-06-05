@@ -7,11 +7,11 @@ export const routes: Routes = [
     path: 'products', 
     loadChildren: './products/products.module#ProductsModule'
   },
-  {
-    path: 'books',
-    loadChildren: './books/books.module#BooksModule',
-    canActivate: [AuthGuard],
-  },
+  // {
+  //   path: 'books',
+  //   loadChildren: './books/books.module#BooksModule',
+  //   canActivate: [AuthGuard],
+  // },
   { path: '', 
     redirectTo: '/products', 
     pathMatch: 'full' 

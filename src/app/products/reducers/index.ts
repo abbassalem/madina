@@ -87,10 +87,10 @@ export const getProductState = createSelector(
   (state: ProductsState) => state.products
 );
 
-// export const getProductLoaded = createSelector(
-//   getProductState,
-//   fromProducts.getLoaded
-// );
+export const getProductLoaded = createSelector(
+  getProductState,
+  fromProducts.getLoaded
+);
 
 export const getBasketState = createSelector(
   getProductsState,
@@ -107,7 +107,7 @@ export const getBasketProductIds = createSelector(
   fromBasket.getIds
 );
 
-export const getProductBasket = createSelector(
+export const getBasketProducts = createSelector(
   getProductEntities,
   getBasketProductIds,
   (entities, ids) => {

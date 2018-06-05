@@ -13,33 +13,47 @@ import * as LayoutActions from '../actions/layout.actions';
   template: `
     <bc-layout>
       <bc-sidenav [open]="showSidenav$ | async">
-        <bc-nav-item (navigate)="closeSidenav()" *ngIf="loggedIn$ | async" routerLink="/" icon="book" 
-        hint="View your book collection">
-          My Collection
-        </bc-nav-item>
-        <bc-nav-item (navigate)="closeSidenav()" *ngIf="loggedIn$ | async" routerLink="/books/find" 
-        icon="search" hint="Find your next book">
-          Browse Books
-        </bc-nav-item>
-        <bc-nav-item (navigate)="closeSidenav()" *ngIf="loggedIn$ | async" routerLink="/products/list" icon="search" 
+
+        <bc-nav-item (navigate)="closeSidenav()" routerLink="/products/list" icon="view_list" 
         hint="Find products">
           Browse Products
         </bc-nav-item>
-        <bc-nav-item (navigate)="closeSidenav()" *ngIf="!(loggedIn$ | async)">
+        
+        <bc-nav-item (navigate)="closeSidenav()" routerLink="/products/basket" icon="shopping_cart" 
+            hint="View your Basket">
+                Basket
+        </bc-nav-item>
+
+        <bc-nav-item (navigate)="closeSidenav()" icon="perm_identity" >
           Sign In
         </bc-nav-item>
+
         <bc-nav-item (navigate)="logout()" *ngIf="loggedIn$ | async">
           Sign Out
         </bc-nav-item>
-      </bc-sidenav>
+      
+        </bc-sidenav>
+     
       <bc-toolbar (openMenu)="openSidenav()">
-        Book Collection
+        OnWeb App
       </bc-toolbar>
 
       <router-outlet></router-outlet>
     </bc-layout>
   `,
 })
+
+// <bc-nav-item (navigate)="closeSidenav()" *ngIf="loggedIn$ | async" routerLink="/" icon="book" 
+// hint="View your book collection">
+//   My Collection
+// </bc-nav-item>
+// <bc-nav-item (navigate)="closeSidenav()" *ngIf="loggedIn$ | async" routerLink="/books/find" 
+// icon="search" hint="Find your next book">
+//   Browse Books
+// </bc-nav-item>
+
+// *ngIf="loggedIn$ | async"
+
 export class AppComponent {
   showSidenav$: Observable<boolean>;
   loggedIn$: Observable<boolean>;

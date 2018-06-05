@@ -55,5 +55,5 @@ export function reducer(
 }
 
 export const getSelectedId = (state: State) => state.selectedProductId;
-// export const getIds = (state: State) => state.ids;
-// export const getLoaded = (state: State) => state.entities;
+export const getIds = (state: State) => state.ids;
+export const getLoaded = (state: State) => state.entities;
