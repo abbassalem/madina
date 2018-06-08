@@ -5,6 +5,7 @@ import {
 } from '@ngrx/store';
 import * as fromSearch from './search.reducer';
 import * as fromProducts from './products.reducer';
+import * as fromCategories from './categories.reducer';
 import * as fromBasket from './basket.reducer';
 import * as fromRoot from '../../reducers';
 import { EntityState } from '@ngrx/entity';
@@ -12,7 +13,8 @@ import { EntityState } from '@ngrx/entity';
 export interface ProductsState {
   search: fromSearch.State;
   products: fromProducts.State;
-  basket: fromBasket.State;
+  basket: fromBasket.BasketState;
+  categories: fromCategories.CategoryState;
 }
 
 export interface State extends fromRoot.State {
@@ -22,30 +24,36 @@ export interface State extends fromRoot.State {
 export const reducers: ActionReducerMap<ProductsState> = {
   search: fromSearch.reducer,
   products: fromProducts.reducer,
-  basket: fromBasket.reducer
+  basket: fromBasket.reducer,
+  categories: fromCategories.reducer
 };
 
 export const getProductsState = createFeatureSelector<ProductsState>('products');
 
-export const getProductEntitiesState = createSelector(
-  getProductsState,
-  state => state.products
+export const getBasketState = createSelector(getProductsState,(state: ProductsState) => state.basket);
+export const getCategoryState = createSelector(getProductsState,(state: ProductsState) => state.categories);
+
+
+export const getProductEntitiesState = createSelector(getProductsState,state => state.products);
+export const getSelectedProductId = createSelector(getProductEntitiesState,fromProducts.getSelectedId);
+
+export const getBasketProductIds = createSelector(
+  getBasketState,
+  (state) => { return state.ids}
 );
 
-export const getSelectedProductId = createSelector(
-  getProductEntitiesState,
-  fromProducts.getSelectedId
-);
-
-export const {
-  selectIds: getProductIds,
-  selectEntities: getProductEntities,
-  selectAll: getAllProducts,
-  selectTotal: getTotalProducts,
-} = fromProducts.adapter.getSelectors(getProductEntitiesState);
+//TODO: 
+export const isSelectedProductInBasket = createSelector(
+  getSelectedProductId,
+  getBasketProductIds,
+  (selected, ids) => {
+    return ids.indexOf(selected) > -1;
+  }
+)
+  
 
 export const getSelectedProduct = createSelector(
-  getProductEntities,
+  fromProducts.getProductEntities,
   getSelectedProductId,
   (entities, selectedId) => {
     return selectedId && entities[selectedId];
@@ -75,7 +83,7 @@ export const getSearchError = createSelector(
 );
 
 export const getSearchResults = createSelector(
-  getProductEntities,
+  fromProducts.getProductEntities,
   getSearchProductIds,
   (products, searchIds) => {
     return searchIds.map(id => products[id]);
@@ -92,33 +100,19 @@ export const getProductLoaded = createSelector(
   fromProducts.getLoaded
 );
 
-export const getBasketState = createSelector(
-  getProductsState,
-  (state: ProductsState) => state.basket
-);
 
 // export const getProductLoading = createSelector(
 //   getProductState,
 //   fromProducts.getLoading
 // );
 
-export const getBasketProductIds = createSelector(
-  getBasketState,
-  fromBasket.getIds
-);
 
 export const getBasketProducts = createSelector(
-  getProductEntities,
+  fromProducts.getProductEntities,
   getBasketProductIds,
   (entities, ids) => {
     return ids.map(id => entities[id]);
   }
 );
 
-export const isSelectedProductInBasket = createSelector(
-  getBasketProductIds,
-  getSelectedProductId,
-  (ids, selected) => {
-    return ids.indexOf(selected)> -1;
-  }
-);
+

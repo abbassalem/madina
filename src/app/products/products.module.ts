@@ -17,13 +17,15 @@ import { BasketPageComponent } from './containers/basket-page.component';
 import { ProductService } from '../core/services/product.service';
 import { NotFoundPageComponent } from '../core/containers/not-found-page.component';
 import { BasketEffects } from './effects/basket.effects';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CategoryEffects } from './effects/category.effects';
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
     ProductsComponentsModule,
-
+    ReactiveFormsModule, 
     RouterModule.forChild([
       { path: 'list', component: ProductPreviewListPageComponent },
       { path: 'basket', component: BasketPageComponent },
@@ -34,7 +36,7 @@ import { BasketEffects } from './effects/basket.effects';
     
     StoreModule.forFeature('products', reducers),
 
-    EffectsModule.forFeature([ProductEffects, BasketEffects]),
+    EffectsModule.forFeature([ProductEffects, BasketEffects, CategoryEffects]),
   ],
   declarations: [
     SelectedProductPageComponent,

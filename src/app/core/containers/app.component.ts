@@ -43,16 +43,11 @@ import * as LayoutActions from '../actions/layout.actions';
   `,
 })
 
-// <bc-nav-item (navigate)="closeSidenav()" *ngIf="loggedIn$ | async" routerLink="/" icon="book" 
-// hint="View your book collection">
-//   My Collection
-// </bc-nav-item>
 // <bc-nav-item (navigate)="closeSidenav()" *ngIf="loggedIn$ | async" routerLink="/books/find" 
 // icon="search" hint="Find your next book">
 //   Browse Books
 // </bc-nav-item>
 
-// *ngIf="loggedIn$ | async"
 
 export class AppComponent {
   showSidenav$: Observable<boolean>;

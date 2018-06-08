@@ -22,10 +22,10 @@ export class FindProductPageComponent {
   error$: Observable<string>;
 
   constructor(private store: Store<fromProducts.State>) {
-    this.searchQuery$ = store.pipe(select(fromProducts.getSearchQuery), take(1));
-    this.products$ = store.pipe(select(fromProducts.getSearchResults));
-    this.loading$ = store.pipe(select(fromProducts.getSearchLoading));
-    this.error$ = store.pipe(select(fromProducts.getSearchError));
+    // this.searchQuery$ = store.pipe(select(fromProducts.getSearchQuery), take(1));
+    // this.products$ = store.pipe(select(fromProducts.getSearchResults));
+    // this.loading$ = store.pipe(select(fromProducts.getSearchLoading));
+    // this.error$ = store.pipe(select(fromProducts.getSearchError));
   }
 
   search(query: string) {

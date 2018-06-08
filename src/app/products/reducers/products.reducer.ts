@@ -6,10 +6,11 @@ import {
   BasketActionsUnion,
   BasketActionTypes,
 } from '../actions/basket.actions';
+import { Category } from '../models/category.model';
 
 
 export interface State extends EntityState<Product> {
-  selectedProductId: string | null;
+  selectedCategoryId: number | null;
 }
 
 export const adapter: EntityAdapter<Product> = createEntityAdapter<Product>({
@@ -17,36 +18,43 @@ export const adapter: EntityAdapter<Product> = createEntityAdapter<Product>({
   sortComparer: false,
 });
 
+
 export const initialState: State = adapter.getInitialState({
-  selectedProductId: null,
+  selectedCategoryId: null
 });
+
+export const {
+  selectIds: getProductIds,
+  selectEntities: getProductEntities,
+  selectAll: getAllProducts,
+  selectTotal: getTotalProducts,
+} = adapter.getSelectors();
 
 export function reducer(
   state = initialState,
   action: ProductActionsUnion | BasketActionsUnion
 ): State {
   switch (action.type) {
-    case ProductActionTypes.SearchComplete:
-    case BasketActionTypes.LoadSuccess: {
-      return adapter.addMany(action.payload, {
-        ...state,
-        selectedProductId: state.selectedProductId,
-      });
-    }
+    // case ProductActionTypes.SearchComplete: {
+    //   return adapter.addMany(action.payload, {
+    //     ...state,
+    //     selectedProductId: state.selectedCategoryId,
+    //   });
+    // }
 
-    case ProductActionTypes.Load: {
-      return adapter.addOne(action.payload, {
-        ...state,
-        selectedProductId: state.selectedProductId,
-      });
-    }
+    // case ProductActionTypes.Load: {
+    //   return adapter.addOne(action.payload, {
+    //     ...state,
+    //     selectedProductId: state.selectedCategoryId,
+    //   });
+    // }
 
-    case ProductActionTypes.Select: {
-      return {
-        ...state,
-        selectedProductId: action.payload,
-      };
-    }
+    // case ProductActionTypes.SelectProduct: {
+    //   return {
+    //     ...state,
+    //     selectedCategoryId: action.payload
+    //   };
+    // }
 
     default: {
       return state;
@@ -54,6 +62,6 @@ export function reducer(
   }
 }
 
-export const getSelectedId = (state: State) => state.selectedProductId;
+export const getSelectedId = (state: State) => state.selectedCategoryId;
 export const getIds = (state: State) => state.ids;
 export const getLoaded = (state: State) => state.entities;

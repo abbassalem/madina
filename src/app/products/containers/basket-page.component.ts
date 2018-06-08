@@ -4,7 +4,9 @@ import { Observable } from 'rxjs';
 
 import * as BasketActions from '../actions/basket.actions';
 import { Product } from '../models/product.model';
-import * as fromProducts from '../reducers';
+import { BasketItem } from '../models/BasketItem.model';
+import * as fromBasket from '../reducers/basket.reducer';
+import  '../reducers/index';
 
 @Component({
   selector: 'bc-basket-page',
@@ -14,7 +16,6 @@ import * as fromProducts from '../reducers';
       <mat-card-title>My Basket</mat-card-title>
     </mat-card>
 
-    <bc-product-preview-list [products]="products$ | async"></bc-product-preview-list>
   `,
   styles: [
     `
@@ -25,11 +26,14 @@ import * as fromProducts from '../reducers';
   `,
   ],
 })
+// <bc-product-preview-list [products]="products$ | async"></bc-product-preview-list>
+  // 
 export class BasketPageComponent implements OnInit {
-  products$: Observable<Product[]>;
+  
+  basketItems$: Observable<BasketItem[]>;
 
-  constructor(private store: Store<fromProducts.State>) {
-    this.products$ = store.pipe(select(fromProducts.getBasketProducts));
+  constructor(private store: Store<fromBasket.BasketState>) {
+    this.basketItems$ = store.pipe(select(fromBasket.selectAllBasketItems));
   }
 
   ngOnInit() {

@@ -1,7 +1,7 @@
 import { ProductActionTypes,ProductActionsUnion } from '../actions/product.actions';
 
 export interface State {
-  ids: string[];
+  ids: number[];
   loading: boolean;
   error: string;
   query: string;

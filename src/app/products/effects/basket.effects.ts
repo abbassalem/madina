@@ -5,7 +5,6 @@ import { Action } from '@ngrx/store';
 import { defer, Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, toArray } from 'rxjs/operators';
 
-import { Product } from '../models/product.model';
 import {
   AddProduct,
   AddProductFail,
@@ -17,6 +16,7 @@ import {
   RemoveProductFail,
   RemoveProductSuccess,
 } from './../actions/basket.actions';
+import { BasketItem } from '../models/BasketItem.model';
 
 @Injectable()
 export class BasketEffects {
@@ -34,7 +34,7 @@ export class BasketEffects {
         .query('products')
         .pipe(
           toArray(),
-          map((products: Product[]) => {console.log('loadBasket'); console.dir(products); return new LoadSuccess(products)}),
+          map((basketItems: BasketItem[]) =>  new LoadSuccess(basketItems)),
           catchError(error => of(new LoadFail(error)))
         )
     )
@@ -44,12 +44,12 @@ export class BasketEffects {
   addProductToBasket$: Observable<Action> = this.actions$.pipe(
     ofType<AddProduct>(BasketActionTypes.AddProduct),
     map(action => action.payload),
-    mergeMap(product =>
+    mergeMap(basketItem =>
       this.db
-        .insert('products', [product])
+        .insert('products', [basketItem])
         .pipe(
-          map(() => new AddProductSuccess(product)),
-          catchError(() => of(new AddProductFail(product)))
+          map(() => new AddProductSuccess(basketItem)),
+          catchError(() => of(new AddProductFail(basketItem)))
         )
     )
   );
@@ -58,12 +58,12 @@ export class BasketEffects {
   removeProductFromBasket$: Observable<Action> = this.actions$.pipe(
     ofType<RemoveProduct>(BasketActionTypes.RemoveProduct),
     map(action => action.payload),
-    mergeMap(product =>
+    mergeMap(basketItem =>
       this.db
-        .executeWrite('products', 'delete', [product.id])
+        .executeWrite('products', 'delete', [basketItem])
         .pipe(
-          map(() => new RemoveProductSuccess(product)),
-          catchError(() => of(new RemoveProductFail(product)))
+          map(() => new RemoveProductSuccess(basketItem)),
+          catchError(() => of(new RemoveProductFail(basketItem)))
         )
     )
   );

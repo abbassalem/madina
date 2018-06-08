@@ -11,16 +11,16 @@ export class ProductService {
   history: any;
   placedOrderSuccess = false;
   
-  url: string = 'http://localhost:3000/products';
+  apiUrl: string = 'http://localhost:3000';
 
   constructor(private http: HttpClient) {
   }
 
-  getCategories(): Observable<Array<Category>> {
-    return this.http.get<Array<Category>>(this.url);
+  getProducts(): Observable<Array<Product>> {
+    return this.http.get<Array<Product>>(`${this.apiUrl}/products`);
   }
 
-  getProducts(): Observable<Array<Product>> {
-    return this.http.get<Array<Product>>(this.url);
+  getCategories(): Observable<Array<Category>> {
+    return this.http.get<Array<Category>>(`${this.apiUrl}/categories`);
   }
 }

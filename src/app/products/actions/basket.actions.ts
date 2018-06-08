@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Product } from '../models/product.model';
+import { BasketItem } from '../models/BasketItem.model';
 
 export enum BasketActionTypes {
   AddProduct = '[Basket] Add Product',
@@ -11,42 +11,38 @@ export enum BasketActionTypes {
   Load = '[Basket] Load',
   LoadSuccess = '[Basket] Load Success',
   LoadFail = '[Basket] Load Fail',
+  Select = '[Basket] Select Basket Item'
 }
 
 export class AddProduct implements Action {
   readonly type = BasketActionTypes.AddProduct;
 
-  constructor(public payload: Product) {}
+  constructor(public payload: BasketItem) { }
 }
 
 export class AddProductSuccess implements Action {
   readonly type = BasketActionTypes.AddProductSuccess;
-
-  constructor(public payload: Product) {}
+  constructor(public payload: BasketItem) { }
 }
 
 export class AddProductFail implements Action {
   readonly type = BasketActionTypes.AddProductFail;
-
-  constructor(public payload: Product) {}
+  constructor(public payload: BasketItem) { }
 }
 
 export class RemoveProduct implements Action {
   readonly type = BasketActionTypes.RemoveProduct;
-
-  constructor(public payload: Product) {}
+  constructor(public payload: BasketItem) { }
 }
 
 export class RemoveProductSuccess implements Action {
   readonly type = BasketActionTypes.RemoveProductSuccess;
-
-  constructor(public payload: Product) {}
+  constructor(public payload: BasketItem) { }
 }
 
 export class RemoveProductFail implements Action {
   readonly type = BasketActionTypes.RemoveProductFail;
-
-  constructor(public payload: Product) {}
+  constructor(public payload: BasketItem ) { }
 }
 
 export class Load implements Action {
@@ -55,14 +51,17 @@ export class Load implements Action {
 
 export class LoadSuccess implements Action {
   readonly type = BasketActionTypes.LoadSuccess;
-
-  constructor(public payload: Product[]) {}
+  constructor(public payload: BasketItem[]) { }
 }
 
 export class LoadFail implements Action {
   readonly type = BasketActionTypes.LoadFail;
+  constructor(public payload: any) { }
+}
 
-  constructor(public payload: any) {}
+export class Select implements Action {
+  readonly type = BasketActionTypes.Select;
+  constructor(public payload: BasketItem) { }
 }
 
 export type BasketActionsUnion =
@@ -74,4 +73,5 @@ export type BasketActionsUnion =
   | RemoveProductFail
   | Load
   | LoadSuccess
-  | LoadFail;
+  | LoadFail
+  | Select;

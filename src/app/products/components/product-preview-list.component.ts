@@ -1,11 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Product } from '../models/product.model';
+import { Category } from '../models/category.model';
+import { ofType } from '@ngrx/effects';
+import { Store, select } from '@ngrx/store';
+import * as fromCategories from './../reducers/categories.reducer';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'bc-product-preview-list',
-  template: `
-    <bc-product-preview *ngFor="let product of products" [product]="product"></bc-product-preview>
-  `,
+  template: ` 
+      <mat-tab-group [(selectedIndex)]= "selectedCategoryId$ | async">
+        <mat-tab *ngFor="let cat of categories" [label]="cat.name">
+            <bc-product-preview *ngFor="let product of cat.products" [product]="product"></bc-product-preview>
+        </mat-tab>
+      </mat-tab-group>`,
   styles: [
     `
     :host {
@@ -16,9 +24,14 @@ import { Product } from '../models/product.model';
   `,
   ],
 })
+
 export class ProductPreviewListComponent {
-  @Input() products: Product[]
-  
-  constructor() {
+
+  @Input() categories: Category[];
+
+  selectedCategoryId$: Observable<number>;
+  constructor(private store: Store<fromCategories.CategoryState>)  {
+    this.selectedCategoryId$ = store.pipe(select(fromCategories.getSelectCategoryId));
   }
+  
 }

@@ -1,6 +1,5 @@
 import { Action } from '@ngrx/store';
 import { Product } from '../models/product.model';
-import { Category } from '../models/category.model';
 
 export enum ProductActionTypes {
   Search = '[Product] Search',
@@ -38,8 +37,8 @@ export class Load implements Action {
 
 export class LoadComplete implements Action {
   readonly type = ProductActionTypes.LoadComplete;
-  constructor(public payload: Product[]) {}
 
+  constructor(public payload: Product[]) {}
 }
 
 export class LoadError implements Action {
@@ -51,13 +50,14 @@ export class LoadError implements Action {
 export class Select implements Action {
   readonly type = ProductActionTypes.Select;
 
-  constructor(public payload: string) {
-  }
+  constructor(public payload: number) {}
 }
 
 export type ProductActionsUnion =
-  | Search
+  | Load
+  | LoadComplete
+  | LoadError
+  | Select
   | SearchComplete
   | SearchError
-  | Load
-  | Select;
+  | Search;

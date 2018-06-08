@@ -1,38 +1,36 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, Input } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import * as ProductActions from '../actions/product.actions';
-import { Product } from '../models/product.model';
-import * as fromProducts from '../reducers';
+import * as fromCategories from '../reducers/categories.reducer';
+import { Category } from '../models/category.model';
+import { CategoryActionTypes, Load, Select } from '../actions/category.actions';
+import { selectAllBasketItems } from '../reducers/basket.reducer';
+// import  '../reducers/index';
+// import {  } from '../reducers/index';
 
 @Component({
   selector: 'bc-list-product-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <bc-product-preview-list [products]="products$ | async"></bc-product-preview-list>
+    <bc-product-preview-list  [categories]="categories$ | async"></bc-product-preview-list>
   `,
 })
-//  <bc-product-search [query]="searchQuery$ | async" [searching]="loading$ | async" [error]="error$ | async" (search)="search($event)"></bc-product-search>
+
 export class ProductPreviewListPageComponent implements OnInit  {
+
   searchQuery$: Observable<string>;
-  products$: Observable<Product[]>;
+  categories$: Observable<Category[]>;
   loading$: Observable<boolean>;
   error$: Observable<string>;
   
-  constructor(private store: Store<fromProducts.State>)  {
-    // this.searchQuery$ = store.pipe(select(fromProducts.getSearchQuery), take(1));
-    this.products$ = store.pipe(select(fromProducts.getAllProducts));
-    // this.loading$ = store.pipe(select(fromProducts.getSearchLoading));
-    // this.error$ = store.pipe(select(fromProducts.getSearchError));
+  constructor(private store: Store<fromCategories.CategoryState>)  {
+    this.categories$ = store.pipe(select(fromCategories.selectAllCategories));
   }
 
   ngOnInit(): void {
-    this.store.dispatch(new ProductActions.Search(''));
-  }
-
-  search(query: string) {
-    this.store.dispatch(new ProductActions.Search(query));
+    this.store.dispatch(new Load());
+    this.store.dispatch(new Select(2));
   }
 }

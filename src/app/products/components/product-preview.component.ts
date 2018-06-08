@@ -9,14 +9,13 @@ import { Product } from '../models/product.model';
         <mat-card-title-group>
           <img mat-card-sm-image *ngIf="thumbnail" [src]="thumbnail"/>
           <mat-card-title>{{ name | bcEllipsis:35 }}</mat-card-title>
-          <mat-card-subtitle *ngIf="subtitle">{{ subtitle | bcEllipsis:40 }}</mat-card-subtitle>
         </mat-card-title-group>
+        
         <mat-card-content>
           <p *ngIf="description">{{ description | bcEllipsis }}</p>
         </mat-card-content>
-        <mat-card-footer>
-      
-        </mat-card-footer>
+
+        <mat-card-footer>  </mat-card-footer>
       </mat-card>
     </a>
   `,
@@ -99,6 +98,5 @@ export class ProductPreviewComponent {
   }
 
   constructor() {
-    console.log('ProductPreviewComponent');
   }
 }
