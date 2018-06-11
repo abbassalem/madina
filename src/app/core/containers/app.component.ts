@@ -8,45 +8,45 @@ import * as fromRoot from '../../reducers';
 import * as LayoutActions from '../actions/layout.actions';
 
 @Component({
-  selector: 'bc-app',
+  selector: 'app-app',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <bc-layout>
-      <bc-sidenav [open]="showSidenav$ | async">
+    <app-layout>
+      <app-sidenav [open]="showSidenav$ | async">
 
-        <bc-nav-item (navigate)="closeSidenav()" routerLink="/products/list" icon="view_list" 
+        <app-nav-item (navigate)="closeSidenav()" routerLink="/shop" icon="view_list" 
         hint="Find products">
           Browse Products
-        </bc-nav-item>
+        </app-nav-item>
         
-        <bc-nav-item (navigate)="closeSidenav()" routerLink="/products/basket" icon="shopping_cart" 
+        <app-nav-item (navigate)="closeSidenav()" routerLink="/" icon="shopping_cart" 
             hint="View your Basket">
                 Basket
-        </bc-nav-item>
+        </app-nav-item>
 
-        <bc-nav-item (navigate)="closeSidenav()" icon="perm_identity" >
+        <app-nav-item (navigate)="closeSidenav()" icon="perm_identity" >
           Sign In
-        </bc-nav-item>
+        </app-nav-item>
 
-        <bc-nav-item (navigate)="logout()" *ngIf="loggedIn$ | async">
+        <app-nav-item (navigate)="logout()" *ngIf="loggedIn$ | async">
           Sign Out
-        </bc-nav-item>
+        </app-nav-item>
       
-        </bc-sidenav>
+        </app-sidenav>
      
-      <bc-toolbar (openMenu)="openSidenav()">
-        OnWeb App
-      </bc-toolbar>
+      <app-toolbar (openMenu)="openSidenav()">
+        OnWeb
+      </app-toolbar>
 
       <router-outlet></router-outlet>
-    </bc-layout>
+    </app-layout>
   `,
 })
 
-// <bc-nav-item (navigate)="closeSidenav()" *ngIf="loggedIn$ | async" routerLink="/books/find" 
+// <app-nav-item (navigate)="closeSidenav()" *ngIf="loggedIn$ | async" routerLink="/books/find" 
 // icon="search" hint="Find your next book">
 //   Browse Books
-// </bc-nav-item>
+// </app-nav-item>
 
 
 export class AppComponent {

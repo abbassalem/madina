@@ -7,14 +7,14 @@ import { Book } from '../models/book';
 import * as fromBooks from '../reducers';
 
 @Component({
-  selector: 'bc-collection-page',
+  selector: 'app-collection-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-card>
       <mat-card-title>My Collection</mat-card-title>
     </mat-card>
 
-    <bc-book-preview-list [books]="books$ | async"></bc-book-preview-list>
+    <app-book-preview-list [books]="books$ | async"></app-book-preview-list>
   `,
   /**
    * Container components are permitted to have just enough styles

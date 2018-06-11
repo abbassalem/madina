@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Book } from '../models/book';
 
 @Component({
-  selector: 'bc-book-detail',
+  selector: 'app-book-detail',
   template: `
     <mat-card *ngIf="book">
       <mat-card-title-group>
@@ -14,7 +14,7 @@ import { Book } from '../models/book';
         <p [innerHtml]="description"></p>
       </mat-card-content>
       <mat-card-footer class="footer">
-        <bc-book-authors [book]="book"></bc-book-authors>
+        <app-book-authors [book]="book"></app-book-authors>
       </mat-card-footer>
       <mat-card-actions align="start">
         <button mat-raised-button color="warn" *ngIf="inCollection" (click)="remove.emit(book)">

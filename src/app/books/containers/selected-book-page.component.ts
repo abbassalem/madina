@@ -7,15 +7,15 @@ import * as CollectionActions from '../actions/collection.actions';
 import { Book } from '../models/book';
 
 @Component({
-  selector: 'bc-selected-book-page',
+  selector: 'app-selected-book-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <bc-book-detail
+    <app-book-detail
       [book]="book$ | async"
       [inCollection]="isSelectedBookInCollection$ | async"
       (add)="addToCollection($event)"
       (remove)="removeFromCollection($event)">
-    </bc-book-detail>
+    </app-book-detail>
   `,
 })
 export class SelectedBookPageComponent {

@@ -9,7 +9,8 @@ import {
   MatIconModule,
   MatToolbarModule,
   MatTabsModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatTabNav
 } from '@angular/material';
 
 @NgModule({

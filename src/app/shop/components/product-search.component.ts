@@ -1,13 +1,13 @@
 import { Component, Output, Input, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-book-search',
+  selector: 'app-product-search',
   template: `
     <mat-card>
-      <mat-card-title>Find a Book</mat-card-title>
+      <mat-card-title>Find a Product</mat-card-title>
       <mat-card-content>
         <mat-form-field>
-          <input matInput placeholder="Search for a book" [value]="query" (keyup)="search.emit($event.target.value)">
+          <input matInput placeholder="Search for a product" [value]="query" (keyup)="search.emit($event.target.value)">
         </mat-form-field>
         <mat-spinner [class.show]="searching" [diameter]="30" [strokeWidth]="3"></mat-spinner>
       </mat-card-content>
@@ -46,7 +46,7 @@ import { Component, Output, Input, EventEmitter } from '@angular/core';
   `,
   ],
 })
-export class BookSearchComponent {
+export class ProductSearchComponent {
   @Input() query = '';
   @Input() searching = false;
   @Input() error = '';

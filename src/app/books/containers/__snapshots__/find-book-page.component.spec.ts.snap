@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Find Book Page should compile 1`] = `
-<bc-find-book-page
+<app-find-book-page
   books$={[Function Store]}
   error$={[Function Store]}
   loading$={[Function Store]}
   searchQuery$={[Function Store]}
   store={[Function Store]}
 >
-  <bc-book-search
+  <app-book-search
     _nghost-c0=""
     ng-reflect-error=""
     ng-reflect-query=""
@@ -131,11 +131,11 @@ exports[`Find Book Page should compile 1`] = `
         
       </mat-card-footer>
     </mat-card>
-  </bc-book-search><bc-book-preview-list
+  </app-book-search><app-book-preview-list
     _nghost-c1=""
     ng-reflect-books=""
   >
     
-  </bc-book-preview-list>
-</bc-find-book-page>
+  </app-book-preview-list>
+</app-find-book-page>
 `;

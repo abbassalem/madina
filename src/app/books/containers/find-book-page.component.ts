@@ -8,11 +8,11 @@ import { Book } from '../models/book';
 import * as fromBooks from '../reducers';
 
 @Component({
-  selector: 'bc-find-book-page',
+  selector: 'app-find-book-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <bc-book-search [query]="searchQuery$ | async" [searching]="loading$ | async" [error]="error$ | async" (search)="search($event)"></bc-book-search>
-    <bc-book-preview-list [books]="books$ | async"></bc-book-preview-list>
+    <app-book-search [query]="searchQuery$ | async" [searching]="loading$ | async" [error]="error$ | async" (search)="search($event)"></app-book-search>
+    <app-book-preview-list [books]="books$ | async"></app-book-preview-list>
   `,
 })
 export class FindBookPageComponent {

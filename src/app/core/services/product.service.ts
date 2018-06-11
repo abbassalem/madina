@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs/Observable";
-import { Category } from '../../products/models/category.model';
-import { Product } from '../../products/models/product.model';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import { Category } from '../../shop/models/category.model';
+import { Product } from '../../shop/models/product.model';
 
 @Injectable()
 export class ProductService {
-  
   categories: Array<Category>;
   history: any;
   placedOrderSuccess = false;
-  
-  apiUrl: string = 'http://localhost:3000';
+  apiUrl = 'http://localhost:3000';
 
   constructor(private http: HttpClient) {
   }

@@ -2,9 +2,9 @@ import { Component, Input } from '@angular/core';
 import { Book } from '../models/book';
 
 @Component({
-  selector: 'bc-book-preview-list',
+  selector: 'app-book-preview-list',
   template: `
-    <bc-book-preview *ngFor="let book of books" [book]="book"></bc-book-preview>
+    <app-book-preview *ngFor="let book of books" [book]="book"></app-book-preview>
   `,
   styles: [
     `

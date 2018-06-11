@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`View Book Page should compile 1`] = `
-<bc-view-book-page
+<app-view-book-page
   actionsSubscription={[Function Subscriber]}
 >
-  <bc-selected-book-page>
-    <bc-book-detail
+  <app-selected-book-page>
+    <app-book-detail
       _nghost-c0=""
     >
       
-    </bc-book-detail>
-  </bc-selected-book-page>
-</bc-view-book-page>
+    </app-book-detail>
+  </app-selected-book-page>
+</app-view-book-page>
 `;

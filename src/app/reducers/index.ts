@@ -3,7 +3,7 @@ import {
   createSelector,
   createFeatureSelector,
   ActionReducer,
-  MetaReducer,
+  MetaReducer
 } from '@ngrx/store';
 import { environment } from '../../environments/environment';
 import { RouterStateUrl } from '../shared/utils';

@@ -4,19 +4,30 @@ import { NotFoundPageComponent } from './core/containers/not-found-page.componen
 
 export const routes: Routes = [
   {
-    path: 'products', 
-    loadChildren: './products/products.module#ProductsModule'
+    path: '',
+    redirectTo: 'shop',
+    pathMatch: 'full'
   },
-  // {
-  //   path: 'books',
-  //   loadChildren: './books/books.module#BooksModule',
-  //   canActivate: [AuthGuard],
-  // },
-  { path: '', 
-    redirectTo: '/products', 
-    pathMatch: 'full' 
+  {
+    path: 'shop',
+    loadChildren: './shop/shop.module#ShopModule'
   },
-  { path: '**', 
-  component: NotFoundPageComponent 
-},
+
+  {
+    path: '**',
+    component: NotFoundPageComponent
+  },
 ];
+
+
+// export const routes: Routes = [
+//   { path: '', redirectTo: 'product-list', pathMatch: 'full' },
+//   { path: 'product-list', component: ProductList },
+//   { path: 'product-details/:id', component: ProductDetails,
+//     children: [
+//       { path: '', redirectTo: 'overview', pathMatch: 'full' },
+//       { path: 'overview', component: Overview },
+//       { path: 'specs', component: Specs }
+//     ]
+//   }
+// ];

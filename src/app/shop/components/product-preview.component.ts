@@ -1,22 +1,20 @@
 import { Component, Input } from '@angular/core';
-import { Book } from '../models/book';
+import { Product } from '../models/product.model';
+import { Category } from '../models/category.model';
 
 @Component({
-  selector: 'app-book-preview',
+  selector: 'app-product-preview',
   template: `
-    <a [routerLink]="['/books', id]">
+    <a [routerLink]="['/shop/categories', categoryId, 'products', id]">
       <mat-card>
         <mat-card-title-group>
           <img mat-card-sm-image *ngIf="thumbnail" [src]="thumbnail"/>
-          <mat-card-title>{{ title | bcEllipsis:35 }}</mat-card-title>
-          <mat-card-subtitle *ngIf="subtitle">{{ subtitle | bcEllipsis:40 }}</mat-card-subtitle>
+          <mat-card-title>{{ name | bcEllipsis:35 }}</mat-card-title>
         </mat-card-title-group>
         <mat-card-content>
           <p *ngIf="description">{{ description | bcEllipsis }}</p>
         </mat-card-content>
-        <mat-card-footer>
-          <app-book-authors [book]="book"></app-book-authors>
-        </mat-card-footer>
+        <mat-card-footer>  </mat-card-footer>
       </mat-card>
     </a>
   `,
@@ -75,30 +73,30 @@ import { Book } from '../models/book';
   `,
   ],
 })
-export class BookPreviewComponent {
-  @Input() book: Book;
+export class ProductPreviewComponent {
+  @Input() product: Product;
+  @Input() categoryId: Category;
 
   get id() {
-    return this.book.id;
-  }
-
-  get title() {
-    return this.book.volumeInfo.title;
-  }
-
-  get subtitle() {
-    return this.book.volumeInfo.subtitle;
+    return this.product.id;
   }
 
   get description() {
-    return this.book.volumeInfo.description;
+    return this.product.description;
   }
 
-  get thumbnail(): string | boolean {
-    if (this.book.volumeInfo.imageLinks) {
-      return this.book.volumeInfo.imageLinks.smallThumbnail;
-    }
+  get name() {
+    return this.product.name;
+  }
 
+
+  get thumbnail(): string | boolean {
+    if (this.product.image) {
+      return 'assets/imgs/' + `${this.product.image}`;
+    }
     return false;
+  }
+
+  constructor() {
   }
 }
