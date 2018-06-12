@@ -10,21 +10,15 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   template: `
     <mat-card *ngIf="product">
       <mat-card-title-group>
+        <p *ngIf="quantity > 0">
+          <span matBadge="{{quantity}}" matBadgeOverlap="false"></span>
+        </p>
         <mat-card-title>{{ name }}</mat-card-title>
         <img mat-card-sm-image *ngIf="thumbnail" [src]="thumbnail"/>
       </mat-card-title-group>
       <mat-card-content>
         <p [innerHtml]="description"></p>
       </mat-card-content>
-
-      <mat-card-footer class="footer"  *ngIf="!inBasket">
-        <form [formGroup]="productForm">
-            <mat-form-field>
-              <input formControlName="quantity" type="number" 
-                  matInput placeholder="quantity" value="1">
-            </mat-form-field>
-        </form>
-      </mat-card-footer>
       
       <mat-card-actions align="start">
         <button mat-raised-button color="warn" *ngIf="inBasket" (click)="remove.emit(product)">
@@ -70,13 +64,11 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class ProductDetailComponent {
 
   @Input() product: Product;
-  @Input() categoryId: number;
   @Input() inBasket: boolean;
   @Output() add = new EventEmitter<Product>();
   @Output() remove = new EventEmitter<Product>();
-  productForm: FormGroup;
+
   constructor() {
-  this.productForm = new FormGroup({ 'quantity': new FormControl(1, [Validators.required]) });
   }
 
   get id() {
@@ -95,5 +87,9 @@ export class ProductDetailComponent {
     return (
        'assets/imgs/'+ `${this.product.image}`
     );
+  }
+
+  get quantity() {
+    return this.product.quantity;
   }
 }

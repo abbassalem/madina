@@ -4,31 +4,42 @@ import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { ProductService } from '../../core/services/product.service';
-import * as fromCategory from '../actions/category.actions';
+import * as fromCategoryActions from '../actions/category.actions';
 import { Category } from '../models/category.model';
 
 @Injectable()
 export class ProductEffects {
+  
   @Effect()
   getAllCategories$: Observable<Action> = this.actions$.pipe(
-    ofType<fromCategory.Load>(fromCategory.CategoryActionTypes.Load),
+    ofType<fromCategoryActions.Load>(fromCategoryActions.CategoryActionTypes.Load),
     switchMap( () => {
       return this.productService.getCategories()
         .pipe(
-          map((categories: Category[]) => new fromCategory.LoadComplete(categories)),
-          catchError(err => of(new fromCategory.LoadError(err)))
+          map((categories: Category[]) => new fromCategoryActions.LoadComplete(categories)),
+          catchError(err => of(new fromCategoryActions.LoadError(err)))
         );
     })
   );
 
-  @Effect()
-  getSelectedCategories$: Observable<Action> = this.actions$.pipe(
-    ofType<fromCategory.Select>(fromCategory.CategoryActionTypes.Select),
-    map(action => action.payload),
-    switchMap( catId => {
-         return of(new fromCategory.SelectComplete(catId));
-    })
-  );
+
+  
+  // @Effect()
+  // getSelectedCategory$: Observable<Action> = this.actions$.pipe(
+  //   ofType<fromCategoryActions.Select>(fromCategoryActions.CategoryActionTypes.Select),
+  //   map(action => action.payload),
+  //   switchMap( catId => {
+  //        return of(new fromCategoryActions.SelectComplete(catId));
+  //   })
+  // );
+
+  // getSelectedProduct$: Observable<Action> = this.actions$.pipe(
+  //   ofType<fromCategoryActions.SelectProduct>(fromCategoryActions.CategoryActionTypes.SelectProduct),
+  //   map(action => action.payload),
+  //   switchMap( prodId => {
+  //        return of(new fromCategoryActions.SelectProductComplete(prodId));
+  //   })
+  // );
 
   // @Effect()
   // getAllProducts$: Observable<Action> = this.actions$.pipe(

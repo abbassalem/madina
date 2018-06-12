@@ -6,6 +6,5 @@ export interface Product {
    reference: string;
    image: string;
    price: number;
-   categoryId: number;
-   quantity?: number;
+   quantity: number;
 }

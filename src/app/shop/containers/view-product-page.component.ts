@@ -1,30 +1,34 @@
-import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import * as fromCategoryActions from '../actions/category.actions';
+import { Product } from '../models/product.model';
+import * as fromCategoryReducer from '../reducers/categories.reducer';
+import * as index from '../reducers/index';
 
-import * as fromProducts from '../reducers';
-import * as ProductActions from '../actions/product.actions';
 
 @Component({
   selector: 'app-view-product-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <app-selected-product-page></app-selected-product-page>
+    <app-selected-product-page [product]="product$ | async"></app-selected-product-page>
   `,
 })
 
 export class ViewProductPageComponent implements OnDestroy {
-  actionsSubscription: Subscription;
 
-  constructor(store: Store<fromProducts.State>, route: ActivatedRoute) {
-    this.actionsSubscription = route.params
-      .pipe(map(params => new ProductActions.Select(params.id)))
-      .subscribe(store);
+  product$: Observable<Product>;
+
+  constructor(private store: Store<fromCategoryReducer.CategoryState>, route: ActivatedRoute) {
+    route.params
+      .subscribe( params => {
+          const id = +params.productId;
+          this.store.dispatch(new fromCategoryActions.SelectProduct(id));
+          this.product$ = this.store.pipe(select(index.getSelectedProduct));
+      });
   }
 
   ngOnDestroy() {
-    this.actionsSubscription.unsubscribe();
   }
 }

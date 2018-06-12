@@ -1,23 +1,35 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
-import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
-
-import * as fromCategory from '../reducers/categories.reducer';
-import * as BasketActions from '../actions/basket.actions';
-import { Product } from '../models/product.model';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Store, select } from '@ngrx/store';
+import { Observable, of } from 'rxjs';
+import * as BasketActions from '../actions/basket.actions';
+import * as CategoryActions from '../actions/basket.actions';
+import { Product } from '../models/product.model';
+import * as index from '../reducers/index';
 
 @Component({
   selector: 'app-selected-product-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <app-product-detail
-      [product]="product"
-      [categoryId]="categoryId"
-      (add)="addToBasket($event)"
-      (remove)="removeFromBasket($event)">
-    </app-product-detail>
+  <mat-card *ngIf="product">
+    <mat-card-content>     
+        <app-product-detail
+          [product]="product"
+          [inBasket] = "isSelectedProductInBasket$ | async"
+          (add)="addToBasket($event)"
+          (remove)="removeFromBasket($event)">
+        </app-product-detail>
+    </mat-card-content>
+    <mat-card-footer class="footer"  *ngIf="!inBasket">
+        <form [formGroup]="productForm">
+            <mat-form-field>
+              <input formControlName="quantity" type="number" 
+                  matInput placeholder="quantity">
+            </mat-form-field>
+        </form>
+  </mat-card-footer>
+
   `,
   styles: [`
   :host {
@@ -46,48 +58,33 @@ import { ActivatedRoute } from '@angular/router';
     padding: 0 25px 25px;
     position: relative;
   }`
-  ]})
+  ]
+})
 
-  // [inBasket]="isSelectedProductInBasket$ | async"
+export class SelectedProductPageComponent implements OnInit {
 
-
-// <mat-card>
-// <mat-card-actions align="start">
-//   <form [formGroup]="productForm">
-//       <mat-form-field>
-//         <input formControlName="quantity" type="number"
-//             matInput placeholder="quantity" value="1">
-//       </mat-form-field>
-//   </form>
-//   </mat-card-actions>
-//  </mat-card>
-export class SelectedProductPageComponent implements OnInit{
-
+  @Input()
   product: Product;
-  categoryId: number;
-  // product$: Observable<Product>;
+
+  isSelectedProductInBasket$: Observable<boolean> ;
   productForm: FormGroup;
 
-  constructor(private store: Store<fromCategory.CategoryState>, private route: ActivatedRoute) {
-    // this.product$ = store.pipe(select(fromProducts.getSelectedProduct)) as Observable<Product>;
-    this.productForm = new FormGroup({ 'quantity': new FormControl(1, [Validators.required]) });
+  constructor(private store: Store<index.ShopState>, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-      this.route.params.subscribe ( params => {
-        console.log('*** selectedpage params: ' + params['productId']);
-      });
-      this.route.parent.params.subscribe( params => {
-        console.log('*** selectedpage parent params: ' + params['id']);
-      });
+    this.productForm = new FormGroup({ 'quantity': new FormControl(1, [Validators.required]) });
+    this.isSelectedProductInBasket$ = this.store.pipe(select(index.isSelectedProductInBasket));
   }
 
   addToBasket(product: Product) {
-    const quantity = this.productForm.controls['quantity'].value;
-    this.store.dispatch(new BasketActions.AddProduct({id: product.id, quantity: quantity}));
+    let quantityValue = this.productForm.controls['quantity'].value;
+    this.store.dispatch(new BasketActions.AddProduct({ id: product.id, product: product, quantity: quantityValue}));
+    //TODO: Finish off
+    this.product.quantity = quantityValue;
   }
 
   removeFromBasket(product: Product) {
-    this.store.dispatch(new BasketActions.RemoveProduct({id: product.id, quantity: 0}));
+    this.store.dispatch(new BasketActions.RemoveProduct(product.id));
   }
 }

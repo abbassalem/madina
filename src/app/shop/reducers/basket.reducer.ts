@@ -1,7 +1,6 @@
-import { createSelector } from '@ngrx/store';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { BasketItem } from '../models/basketItem.model';
 import { BasketActionsUnion, BasketActionTypes } from '../actions/basket.actions';
+import { BasketItem } from '../models/basketItem.model';
 
 export interface BasketState extends EntityState<BasketItem> {
   selectedBasketItemId: number | null;
@@ -27,29 +26,20 @@ export const initialState: BasketState = adapter.getInitialState({
 
 export function reducer(state = initialState, action: BasketActionsUnion): BasketState {
   switch (action.type) {
-    case BasketActionTypes.LoadSuccess: {
+    
+    case BasketActionTypes.LoadComplete: {
       return adapter.addMany(action.payload, state);
     }
-    // case BasketActionTypes.AddProductSuccess:
-    // case BasketActionTypes.RemoveProductFail:
-    // {
-    //   if ( state.ids.indexOf(action.payload.id) > -1 ) {
-    //     return state;
-    //   } else {
-    //     return fromAdapter.adapter.addOne(action.payload, state);
-    //   }
-      // {
-      //   ...state,
-      //   ids: [...state.ids, action.payload.id],
-      // };
-    // }
-    case BasketActionTypes.RemoveProductSuccess:
-    case BasketActionTypes.AddProductFail: {
-      return adapter.removeOne(action.payload.id, state);
-      // return {
-      //   ...state,
-      //   ids: state.ids.filter(id => id !== action.payload.id),
-      // };
+    
+    case BasketActionTypes.AddProductComplete: {
+      if ( state.ids.indexOf(action.payload.id) > -1 ) {
+        return state;
+      } else {
+        return adapter.addOne(action.payload, state);
+      }
+    }
+    case BasketActionTypes.RemoveProductComplete: {
+      return adapter.removeOne(action.payload, state);
     }
     case BasketActionTypes.Select: {
       return {
@@ -64,5 +54,3 @@ export function reducer(state = initialState, action: BasketActionsUnion): Baske
   }
 }
 
-export const getBasketState = ( (state: BasketState) => state);
-export const getSelectedBasketItemId = (state: BasketState) => state.selectedBasketItemId;

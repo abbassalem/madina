@@ -28,18 +28,21 @@ export function reducer(state = initialState, action: CategoryActionsUnion ): Ca
     case CategoryActionTypes.LoadComplete: {
       return adapter.addMany(action.payload, state);
     }
-    case CategoryActionTypes.SelectComplete: {
+    case CategoryActionTypes.Select: {
       return {...state, selectedCategoryId: action.payload};
     }
+
+    case CategoryActionTypes.SelectProduct: {
+      return {...state, selectedProductId: action.payload};
+    }
+    
     default: {
       return state;
     }
   }
 }
 
-export const getCategoryState = ( (state: CategoryState) => state);
-export const getSelectedCategoryId = (state: CategoryState) => state.selectedCategoryId;
-export const getSelectedProductId = (state: CategoryState) => state.selectedProductId;
+
 
 
 

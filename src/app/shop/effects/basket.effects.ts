@@ -5,18 +5,10 @@ import { Action } from '@ngrx/store';
 import { defer, Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, toArray } from 'rxjs/operators';
 
-import {
-  AddProduct,
-  AddProductFail,
-  AddProductSuccess,
-  BasketActionTypes,
-  LoadFail,
-  LoadSuccess,
-  RemoveProduct,
-  RemoveProductFail,
-  RemoveProductSuccess,
-} from './../actions/basket.actions';
 import { BasketItem } from '../models/BasketItem.model';
+import { BasketActionTypes, LoadComplete, LoadError, AddProduct, AddProductComplete, AddProductError, 
+RemoveProduct, RemoveProductComplete, RemoveProductError
+} from './../actions/basket.actions';
 
 @Injectable()
 export class BasketEffects {
@@ -33,8 +25,8 @@ export class BasketEffects {
         .query('products')
         .pipe(
           toArray(),
-          map((basketItems: BasketItem[]) =>  new LoadSuccess(basketItems)),
-          catchError(error => of(new LoadFail(error)))
+          map((basketItems: BasketItem[]) =>  new LoadComplete(basketItems)),
+          catchError(error => of(new LoadError(error)))
         )
     )
   );
@@ -47,8 +39,8 @@ export class BasketEffects {
       this.db
         .insert('products', [basketItem])
         .pipe(
-          map(() => new AddProductSuccess(basketItem)),
-          catchError(() => of(new AddProductFail(basketItem)))
+          map(() => new AddProductComplete(basketItem)),
+          catchError(() => of(new AddProductError(basketItem)))
         )
     )
   );
@@ -61,8 +53,8 @@ export class BasketEffects {
       this.db
         .executeWrite('products', 'delete', [basketItem])
         .pipe(
-          map(() => new RemoveProductSuccess(basketItem)),
-          catchError(() => of(new RemoveProductFail(basketItem)))
+          map(() => new RemoveProductComplete(basketItem)),
+          catchError(() => of(new RemoveProductError(basketItem)))
         )
     )
   );

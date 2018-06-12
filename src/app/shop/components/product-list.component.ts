@@ -1,13 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges, AfterViewInit, DoCheck } from '@angular/core';
-import { Product } from '../models/product.model';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Category } from '../models/category.model';
-import { ofType } from '@ngrx/effects';
-import { Store, select } from '@ngrx/store';
-import * as fromCategories from './../reducers/categories.reducer';
-import { Observable, of } from 'rxjs';
-import { MatTabChangeEvent } from '@angular/material';
+import { Product } from '../models/product.model';
 import * as fromCategoryActions from './../actions/category.actions';
-import { Router, ActivatedRoute } from '@angular/router';
+import * as fromCategories from './../reducers/categories.reducer';
 
 @Component({
   selector: 'app-list-product',
@@ -16,10 +13,10 @@ import { Router, ActivatedRoute } from '@angular/router';
   <span class="toolbar-flex">
       <nav mat-tab-nav-bar >
         <a mat-tab-link 
-            *ngFor="let routeLink of routeLinks; let i = index;"
-              [routerLink]="routeLink.link"
+            *ngFor="let routeLink of routeLinks; let i=index"
+              [routerLink]="routeLink.path"
               routerLinkActive #rla="routerLinkActive"
-              [active]="rla.isActive">
+              [active]="i === currentTabIndex">
               {{routeLink.label}}
         </a>
       </nav>
@@ -46,12 +43,11 @@ import { Router, ActivatedRoute } from '@angular/router';
   `,
   ],
 })
-
+//[active]="rla.isActive">
 export class ProductListComponent implements OnInit, OnChanges {
 
   @Input() categories: Category[];
-  @Input() routeLinks: Array<{ label: string, link: string, index: number }>;
-  @Output() changeTabIndex: EventEmitter<number> = new EventEmitter();
+  @Input() routeLinks: Array<{id: number,label: string, path: string}>;
   products: Product[];
   currentTabIndex: number = 0;
 
@@ -60,9 +56,8 @@ export class ProductListComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      console.log('*** param - id : ' + params['id']);
-      this.currentTabIndex = params['id'];
-      this.changeTabIndex.emit(this.currentTabIndex);
+      this.currentTabIndex = +params['id'];
+      this.store.dispatch(new fromCategoryActions.Select(this.currentTabIndex));
       if (this.categories[this.currentTabIndex]) {
         this.products = this.categories[this.currentTabIndex].products;
       }

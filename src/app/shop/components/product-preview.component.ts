@@ -5,7 +5,7 @@ import { Category } from '../models/category.model';
 @Component({
   selector: 'app-product-preview',
   template: `
-    <a [routerLink]="['/shop/categories', categoryId, 'products', id]">
+    <a [routerLink]="['/shop/products', id]">
       <mat-card>
         <mat-card-title-group>
           <img mat-card-sm-image *ngIf="thumbnail" [src]="thumbnail"/>

@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-
 import * as BasketActions from '../actions/basket.actions';
-import { Product } from '../models/product.model';
 import { BasketItem } from '../models/BasketItem.model';
-import * as index from '../reducers/index';
 import { BasketState } from '../reducers/basket.reducer';
+import * as index from '../reducers/index';
+
 
 @Component({
   selector: 'app-basket-page',
@@ -15,7 +14,6 @@ import { BasketState } from '../reducers/basket.reducer';
     <mat-card>
       <mat-card-title>My Basket</mat-card-title>
     </mat-card>
-
   `,
   styles: [
     `
@@ -26,13 +24,12 @@ import { BasketState } from '../reducers/basket.reducer';
   `,
   ],
 })
-// <app-list-product [products]="products$ | async"></app-list-product>
 
 export class BasketPageComponent implements OnInit {
   basketItems$: Observable<BasketItem[]>;
 
   constructor(private store: Store<BasketState>) {
-    this.basketItems$ = store.pipe(select(index.selectAllBasketItems));
+    this.basketItems$ = store.pipe(select(index.getAllBasketItems));
   }
 
   ngOnInit() {

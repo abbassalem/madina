@@ -3,14 +3,14 @@ import { BasketItem } from '../models/BasketItem.model';
 
 export enum BasketActionTypes {
   AddProduct = '[Basket] Add Product',
-  AddProductSuccess = '[Basket] Add Product Success',
-  AddProductFail = '[Basket] Add Product Fail',
+  AddProductComplete = '[Basket] Add Product Complete',
+  AddProductError = '[Basket] Add Product Error',
   RemoveProduct = '[Basket] Remove Product',
-  RemoveProductSuccess = '[Basket] Remove Product Success',
-  RemoveProductFail = '[Basket] Remove Product Fail',
+  RemoveProductComplete = '[Basket] Remove Product Complete',
+  RemoveProductError = '[Basket] Remove Product Error',
   Load = '[Basket] Load',
-  LoadSuccess = '[Basket] Load Success',
-  LoadFail = '[Basket] Load Fail',
+  LoadComplete = '[Basket] Load Complete',
+  LoadError = '[Basket] Load Error',
   Select = '[Basket] Select Basket Item'
 }
 
@@ -20,42 +20,42 @@ export class AddProduct implements Action {
   constructor(public payload: BasketItem) { }
 }
 
-export class AddProductSuccess implements Action {
-  readonly type = BasketActionTypes.AddProductSuccess;
+export class AddProductComplete implements Action {
+  readonly type = BasketActionTypes.AddProductComplete;
   constructor(public payload: BasketItem) { }
 }
 
-export class AddProductFail implements Action {
-  readonly type = BasketActionTypes.AddProductFail;
+export class AddProductError implements Action {
+  readonly type = BasketActionTypes.AddProductError;
   constructor(public payload: BasketItem) { }
 }
 
 export class RemoveProduct implements Action {
   readonly type = BasketActionTypes.RemoveProduct;
-  constructor(public payload: BasketItem) { }
+  constructor(public payload: number) { }
 }
 
-export class RemoveProductSuccess implements Action {
-  readonly type = BasketActionTypes.RemoveProductSuccess;
-  constructor(public payload: BasketItem) { }
+export class RemoveProductComplete implements Action {
+  readonly type = BasketActionTypes.RemoveProductComplete;
+  constructor(public payload: number) { }
 }
 
-export class RemoveProductFail implements Action {
-  readonly type = BasketActionTypes.RemoveProductFail;
-  constructor(public payload: BasketItem ) { }
+export class RemoveProductError implements Action {
+  readonly type = BasketActionTypes.RemoveProductError;
+  constructor(public payload: number ) { }
 }
 
 export class Load implements Action {
   readonly type = BasketActionTypes.Load;
 }
 
-export class LoadSuccess implements Action {
-  readonly type = BasketActionTypes.LoadSuccess;
+export class LoadComplete implements Action {
+  readonly type = BasketActionTypes.LoadComplete;
   constructor(public payload: BasketItem[]) { }
 }
 
-export class LoadFail implements Action {
-  readonly type = BasketActionTypes.LoadFail;
+export class LoadError implements Action {
+  readonly type = BasketActionTypes.LoadError;
   constructor(public payload: any) { }
 }
 
@@ -66,12 +66,12 @@ export class Select implements Action {
 
 export type BasketActionsUnion =
   | AddProduct
-  | AddProductSuccess
-  | AddProductFail
+  | AddProductComplete
+  | AddProductError
   | RemoveProduct
-  | RemoveProductSuccess
-  | RemoveProductFail
+  | RemoveProductComplete
+  | RemoveProductError
   | Load
-  | LoadSuccess
-  | LoadFail
+  | LoadComplete
+  | LoadError
   | Select;
