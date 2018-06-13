@@ -10,7 +10,7 @@ export enum CategoryActionTypes {
   LoadError = '[Category] Load Error',
   Select = '[Category] Select',
   SelectProduct = '[Product] Select',
-  UpdateQuantity = '[Product] Update Quantity'
+  UpdateProductQuantity = '[Product] Update Quantity'
 }
 
 export class Search implements Action {
@@ -54,9 +54,9 @@ export class SelectProduct implements Action {
   constructor(public payload: number) {}
 }
 
-export class UpdateQuantity implements Action {
-  readonly type = CategoryActionTypes.UpdateQuantity;
-  constructor(public payload: {Product ,number}) {}
+export class UpdateProductQuantity implements Action {
+  readonly type = CategoryActionTypes.UpdateProductQuantity;
+  constructor(public payload: number) {}
 }
 
 export type CategoryActionsUnion =
@@ -68,5 +68,5 @@ export type CategoryActionsUnion =
   | SearchComplete
   | SearchError
   | Search
-  | UpdateQuantity;
+  | UpdateProductQuantity;
 

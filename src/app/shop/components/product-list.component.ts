@@ -23,11 +23,7 @@ import * as fromCategories from './../reducers/categories.reducer';
     </span>  
 </mat-toolbar>
 
-  <app-product-preview
-         *ngFor="let product of products"
-         [product]="product"
-         [categoryId]="currentTabIndex">
-    </app-product-preview>
+<app-product-view  *ngFor="let product of products" [product]="product"> </app-product-view>
 `,
   styles: [
     `
@@ -43,11 +39,11 @@ import * as fromCategories from './../reducers/categories.reducer';
   `,
   ],
 })
-//[active]="rla.isActive">
+
 export class ProductListComponent implements OnInit, OnChanges {
 
   @Input() categories: Category[];
-  @Input() routeLinks: Array<{id: number,label: string, path: string}>;
+  @Input() routeLinks: Array<{catId: number,label: string, path: string}>;
   products: Product[];
   currentTabIndex: number = 0;
 
@@ -57,46 +53,19 @@ export class ProductListComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.currentTabIndex = +params['id'];
-      this.store.dispatch(new fromCategoryActions.Select(this.currentTabIndex));
+      if(this.routeLinks[this.currentTabIndex]) {
+        this.store.dispatch(new fromCategoryActions.Select(this.routeLinks[this.currentTabIndex].catId));  
+      } 
       if (this.categories[this.currentTabIndex]) {
         this.products = this.categories[this.currentTabIndex].products;
       }
-
     });
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (this.categories[this.currentTabIndex]) {
       this.products = this.categories[this.currentTabIndex].products;
-    }
+      this.store.dispatch(new fromCategoryActions.Select(this.categories[this.currentTabIndex].id));  
+  }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
- // @Output() tabIndexChanged: EventEmitter<number> = new EventEmitter<number>();
-    // this.router.events.subscribe((res) => {
-    //   this.activeLinkIndex =
-    //     this.routeLinks.indexOf(this.routeLinks.find(tab => tab.link === '.' + this.router.url));
-    // });
-
-  // tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
-  //   this.tabIndexChanged.emit(tabChangeEvent.index);
-  // }
-
-// <mat-tab-group (selectedTabChange)="tabChanged($event)">
-// <mat-tab *ngFor="let cat of categories" [label]="cat.name">
-//     <app-product-preview
-//         *ngFor="let product of cat.products"
-//         [product]="product">
-//     </app-product-preview>
-// </mat-tab>
-// </mat-tab-group>

@@ -25,6 +25,7 @@ export const getCategoryState = createSelector(getShopState, (state: ShopState) 
 /* categories and products*/
 export const getSelectedCategoryId = createSelector(getCategoryState,  (state) => state.selectedCategoryId);
 export const getSelectedProductId = createSelector(getCategoryState,  (state) => state.selectedProductId);
+export const isLoaded = createSelector(getCategoryState,  (state) => state.isLoaded);
 
 export const {
   selectIds: getCategoryIds,
@@ -49,7 +50,7 @@ export const getProductsForSelectedCategory = createSelector(
 export const getSelectedProduct = createSelector(
   getSelectedProductId,
   getSelectedCategoryId,
-  getAllCategories,
+  getCategoryEntities,
   (prodId, catId, cats) => {
         return cats[catId].products.filter( product => product.id === prodId)[0];
   }

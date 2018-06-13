@@ -6,14 +6,14 @@ import { MaterialModule } from '../../material';
 import { PipesModule } from '../../shared/pipes';
 import { ProductDetailComponent } from './product-detail.component';
 import { ProductListComponent } from './product-list.component';
-import { ProductPreviewComponent } from './product-preview.component';
+import { ProductViewComponent } from './product-view.component';
 import { ProductSearchComponent } from './product-search.component';
 
 
 
 export const PRODUCTS_COMPONENTS = [
   ProductListComponent,
-  ProductPreviewComponent,
+  ProductViewComponent,
   ProductDetailComponent,
   ProductSearchComponent
 ];

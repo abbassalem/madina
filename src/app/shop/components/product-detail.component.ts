@@ -1,9 +1,5 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Product } from '../models/product.model';
-import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import * as fromProducts from '../reducers';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-product-detail',
@@ -11,7 +7,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
     <mat-card *ngIf="product">
       <mat-card-title-group>
         <p *ngIf="quantity > 0">
-          <span matBadge="{{quantity}}" matBadgeOverlap="false"></span>
+           <span matBadge="{{quantity}}" matBadgeOverlap="false"></span>
         </p>
         <mat-card-title>{{ name }}</mat-card-title>
         <img mat-card-sm-image *ngIf="thumbnail" [src]="thumbnail"/>
@@ -24,9 +20,11 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
         <button mat-raised-button color="warn" *ngIf="inBasket" (click)="remove.emit(product)">
         Remove Product from Basket
         </button>
-        <button mat-raised-button color="primary" *ngIf="!inBasket" (click)="add.emit(product)">
+        <p  *ngIf="valid">
+        <button   mat-raised-button color="primary" *ngIf="!inBasket" (click)="add.emit(product)">
         Add Product to Basket
         </button>
+        </p>
       </mat-card-actions>
     </mat-card>
   `,
@@ -65,6 +63,7 @@ export class ProductDetailComponent {
 
   @Input() product: Product;
   @Input() inBasket: boolean;
+  @Input() valid: boolean = false;
   @Output() add = new EventEmitter<Product>();
   @Output() remove = new EventEmitter<Product>();
 

@@ -3,8 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import * as BasketActions from '../actions/basket.actions';
-import * as CategoryActions from '../actions/basket.actions';
+import * as fromBasketActions from '../actions/basket.actions';
+import * as fromCategoryActions from '../actions/category.actions';
 import { Product } from '../models/product.model';
 import * as index from '../reducers/index';
 
@@ -17,19 +17,23 @@ import * as index from '../reducers/index';
         <app-product-detail
           [product]="product"
           [inBasket] = "isSelectedProductInBasket$ | async"
+          [valid]= "valid$ | async"
           (add)="addToBasket($event)"
           (remove)="removeFromBasket($event)">
         </app-product-detail>
     </mat-card-content>
-    <mat-card-footer class="footer"  *ngIf="!inBasket">
-        <form [formGroup]="productForm">
+    <mat-card-actions align="end" *ngIf="!(isSelectedProductInBasket$ | async)">
+          <form [formGroup]="productForm">
             <mat-form-field>
-              <input formControlName="quantity" type="number" 
-                  matInput placeholder="quantity">
+              <input formControlName="quantity" type="number" [value]="0" matInput placeholder="Quantity" min="1" max="100" required>
             </mat-form-field>
         </form>
-  </mat-card-footer>
-
+  </mat-card-actions>
+  <mat-card-footer align="start" *ngIf="!(isSelectedProductInBasket$ | async)">
+      <p>SubTotal: € <b>{{productForm.controls['quantity'].value * product.price | number : '1.2-2'}}</b></p>
+    </mat-card-footer>
+    
+  </mat-card>
   `,
   styles: [`
   :host {
@@ -63,11 +67,11 @@ import * as index from '../reducers/index';
 
 export class SelectedProductPageComponent implements OnInit {
 
-  @Input()
-  product: Product;
+  @Input() product: Product;
 
   isSelectedProductInBasket$: Observable<boolean> ;
   productForm: FormGroup;
+  valid$: Observable<boolean>;
 
   constructor(private store: Store<index.ShopState>, private route: ActivatedRoute) {
   }
@@ -75,16 +79,17 @@ export class SelectedProductPageComponent implements OnInit {
   ngOnInit() {
     this.productForm = new FormGroup({ 'quantity': new FormControl(1, [Validators.required]) });
     this.isSelectedProductInBasket$ = this.store.pipe(select(index.isSelectedProductInBasket));
+    this.valid$ = this.productForm.controls['quantity'].valueChanges;
   }
-
+  
   addToBasket(product: Product) {
     let quantityValue = this.productForm.controls['quantity'].value;
-    this.store.dispatch(new BasketActions.AddProduct({ id: product.id, product: product, quantity: quantityValue}));
-    //TODO: Finish off
-    this.product.quantity = quantityValue;
+    this.store.dispatch(new fromBasketActions.AddProduct({ id: product.id, product: product, quantity: quantityValue}));
+    this.store.dispatch(new fromCategoryActions.UpdateProductQuantity(quantityValue)); 
   }
-
+  
   removeFromBasket(product: Product) {
-    this.store.dispatch(new BasketActions.RemoveProduct(product.id));
+    this.store.dispatch(new fromBasketActions.RemoveProduct(product.id));
+    this.store.dispatch(new fromCategoryActions.UpdateProductQuantity(0)); 
   }
 }

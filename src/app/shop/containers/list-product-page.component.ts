@@ -38,7 +38,7 @@ import * as index from './../reducers/index';
 
 export class ListProductPageComponent implements OnInit {
 
-  routeLinks: Array<{id: number, label: string, path: string}>;
+  routeLinks: Array<{catId: number,label: string, path: string}> = new Array();
 
   categories$: Observable<Category[]>;
   selectedCategoryId$: Observable<number>;
@@ -47,24 +47,21 @@ export class ListProductPageComponent implements OnInit {
 
   constructor(private store: Store<fromCategories.CategoryState>) {
     this.categories$ = this.store.pipe(select(index.getAllCategories));
-    this.selectedCategoryId$ = of(0);
-    // this.store.pipe(select(fromCategories.getSelectedCategoryId));
-    this.store.dispatch(new fromCategoryActions.Select(1));
   }
 
   ngOnInit(): void {
-    this.store.dispatch(new fromCategoryActions.Load());
-    this.routeLinks = new Array();
+    this.store.select(index.isLoaded).subscribe( loaded => {
+      if(!loaded) {
+        this.store.dispatch(new fromCategoryActions.Load());
+      } else {
+        this.categories$ = this.store.pipe(select(index.getAllCategories));
+      }
+    });
     this.categories$.subscribe(cats => {
       cats.forEach((cat, i) => {
-        this.routeLinks.push({id: i, label: cat.name, path: '/shop/categories/' + i});
+        this.routeLinks.push({catId: cat.id, label: cat.name, path: '/shop/categories/' + i});
       });
-      });
+    });
   }
-
-  // setCurrentCategoryId(event) {
-  //     this.selectedCategoryId$ = of(event);
-  //     this.store.dispatch(new fromCategoryActions.Select(event + 1));  
-  // }
 
 }

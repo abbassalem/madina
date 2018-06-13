@@ -1,20 +1,22 @@
 import { Component, Input } from '@angular/core';
 import { Product } from '../models/product.model';
-import { Category } from '../models/category.model';
 
 @Component({
-  selector: 'app-product-preview',
+  selector: 'app-product-view',
   template: `
     <a [routerLink]="['/shop/products', id]">
       <mat-card>
         <mat-card-title-group>
+          <p *ngIf="quantity > 0">
+            <span matBadge="{{quantity}}" matBadgeOverlap="false"></span>
+          </p>
           <img mat-card-sm-image *ngIf="thumbnail" [src]="thumbnail"/>
-          <mat-card-title>{{ name | bcEllipsis:35 }}</mat-card-title>
+          <mat-card-title>{{ name }}</mat-card-title>
         </mat-card-title-group>
-        <mat-card-content>
-          <p *ngIf="description">{{ description | bcEllipsis }}</p>
-        </mat-card-content>
-        <mat-card-footer>  </mat-card-footer>
+        <mat-card-footer align="end">
+          <p>Price: <b>{{ price | number : '1.2-2'}} </b></p>
+          <p *ngIf="description">{{ description }}</p>
+        </mat-card-footer>
       </mat-card>
     </a>
   `,
@@ -73,9 +75,9 @@ import { Category } from '../models/category.model';
   `,
   ],
 })
-export class ProductPreviewComponent {
+export class ProductViewComponent {
+  
   @Input() product: Product;
-  @Input() categoryId: Category;
 
   get id() {
     return this.product.id;
@@ -95,6 +97,14 @@ export class ProductPreviewComponent {
       return 'assets/imgs/' + `${this.product.image}`;
     }
     return false;
+  }
+
+  get quantity() {
+    return this.product.quantity;
+  }
+
+  get price() {
+    return this.product.price;
   }
 
   constructor() {
