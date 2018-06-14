@@ -7,12 +7,23 @@ import * as fromBasketActions from '../actions/basket.actions';
 import * as fromCategoryActions from '../actions/category.actions';
 import { Product } from '../models/product.model';
 import * as index from '../reducers/index';
+import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-selected-product-page',
+  selector: 'app-product-selected-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
   <mat-card *ngIf="product">
+    <mat-card-actions align="center" *ngIf="!(isSelectedProductInBasket$ | async)">
+          <form [formGroup]="productForm">
+            <mat-form-field>
+              <input formControlName="quantity" type="number" [value]="0" matInput placeholder="Quantity" min="1" max="100" required>
+            </mat-form-field>
+        </form>
+        &nbsp;
+        <p>€ <b>{{productForm.controls['quantity'].value * product.price | number : '1.2-2'}}</b></p>
+    </mat-card-actions>
+  
     <mat-card-content>     
         <app-product-detail
           [product]="product"
@@ -22,17 +33,26 @@ import * as index from '../reducers/index';
           (remove)="removeFromBasket($event)">
         </app-product-detail>
     </mat-card-content>
-    <mat-card-actions align="end" *ngIf="!(isSelectedProductInBasket$ | async)">
-          <form [formGroup]="productForm">
-            <mat-form-field>
-              <input formControlName="quantity" type="number" [value]="0" matInput placeholder="Quantity" min="1" max="100" required>
-            </mat-form-field>
-        </form>
-        <p>SubTotal: € <b>{{productForm.controls['quantity'].value * product.price | number : '1.2-2'}}</b></p>
-  </mat-card-actions>
+    <mat-card-footer>
+        <mat-grid-list cols="2">
+            <mat-grid-tile>
+              <a  style="margin-left:10px">
+                <button   mat-raised-button color="accent" (click)="backToProducts()">
+                <mat-icon>chevron_left</mat-icon>Back to products
+                </button>
+              </a>
+          </mat-grid-tile>
+          <mat-grid-tile>
+              <a [routerLink]="['/shop/basket']" style="padding-right:10px">
+                <button   mat-raised-button color="accent">
+                  Go to basket<mat-icon>chevron_right</mat-icon>
+                </button> 
+              </a>
+          </mat-grid-tile>
+        </mat-grid-list>
+    </mat-card-footer>
 
-    
-  </mat-card>
+</mat-card>
   `,
   styles: [`
   :host {
@@ -64,21 +84,25 @@ import * as index from '../reducers/index';
   ]
 })
 
-export class SelectedProductPageComponent implements OnInit {
+export class ProductSelectedPageComponent implements OnInit {
 
   @Input() product: Product;
+  // @Input() categoryTabIndex: number;
 
   isSelectedProductInBasket$: Observable<boolean> ;
   productForm: FormGroup;
   valid$: Observable<boolean>;
+  selectedCategoryId$: Observable<number>;
+  // [routerLink]="['/shop/categories/'+ categoryTabIndex]"
 
-  constructor(private store: Store<index.ShopState>, private route: ActivatedRoute) {
+  constructor(private store: Store<index.ShopState>, private route: ActivatedRoute, private location: Location) {
   }
 
   ngOnInit() {
     this.productForm = new FormGroup({ 'quantity': new FormControl(1, [Validators.required]) });
     this.isSelectedProductInBasket$ = this.store.pipe(select(index.isSelectedProductInBasket));
     this.valid$ = this.productForm.controls['quantity'].valueChanges;
+    this.selectedCategoryId$ = this.store.select(index.getSelectedCategoryId);
   }
   
   addToBasket(product: Product) {
@@ -90,5 +114,9 @@ export class SelectedProductPageComponent implements OnInit {
   removeFromBasket(product: Product) {
     this.store.dispatch(new fromBasketActions.RemoveProduct(product.id));
     this.store.dispatch(new fromCategoryActions.UpdateProductQuantity(0)); 
+  }
+
+  backToProducts() {
+    this.location.back();
   }
 }

@@ -49,7 +49,11 @@ import { BasketItem } from '../models/BasketItem.model';
       (click)="selection.toggle(row)">
   </tr>
 </table>
-`
+`,
+styles: [`  
+  table {
+    width: 100%;
+  }`]
 })
 
 export class BasketComponent implements OnChanges{

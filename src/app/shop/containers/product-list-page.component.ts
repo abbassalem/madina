@@ -7,7 +7,7 @@ import * as fromCategories from '../reducers/categories.reducer';
 import * as index from './../reducers/index';
 
 @Component({
-  selector: 'app-list-product-page',
+  selector: 'app-product-list-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <app-list-product
@@ -36,7 +36,7 @@ import * as index from './../reducers/index';
   ]
 })
 
-export class ListProductPageComponent implements OnInit {
+export class ProductListPageComponent implements OnInit {
 
   routeLinks: Array<{catId: number,label: string, path: string}> = new Array();
 

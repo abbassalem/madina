@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -9,14 +9,14 @@ import * as index from '../reducers/index';
 
 
 @Component({
-  selector: 'app-view-product-page',
+  selector: 'app-product-view-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <app-selected-product-page [product]="product$ | async"></app-selected-product-page>
+    <app-product-selected-page [product]="product$ | async" ></app-product-selected-page>
   `,
 })
 
-export class ViewProductPageComponent implements OnInit, OnDestroy {
+export class ProductViewPageComponent implements OnInit, OnDestroy {
 
   product$: Observable<Product>;
 

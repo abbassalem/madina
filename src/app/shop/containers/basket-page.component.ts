@@ -27,6 +27,5 @@ export class BasketPageComponent implements OnInit {
 
   ngOnInit() {
     this.basketItems$ = this.store.pipe(select(index.getAllBasketItems));
-    // this.store.dispatch(new BasketActions.Load());
   }
 }

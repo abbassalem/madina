@@ -12,7 +12,13 @@ import {
   MatProgressSpinnerModule,
   MatBadgeModule,
   MatTableModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatOptionModule,
+  MatSelectModule,
+  MatGridList,
+  MatDivider,
+  MatGridListModule,
+  MatDividerModule
 
 } from '@angular/material';
 
@@ -29,7 +35,11 @@ import {
     MatProgressSpinnerModule,
     MatBadgeModule,
     MatTableModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatGridListModule,
+    MatDividerModule
   ],
   exports: [
     MatInputModule,
@@ -43,7 +53,12 @@ import {
     MatProgressSpinnerModule,
     MatBadgeModule,
     MatTableModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatGridListModule,
+    MatDividerModule
+
   ],
 })
 export class MaterialModule {}

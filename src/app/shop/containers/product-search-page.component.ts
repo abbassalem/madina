@@ -8,14 +8,14 @@ import { Product } from '../models/product.model';
 import * as fromProducts from '../reducers';
 
 @Component({
-  selector: 'app-find-product-page',
+  selector: 'app-product-search-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <app-list-product [products]="products$ | async"></app-list-product>
   `,
 })
 
-export class FindProductPageComponent {
+export class ProductSearchPageComponent {
   searchQuery$: Observable<string>;
   products$: Observable<Product[]>;
   loading$: Observable<boolean>;

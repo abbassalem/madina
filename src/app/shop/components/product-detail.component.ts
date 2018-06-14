@@ -16,7 +16,7 @@ import { Product } from '../models/product.model';
         <p [innerHtml]="description"></p>
       </mat-card-content>
       
-      <mat-card-actions align="start">
+      <mat-card-actions>
         <button mat-raised-button color="warn" *ngIf="inBasket" (click)="remove.emit(product)">
         Remove Product from Basket
         </button>
