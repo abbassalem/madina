@@ -6,61 +6,56 @@ import { BasketItem } from '../models/BasketItem.model';
 @Component({
   selector: 'app-basket',
   template: `
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <h4>Basket Items</h4>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.product.name}} </td>
+        </ng-container>
 
-  <!-- Checkbox Column -->
-  <ng-container matColumnDef="select">
-    <th mat-header-cell *matHeaderCellDef>
-      <mat-checkbox (change)="$event ? masterToggle() : null"
-                    [checked]="selection.hasValue() && isAllSelected()"
-                    [indeterminate]="selection.hasValue() && !isAllSelected()">
-      </mat-checkbox>
-    </th>
-    <td mat-cell *matCellDef="let row">
-      <mat-checkbox (click)="$event.stopPropagation()"
-                    (change)="$event ? selection.toggle(row) : null"
-                    [checked]="selection.isSelected(row)">
-      </mat-checkbox>
-    </td>
-  </ng-container>
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef> Description </th>
+          <td mat-cell *matCellDef="let element"> {{element.product.description}} </td>
+        </ng-container>
 
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.product.name}} </td>
-  </ng-container>
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef> Quantity </th>
+          <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+        </ng-container>
 
-  <ng-container matColumnDef="description">
-    <th mat-header-cell *matHeaderCellDef> Description </th>
-    <td mat-cell *matCellDef="let element"> {{element.product.description}} </td>
-  </ng-container>
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef> Price </th>
+          <td mat-cell *matCellDef="let element"> {{element.product.price}} </td>
+        </ng-container>
 
-  <ng-container matColumnDef="quantity">
-    <th mat-header-cell *matHeaderCellDef> Quantity </th>
-    <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="price">
-    <th mat-header-cell *matHeaderCellDef> Price </th>
-    <td mat-cell *matCellDef="let element"> {{element.product.price}} </td>
-  </ng-container>
+        <ng-container matColumnDef="subtotal">
+        <th mat-header-cell *matHeaderCellDef> SubTotal </th>
+        <td mat-cell *matCellDef="let element"> {{element.product.price *  element.quantity | number : '1.2-2'}} </td>
+        <td mat-footer-cell *matFooterCellDef> {{getTotal() | number : '1.2-2'}} </td>
+      </ng-container>
+   
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-      (click)="selection.toggle(row)">
-  </tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"> </tr>
+
 </table>
 `,
 styles: [`  
   table {
-    width: 100%;
+    width: 80%;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
   }`]
 })
 
+// <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
 export class BasketComponent implements OnChanges{
 
   @Input() basketItems: BasketItem[];
   dataSource;
-  displayedColumns = ['name', 'description', 'quantity','price'];
+  displayedColumns = ['name', 'description', 'quantity','price', 'subtotal'];
   selection = new SelectionModel<BasketItem>(true, []);
 
   /** Whether the number of selected elements matches the total number of rows. */
@@ -84,5 +79,8 @@ export class BasketComponent implements OnChanges{
       this.dataSource = new MatTableDataSource<BasketItem>(this.basketItems);
   }
 
+  getTotal() {
+    return this.basketItems.map(t => t.product.price * t.quantity).reduce((acc, value) => acc + value, 0);
+  }
 
 }

@@ -21,6 +21,7 @@ import {
   MatDividerModule
 
 } from '@angular/material';
+import { CdkTableModule } from '@angular/cdk/table';
 
 @NgModule({
   imports: [
@@ -58,7 +59,6 @@ import {
     MatSelectModule,
     MatGridListModule,
     MatDividerModule
-
   ],
 })
 export class MaterialModule {}

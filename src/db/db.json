@@ -5,8 +5,15 @@
     "email": "abbas.salem.water@gmail.com",
     "password": "password",
     "firstName": "Adam",
-    "lastName": "Salem"
-
+    "lastName": "Salem",
+    "address": { "streeName":"Rue Marie-Christine 201",
+                  "postCode": "1020",
+                  "city": "Brussels"
+                },
+    "iban": "BE00252121522",
+    "paymentMethod": "bank",
+    "language": "en",
+    "level":1
   }],
   "categories": [
     {
