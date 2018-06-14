@@ -11,28 +11,22 @@ import * as index from '../reducers/index';
   selector: 'app-basket-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-card>
-      <mat-card-title>My Basket</mat-card-title>
-    </mat-card>
+      <app-basket [basketItems]="basketItems$ | async" > </app-basket>
   `,
   styles: [
-    `
-    mat-card-title {
-      display: flex;
-      justify-content: center;
-    }
-  `,
   ],
 })
 
 export class BasketPageComponent implements OnInit {
+  
   basketItems$: Observable<BasketItem[]>;
 
   constructor(private store: Store<BasketState>) {
-    this.basketItems$ = store.pipe(select(index.getAllBasketItems));
+   
   }
 
   ngOnInit() {
-    this.store.dispatch(new BasketActions.Load());
+    this.basketItems$ = this.store.pipe(select(index.getAllBasketItems));
+    // this.store.dispatch(new BasketActions.Load());
   }
 }

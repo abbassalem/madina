@@ -8,6 +8,7 @@ import { ProductDetailComponent } from './product-detail.component';
 import { ProductListComponent } from './product-list.component';
 import { ProductViewComponent } from './product-view.component';
 import { ProductSearchComponent } from './product-search.component';
+import { BasketComponent } from './basket.component';
 
 
 
@@ -15,7 +16,8 @@ export const PRODUCTS_COMPONENTS = [
   ProductListComponent,
   ProductViewComponent,
   ProductDetailComponent,
-  ProductSearchComponent
+  ProductSearchComponent,
+  BasketComponent
 ];
 
 @NgModule({

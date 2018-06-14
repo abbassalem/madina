@@ -24,6 +24,7 @@ import { reducers } from './reducers';
       { path: '', redirectTo: 'categories/0', pathMatch: 'full'},
       { path: 'categories/:id', component: ListProductPageComponent},
       { path: 'products/:productId', component: ViewProductPageComponent},
+      { path: 'basket', component: BasketPageComponent},
       { path: 'basket', component: BasketPageComponent },
     ]),
 

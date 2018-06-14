@@ -19,9 +19,19 @@ import * as LayoutActions from '../actions/layout.actions';
           Browse Products
         </app-nav-item>
         
-        <app-nav-item (navigate)="closeSidenav()" routerLink="/" icon="shopping_cart" 
-            hint="View your Basket">
+        <app-nav-item (navigate)="closeSidenav()" routerLink="/shop/basket" icon="shopping_cart" 
+            hint="View basket">
                 Basket
+        </app-nav-item>
+
+        <app-nav-item (navigate)="closeSidenav()" routerLink="/history" icon="history" 
+        hint="View history">
+            History
+      </app-nav-item>
+
+        <app-nav-item (navigate)="closeSidenav()" routerLink="/account" icon="account_circle" 
+            hint="View account">
+                Account
         </app-nav-item>
 
         <app-nav-item (navigate)="closeSidenav()" icon="perm_identity" >

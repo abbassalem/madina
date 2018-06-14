@@ -28,10 +28,9 @@ import * as index from '../reducers/index';
               <input formControlName="quantity" type="number" [value]="0" matInput placeholder="Quantity" min="1" max="100" required>
             </mat-form-field>
         </form>
+        <p>SubTotal: € <b>{{productForm.controls['quantity'].value * product.price | number : '1.2-2'}}</b></p>
   </mat-card-actions>
-  <mat-card-footer align="start" *ngIf="!(isSelectedProductInBasket$ | async)">
-      <p>SubTotal: € <b>{{productForm.controls['quantity'].value * product.price | number : '1.2-2'}}</b></p>
-    </mat-card-footer>
+
     
   </mat-card>
   `,
