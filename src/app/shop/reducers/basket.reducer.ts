@@ -26,13 +26,13 @@ export const initialState: BasketState = adapter.getInitialState({
 
 export function reducer(state = initialState, action: BasketActionsUnion): BasketState {
   switch (action.type) {
-    
+
     case BasketActionTypes.LoadComplete: {
       return adapter.addMany(action.payload, state);
     }
-    
+
     case BasketActionTypes.AddProductComplete: {
-      if ( state.ids.indexOf(action.payload.id) > -1 ) {
+      if (state.ids.indexOf(action.payload.id) > -1 ) {
         return state;
       } else {
         return adapter.addOne(action.payload, state);
@@ -48,6 +48,10 @@ export function reducer(state = initialState, action: BasketActionsUnion): Baske
       };
     }
 
+    case BasketActionTypes.UpdateBasketItemComplete: {
+      const basketItem = state.entities[action.payload.id];
+      return adapter.updateOne({id: action.payload.id, changes: basketItem}, state);
+    }
     default: {
       return state;
     }

@@ -1,0 +1,186 @@
+<style>
+ 
+  table {
+    width: 80%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px solid #ddd;
+    margin-top: 16px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    box-shadow: 5px 5px 5px grey;
+    border-style: inset;
+    padding: 40px; 
+    font-size: 12px;
+}
+
+td {
+    padding: 16px;
+}
+
+th{
+    background-color:#a09e99;
+    /* background-color:#ffd740; */
+    padding: 16px;
+    color:black;
+}
+
+tr:nth-child(even) {
+    background-color: lightgrey;
+    color: blue;
+}
+
+tr:nth-child(odd) {
+    background-color: rgb(235, 211, 211);
+    color: blue;
+}
+tr:nth-last-child() {
+   background-color: white;
+   color: blue;
+}
+
+.footer {
+   font-size: 14px;
+   font-weight: bold;
+   background-color: white;
+}
+
+.hand {
+    cursor: pointer;
+}
+
+.active {
+   font-weight: bold;
+   color:#ffd740;
+   /* background-color:#ffd740; */
+}
+.blinking {
+    color: orange;
+    font-weight: bold;
+    font-style: oblique
+}
+
+</style>
+<br>
+
+<span style="padding-left: 80px" *ngIf="basketItems && basketItems.length === 0">Empty basket</span> 
+
+<table  *ngIf="basketItems && basketItems.length >0" >
+    <thead>
+            <tr style="color:grey">
+                <th colspan="8">
+                        <span style="color: darkblue"> Basket Item List</span>
+                </th>
+            </tr>
+            <tr  class="footer">
+                    <td  class="footer"></td>
+                    <td  class="footer"></td>
+                    <td  class="footer"></td>
+                    <td  class="footer"></td>
+                    <td  class="footer"></td>
+                    <td  class="footer"></td>
+                    <td  class="footer"></td>
+                    <td  class="footer"></td>          
+            </tr>
+        <tr style="color:grey">
+            <th>#</th>
+            <th *ngFor="let col of columns" class="mat-table" style="font-size: 12px;" > {{col.label}}</th>
+            <th colspan="2" class="mat-table" style="font-size: 12px;" > 
+                    <span *ngIf="operation === 'EDIT'" class="active">Editing</span>
+                    <span *ngIf="operation === 'DELETE'" class="active">Deleting</span>
+            </th>
+        </tr>
+    </thead>
+
+    <tbody style="font-size: 14px;">
+        <tr *ngFor="let item of basketItems;let i=index;" [ngClass]="{'even':i%2===0, 'odd':i%2 !== 0}"
+        >
+                <td class="mat-header-cell"> {{i+1}} </td>
+                <td class="mat-header-cell"> {{item.product.name}} </td>
+                <td class="mat-header-cell"> {{item.product.description}} </td>
+                <td class="mat-header-cell"> {{item.product.price}} </td>
+                
+                <td class="mat-header-cell"> 
+                    <span *ngIf="selectedIndex !== i || operation === 'DELETE'">
+                        {{item.quantity}}
+                    </span>
+                    <span *ngIf="selectedIndex === i">
+                        <!-- <mat-form-field> -->
+                            <input   #qty type="number" 
+                                    [formControl] ="quantityControl" min="1" max="500" [value]="item.quantity">    
+                        <!-- </mat-form-field>  -->
+                    </span>
+                </td>
+               
+                <td class="mat-header-cell"> 
+                        <span *ngIf="operation === 'EDIT' && selectedIndex === i">
+                            {{ (item.product.price *  quantityControl.value) | number : '1.2-2'}} 
+                        </span>    
+                        <span *ngIf="operation === 'DELETE' || selectedIndex !== i">
+                                {{ (item.product.price *  item.quantity) | number : '1.2-2'}} 
+                        </span>   
+                </td>
+
+                <td class="mat-header-cell" *ngIf="selectedIndex !== i"> 
+                    <span class="hand" (click)="modify(i)"> 
+                        <mat-icon>edit</mat-icon>
+                    </span>
+                    
+                </td>
+                <td class="mat-header-cell" *ngIf="selectedIndex !== i">  
+                   <span class="hand"   (click)="delete(i)"> 
+                       <mat-icon>delete_forever</mat-icon>
+                   </span> 
+                </td>
+                
+                <td class="mat-header-cell" *ngIf="(operation === 'EDIT' || operation === 'DELETE')  && selectedIndex === i" >
+                    <span  class="hand"  (click)="save()">
+                        <mat-icon>check</mat-icon>
+                    </span>
+                </td>
+                <td class="mat-header-cell" *ngIf="(operation === 'EDIT' || operation === 'DELETE') && selectedIndex === i">
+                    <span class="hand"  (click)="cancel()">  
+                       <mat-icon>cancel</mat-icon>
+                   </span>
+                </td>
+        </tr>
+    </tbody>
+    <tfoot *ngIf="basketItems && basketItems.length >0">
+        <tr  class="footer">
+                <td  class="footer"></td>
+                <td  class="footer"></td>
+                <td  class="footer"></td>
+                <td  class="footer"></td>
+                <td  class="footer"></td>
+                <td  class="footer"> € {{getTotal() | number : '1.2-2'}}</td>
+                <td  class="footer"></td>
+                <td  class="footer"></td>          
+        </tr>
+        </tfoot>
+</table>
+
+<br>
+<mat-card>
+    <mat-card-actions align="end">
+            <a  style="margin-left:10px">
+                    <button   mat-raised-button color="accent">
+                    <mat-icon>chevron_left</mat-icon>Back to products
+                    </button>
+            </a>
+    </mat-card-actions>
+</mat-card>
+
+
+
+  <!-- [ngStyle]="{'background-color': selectedIndex > 0 ? '#ffd740': '#FFF'}" -->
+
+
+  <!-- <th style="width:20px; font-weight: normal; color: black">
+        <span *ngIf="operation === 'DELETE' || operation === 'NONE'"> Edit </span>
+        <span *ngIf="operation === 'EDIT'" class="active">Editing</span>
+     </th>
+     <th style="width:20px; font-weight: normal; color: black">
+         <span *ngIf="operation === 'EDIT' || operation === 'NONE'"> Delete </span>
+         <span *ngIf="operation === 'DELETE'" class="active">Deleting</span>
+     </th> -->

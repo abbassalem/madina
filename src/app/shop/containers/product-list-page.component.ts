@@ -38,7 +38,7 @@ import * as index from './../reducers/index';
 
 export class ProductListPageComponent implements OnInit {
 
-  routeLinks: Array<{catId: number,label: string, path: string}> = new Array();
+  routeLinks: Array<{catId: number, label: string, path: string}> = new Array();
 
   categories$: Observable<Category[]>;
   selectedCategoryId$: Observable<number>;
@@ -51,7 +51,7 @@ export class ProductListPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.select(index.isLoaded).subscribe( loaded => {
-      if(!loaded) {
+      if (!loaded) {
         this.store.dispatch(new fromCategoryActions.Load());
       } else {
         this.categories$ = this.store.pipe(select(index.getAllCategories));

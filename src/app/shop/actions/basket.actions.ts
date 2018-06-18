@@ -11,7 +11,10 @@ export enum BasketActionTypes {
   Load = '[Basket] Load',
   LoadComplete = '[Basket] Load Complete',
   LoadError = '[Basket] Load Error',
-  Select = '[Basket] Select Basket Item'
+  Select = '[Basket] Select Basket Item',
+  UpdateBasketItem = '[Basket] Update Basket Item',
+  UpdateBasketItemComplete = '[Basket] Update Basket Item Complete',
+  UpdateBasketItemError = '[Basket] Update Basket Item Error'
 }
 
 export class AddProduct implements Action {
@@ -64,6 +67,21 @@ export class Select implements Action {
   constructor(public payload: BasketItem) { }
 }
 
+export class UpdateBasketItem implements Action {
+  readonly type = BasketActionTypes.UpdateBasketItem;
+  constructor(public payload: BasketItem) { }
+}
+
+export class UpdateBasketItemComplete implements Action {
+  readonly type = BasketActionTypes.UpdateBasketItemComplete;
+  constructor(public payload: BasketItem) { }
+}
+
+export class UpdateBasketItemError implements Action {
+  readonly type = BasketActionTypes.UpdateBasketItemError;
+  constructor(public payload: string) { }
+}
+
 export type BasketActionsUnion =
   | AddProduct
   | AddProductComplete
@@ -74,4 +92,7 @@ export type BasketActionsUnion =
   | Load
   | LoadComplete
   | LoadError
+  | UpdateBasketItem
+  | UpdateBasketItemComplete
+  | UpdateBasketItemError
   | Select;

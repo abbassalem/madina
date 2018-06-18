@@ -56,7 +56,7 @@ export class SelectProduct implements Action {
 
 export class UpdateProductQuantity implements Action {
   readonly type = CategoryActionTypes.UpdateProductQuantity;
-  constructor(public payload: number) {}
+  constructor(public payload: {productId?: number, quantity: number}) {}
 }
 
 export type CategoryActionsUnion =

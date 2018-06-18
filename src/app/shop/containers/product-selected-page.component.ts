@@ -17,14 +17,13 @@ import { Location } from '@angular/common';
     <mat-card-actions align="center" *ngIf="!(isSelectedProductInBasket$ | async)">
           <form [formGroup]="productForm">
             <mat-form-field>
-              <input formControlName="quantity" type="number" [value]="0" matInput placeholder="Quantity" min="1" max="100" required>
+              <input #qty formControlName="quantity" type="number" [value]="0" matInput placeholder="Quantity" min="1" max="100" required>
             </mat-form-field>
         </form>
         &nbsp;
-        <p>€ <b>{{productForm.controls['quantity'].value * product.price | number : '1.2-2'}}</b></p>
+        <p>€ <b>{{qty.value * product.price | number : '1.2-2'}}</b></p>
     </mat-card-actions>
-  
-    <mat-card-content>     
+  <mat-card-content>
         <app-product-detail
           [product]="product"
           [inBasket] = "isSelectedProductInBasket$ | async"
@@ -46,12 +45,11 @@ import { Location } from '@angular/common';
               <a [routerLink]="['/shop/basket']" style="padding-right:10px">
                 <button   mat-raised-button color="accent">
                   Go to basket<mat-icon>chevron_right</mat-icon>
-                </button> 
+                </button>
               </a>
           </mat-grid-tile>
         </mat-grid-list>
     </mat-card-footer>
-
 </mat-card>
   `,
   styles: [`
@@ -104,16 +102,16 @@ export class ProductSelectedPageComponent implements OnInit {
     this.valid$ = this.productForm.controls['quantity'].valueChanges;
     this.selectedCategoryId$ = this.store.select(index.getSelectedCategoryId);
   }
-  
+
   addToBasket(product: Product) {
-    let quantityValue = this.productForm.controls['quantity'].value;
+    const quantityValue = this.productForm.controls['quantity'].value;
     this.store.dispatch(new fromBasketActions.AddProduct({ id: product.id, product: product, quantity: quantityValue}));
-    this.store.dispatch(new fromCategoryActions.UpdateProductQuantity(quantityValue)); 
+    this.store.dispatch(new fromCategoryActions.UpdateProductQuantity({quantity: quantityValue}));
   }
-  
+
   removeFromBasket(product: Product) {
     this.store.dispatch(new fromBasketActions.RemoveProduct(product.id));
-    this.store.dispatch(new fromCategoryActions.UpdateProductQuantity(0)); 
+    this.store.dispatch(new fromCategoryActions.UpdateProductQuantity({quantity: 0}));
   }
 
   backToProducts() {

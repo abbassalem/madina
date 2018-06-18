@@ -1,5 +1,5 @@
-import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { CategoryActionsUnion, CategoryActionTypes } from '../actions/category.actions';
+import { EntityAdapter, EntityState, createEntityAdapter } from '@ngrx/entity';
+import { CategoryActionTypes, CategoryActionsUnion } from '../actions/category.actions';
 import { Category } from '../models/category.model';
 
 export interface CategoryState extends EntityState<Category> {
@@ -38,10 +38,19 @@ export function reducer(state = initialState, action: CategoryActionsUnion ): Ca
     }
 
     case CategoryActionTypes.UpdateProductQuantity: {
-      const catId = state.selectedCategoryId;
-      let category = state.entities[catId];
-      const productIndex = category.products.findIndex(prod => prod.id === state.selectedProductId);
-      category.products[productIndex].quantity = action.payload; 
+      let catId: number;
+      let category: Category;
+      let productIndex: number;
+      if (!action.payload.productId) {
+        catId = state.selectedCategoryId;
+        category = state.entities[catId];
+        productIndex = category.products.findIndex(prod => prod.id === state.selectedProductId);
+      } else {
+        catId = findCategory(state.entities, state.ids, action.payload.productId);
+        category = state.entities[catId];
+        productIndex = category.products.findIndex(prod => prod.id === action.payload.productId);
+      }
+      category.products[productIndex].quantity = action.payload.quantity;
       return adapter.updateOne({id: catId, changes: category}, state);
     }
     default: {
@@ -50,13 +59,15 @@ export function reducer(state = initialState, action: CategoryActionsUnion ): Ca
   }
 }
 
-
-
-
-
-
-
-
-
-
-
+export function findCategory(entities: {[id: number]: Category}, ids, productId): number {
+  let foundId = -1;  
+  const result = ids.forEach( catId => {
+     entities[catId].products.forEach( product => {
+       if (product.id === productId) {
+          foundId = catId;
+          return foundId;
+       }
+    });
+  });
+  return foundId;
+}

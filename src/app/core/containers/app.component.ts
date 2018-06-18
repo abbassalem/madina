@@ -70,6 +70,25 @@ export class AppComponent {
      */
     this.showSidenav$ = this.store.pipe(select(fromRoot.getShowSidenav));
     this.loggedIn$ = this.store.pipe(select(fromAuth.getLoggedIn));
+
+    const open  = window.indexedDB.open('onweb', 4);
+    open.onupgradeneeded = function(event) {
+        const db = event.target.result;
+        console.log('****  onupgradeneeded   ******  creating objecstore');
+        const store = db.createObjectStore('products', { keyPath: "id" });
+        let tx = event.target.transaction;
+        // let tx = db.transaction(['products'], "readwrite");
+        const objectStore = tx.objectStore(['products'], 'readwrite');  
+        // const index = store.createIndex('idIndex', 'id');
+        console.log('****   onupgradeneeded  ******  objecstore created successfuly');
+        
+      };
+      open.onsuccess = function (event) {
+        const db = event.target.result;
+        let tx = event.target.transaction;
+        // const store = db.createObjectStore('products');
+        console.log('****   onsuccess  ******  objecstore created successfuly');
+    };
   }
 
   closeSidenav() {
