@@ -3,3 +3,4 @@ _editorconfig
 _gitignore.txt
 node_modules/
 package-lock.json
+.history/
