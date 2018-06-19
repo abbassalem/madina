@@ -18,7 +18,9 @@ import {
   MatGridList,
   MatDivider,
   MatGridListModule,
-  MatDividerModule
+  MatDividerModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
@@ -40,7 +42,9 @@ import { CdkTableModule } from '@angular/cdk/table';
     MatOptionModule,
     MatSelectModule,
     MatGridListModule,
-    MatDividerModule
+    MatDividerModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
     MatInputModule,
@@ -58,7 +62,9 @@ import { CdkTableModule } from '@angular/cdk/table';
     MatOptionModule,
     MatSelectModule,
     MatGridListModule,
-    MatDividerModule
+    MatDividerModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
 })
 export class MaterialModule {}

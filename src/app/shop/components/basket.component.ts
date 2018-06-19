@@ -17,6 +17,7 @@ export class BasketComponent implements OnInit, OnChanges {
   edit = false;
   basketForm: FormGroup;
   quantityControl: FormControl;
+  deliveryForm: FormGroup;
   operation: OperationType = OperationType.NONE;
   selectedIndex = -1;
   initialValue = 0;
@@ -28,14 +29,16 @@ export class BasketComponent implements OnInit, OnChanges {
     {field: 'subtotal', label: 'Subtotal', visible: true},
   ];
 
+  times = ['07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00'];
+
   constructor(private store: Store<BasketState>, private location: Location) {
   }
 
   ngOnChanges() {
   }
   ngOnInit() {
-    // this.basketForm = new FormGroup({ 'quantity': new FormControl(null, [Validators.required]) });
     this.quantityControl = new FormControl(null, [Validators.required]);
+    this.deliveryForm = new FormGroup({deliveryTime: new FormControl('', Validators.required), deliveryDate:  new FormControl('', Validators.required) });
   }
   getTotal() {
     return this.basketItems.map(
@@ -66,7 +69,6 @@ export class BasketComponent implements OnInit, OnChanges {
     this.operation = OperationType.DELETE;
     this.edit = true;
     this.selectedIndex = index;
-    // this.quantityControl.disable() ;
   }
 
   save() {
@@ -77,16 +79,11 @@ export class BasketComponent implements OnInit, OnChanges {
           this.basketItems[this.selectedIndex].quantity = this.quantityControl.value;
           this.store.dispatch(new fromBasketActions
             .UpdateBasketItem(this.basketItems[this.selectedIndex]));
-            // .UpdateBasketItem({ id: this.basketItems[this.selectedIndex].id, quantity: this.quantityControl.value}));
-            this.store.dispatch(new fromCategoryActions
-              .UpdateProductQuantity( {productId: this.basketItems[this.selectedIndex].id, quantity: this.quantityControl.value}));
               break;
             }
             case OperationType.DELETE: {
               this.store.dispatch(new fromBasketActions
                 .RemoveProductComplete(this.basketItems[this.selectedIndex].id));
-                this.store.dispatch(new fromCategoryActions
-                  .UpdateProductQuantity( {quantity: 0}));
                   break;
                 }
         }
@@ -103,7 +100,7 @@ export class BasketComponent implements OnInit, OnChanges {
     // this.edit = false;
   }
 
-  backToProducts() {
+  back() {
     this.location.back();
   }
 }
