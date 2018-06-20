@@ -9,8 +9,7 @@ export enum CategoryActionTypes {
   LoadComplete = '[Category] Load Complete',
   LoadError = '[Category] Load Error',
   Select = '[Category] Select',
-  SelectProduct = '[Product] Select',
-  UpdateProductQuantity = '[Product] Update Quantity'
+  SelectProduct = '[Product] Select'
 }
 
 export class Search implements Action {
@@ -54,11 +53,6 @@ export class SelectProduct implements Action {
   constructor(public payload: number) {}
 }
 
-export class UpdateProductQuantity implements Action {
-  readonly type = CategoryActionTypes.UpdateProductQuantity;
-  constructor(public payload: {productId?: number, quantity: number}) {}
-}
-
 export type CategoryActionsUnion =
   | Load
   | LoadComplete
@@ -67,6 +61,5 @@ export type CategoryActionsUnion =
   | SelectProduct
   | SearchComplete
   | SearchError
-  | Search
-  | UpdateProductQuantity;
+  | Search;
 

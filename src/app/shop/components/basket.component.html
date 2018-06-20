@@ -53,12 +53,19 @@
   .active {
      font-weight: bold;
      color:#ffd740;
-     /* background-color:#ffd740; */
+  }
+  .rowSelected {
+     font-weight: bold;
+     color: black;
+     background-color:#ffd740;
   }
   .blinking {
       color: orange;
       font-weight: bold;
       font-style: oblique
+  }
+  tbody {
+    font-size: 14px;
   }
   
   </style>
@@ -93,9 +100,10 @@
           </tr>
       </thead>
   
-      <tbody style="font-size: 14px;">
-          <tr *ngFor="let item of basketItems;let i=index;" [ngClass]="{'even':i%2===0, 'odd':i%2 !== 0}"
-          >
+      <tbody>
+            <tr    *ngFor="let item of basketItems;let i=index;" [ngClass]="{'even':i%2===0, 'odd':i%2 !== 0}"
+            [ngStyle]="{'color': (operation === 'DELETE' || operation === 'EDIT') && i=== selectedIndex ?'black':'gray'}"  
+            >
                   <td class="mat-header-cell"> {{i+1}} </td>
                   <td class="mat-header-cell"> {{item.product.name}} </td>
                   <td class="mat-header-cell"> {{item.product.description}} </td>
@@ -153,8 +161,8 @@
                   <td  class="footer"></td>
                   <td class="footer"></td>
                   <td  class="footer"></td>
-                  <td  class="footer"></td>
                   <td  class="footer"> € {{getTotal() | number : '1.2-2'}}</td>
+                  <td  class="footer"></td>
                   <td  class="footer"></td>
           </tr>
       </tfoot>

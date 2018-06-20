@@ -62,6 +62,7 @@ import { Product } from '../models/product.model';
 export class ProductDetailComponent {
 
   @Input() product: Product;
+  @Input() quantity: number;
   @Input() inBasket: boolean;
   @Input() valid: boolean = false;
   @Output() add = new EventEmitter<Product>();
@@ -88,7 +89,4 @@ export class ProductDetailComponent {
     );
   }
 
-  get quantity() {
-    return this.product.quantity;
-  }
 }

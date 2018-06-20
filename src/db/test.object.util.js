@@ -4,4 +4,3 @@ var input =   [
   { "id": 2, "title": "Build an API using API Platform", "authorId": 1}
 ];
 var newObject = objectUtil.toObject(input,'target');
-console.log('New Object');console.dir(newObject);

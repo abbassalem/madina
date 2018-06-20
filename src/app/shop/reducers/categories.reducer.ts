@@ -36,23 +36,6 @@ export function reducer(state = initialState, action: CategoryActionsUnion ): Ca
     case CategoryActionTypes.SelectProduct: {
       return {...state, selectedProductId: action.payload};
     }
-
-    case CategoryActionTypes.UpdateProductQuantity: {
-      let catId: number;
-      let category: Category;
-      let productIndex: number;
-      if (!action.payload.productId) {
-        catId = state.selectedCategoryId;
-        category = state.entities[catId];
-        productIndex = category.products.findIndex(prod => prod.id === state.selectedProductId);
-      } else {
-        catId = findCategory(state.entities, state.ids, action.payload.productId);
-        category = state.entities[catId];
-        productIndex = category.products.findIndex(prod => prod.id === action.payload.productId);
-      }
-      category.products[productIndex].quantity = action.payload.quantity;
-      return adapter.updateOne({id: catId, changes: category}, state);
-    }
     default: {
       return state;
     }

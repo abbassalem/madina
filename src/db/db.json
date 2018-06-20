@@ -1,20 +1,23 @@
 {
   "orders": [],
-  "users": [{
-    "id": 1,
-    "email": "abbas.salem.water@gmail.com",
-    "password": "password",
-    "firstName": "Adam",
-    "lastName": "Salem",
-    "address": { "streeName":"Rue Marie-Christine 201",
-                  "postCode": "1020",
-                  "city": "Brussels"
-                },
-    "iban": "BE00252121522",
-    "paymentMethod": "bank",
-    "language": "en",
-    "level":1
-  }],
+  "users": [
+    {
+      "id": 1,
+      "email": "abbas.salem.water@gmail.com",
+      "password": "password",
+      "firstName": "Adam",
+      "lastName": "Salem",
+      "address": {
+        "streeName": "Rue Marie-Christine 201",
+        "postCode": "1020",
+        "city": "Brussels"
+      },
+      "iban": "BE00252121522",
+      "paymentMethod": "bank",
+      "language": "en",
+      "level": 1
+    }
+  ],
   "categories": [
     {
       "id": 1,
@@ -27,8 +30,7 @@
           "description": "Baguette description",
           "reference": "x21",
           "image": "baguette.jpg",
-          "price": "0.80",
-          "quantity": 0
+          "price": "0.80"
         },
         {
           "id": 2,
@@ -36,8 +38,7 @@
           "description": "Pain Francais description",
           "reference": "x22",
           "image": "french-bread.jpg",
-          "price": "0.75",
-          "quantity": 0
+          "price": "0.75"
         },
         {
           "id": 3,
@@ -45,8 +46,7 @@
           "description": "Pain Fr,ancais Gris description",
           "reference": "x22",
           "image": "french-bread.jpg",
-          "price": "0.75",
-          "quantity": 0
+          "price": "0.75"
         },
         {
           "id": 4,
@@ -54,8 +54,7 @@
           "description": "Piccolo Gris description",
           "reference": "x22",
           "image": "piccolo-brown.jpg",
-          "price": "0.50",
-          "quantity": 0
+          "price": "0.50"
         },
         {
           "id": 5,
@@ -63,8 +62,7 @@
           "description": "Tartine Grid description",
           "reference": "x22",
           "image": "slice-brown-big.jpg",
-          "price": "1.80",
-          "quantity": 0
+          "price": "1.80"
         },
         {
           "id": 6,
@@ -72,8 +70,7 @@
           "description": "Cereal Grand description",
           "reference": "x22",
           "image": "slice-cereal-big.jpg",
-          "price": "1.90",
-          "quantity": 0
+          "price": "1.90"
         },
         {
           "id": 7,
@@ -81,8 +78,7 @@
           "description": "Compagne Grand description",
           "reference": "x22",
           "image": "slice-compagne-small.jpg",
-          "price": "1.70",
-          "quantity": 0
+          "price": "1.70"
         },
         {
           "id": 8,
@@ -90,8 +86,7 @@
           "description": "Carre Bland Grand description",
           "reference": "x22",
           "image": "slice-white-big.jpg",
-          "price": "1.70",
-          "quantity": 0
+          "price": "1.70"
         },
         {
           "id": 9,
@@ -99,10 +94,8 @@
           "description": "Caree Blanc Petit description",
           "reference": "x22",
           "image": "slice-white-small.jpg",
-          "price": "1.70",
-          "quantity": 0
+          "price": "1.70"
         }
-
       ]
     },
     {
@@ -116,8 +109,7 @@
           "description": "Couque au Raisin description",
           "reference": "x21",
           "image": "raisin.jpg",
-          "price": "0.70",
-          "quantity": 0
+          "price": "0.70"
         },
         {
           "id": 31,
@@ -125,8 +117,7 @@
           "description": "Couque Huit description",
           "reference": "x21",
           "image": "8.jpg",
-          "price": "0.80",
-          "quantity": 0
+          "price": "0.80"
         },
         {
           "id": 32,
@@ -134,8 +125,7 @@
           "description": "Noix Piquant description",
           "reference": "x21",
           "image": "noix-piquant.jpg",
-          "price": "0.80",
-          "quantity": 0
+          "price": "0.80"
         },
         {
           "id": 33,
@@ -143,8 +133,7 @@
           "description": "Couque a la Creme description",
           "reference": "x21",
           "image": "couque-creme.jpg",
-          "price": "0.90",
-          "quantity": 0
+          "price": "0.90"
         },
         {
           "id": 34,
@@ -152,8 +141,7 @@
           "description": "Croissant description",
           "reference": "x21",
           "image": "croissant.jpg",
-          "price": "0.90",
-          "quantity": 0
+          "price": "0.90"
         },
         {
           "id": 35,
@@ -161,8 +149,7 @@
           "description": "Pain Chocolat description",
           "reference": "x22",
           "image": "pain-chocolat.jpg",
-          "price": "0.85",
-          "quantity": 0
+          "price": "0.85"
         },
         {
           "id": 36,
@@ -170,8 +157,7 @@
           "description": "Suisse Long description",
           "reference": "x22",
           "image": "suisse-long.jpg",
-          "price": "0.85",
-          "quantity": 0
+          "price": "0.85"
         },
         {
           "id": 37,
@@ -179,8 +165,7 @@
           "description": "Suisse Rond description",
           "reference": "x22",
           "image": "suisse-rond.jpg",
-          "price": "0.85",
-          "quantity": 0
+          "price": "0.85"
         }
       ]
     },
@@ -195,8 +180,7 @@
           "description": "Gausette description",
           "reference": "x21",
           "image": "gausette.jpg",
-          "price": "1.00",
-          "quantity": 0
+          "price": "1.00"
         },
         {
           "id": 46,
@@ -204,8 +188,7 @@
           "description": "Patte Feuillete description",
           "reference": "x22",
           "image": "carre-feuillete.jpg",
-          "price": "1.00",
-          "quantity": 0
+          "price": "1.00"
         }
       ]
     }

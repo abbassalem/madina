@@ -1,7 +1,6 @@
 var objectUtil = require('./../db/lib/util/object.util');
 module.exports = function (){
   var result = {"students": objectUtil.toObject(generateData(),'target')};
-  console.dir(result);
   return result;
 }
 

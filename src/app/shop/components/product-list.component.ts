@@ -5,6 +5,7 @@ import { Category } from '../models/category.model';
 import { Product } from '../models/product.model';
 import * as fromCategoryActions from './../actions/category.actions';
 import * as fromCategories from './../reducers/categories.reducer';
+import { BasketItem } from '../models/BasketItem.model';
 
 @Component({
   selector: 'app-list-product',
@@ -23,7 +24,7 @@ import * as fromCategories from './../reducers/categories.reducer';
     </span>  
 </mat-toolbar>
 
-<app-product-view  *ngFor="let product of products" [product]="product"> </app-product-view>
+<app-product-view  *ngFor="let product of products" [product]="product" [quantity]="getQuantity(product.id)"> </app-product-view>
 `,
   styles: [
     `
@@ -43,7 +44,8 @@ import * as fromCategories from './../reducers/categories.reducer';
 export class ProductListComponent implements OnInit, OnChanges {
 
   @Input() categories: Category[];
-  @Input() routeLinks: Array<{catId: number,label: string, path: string}>;
+  @Input() basketItems: BasketItem[];
+  @Input() routeLinks: Array<{ catId: number, label: string, path: string }>;
   products: Product[];
   currentTabIndex: number = 0;
 
@@ -53,9 +55,9 @@ export class ProductListComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.currentTabIndex = +params['id'];
-      if(this.routeLinks[this.currentTabIndex]) {
-        this.store.dispatch(new fromCategoryActions.Select(this.routeLinks[this.currentTabIndex].catId));  
-      } 
+      if (this.routeLinks[this.currentTabIndex]) {
+        this.store.dispatch(new fromCategoryActions.Select(this.routeLinks[this.currentTabIndex].catId));
+      }
       if (this.categories[this.currentTabIndex]) {
         this.products = this.categories[this.currentTabIndex].products;
       }
@@ -65,7 +67,19 @@ export class ProductListComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (this.categories[this.currentTabIndex]) {
       this.products = this.categories[this.currentTabIndex].products;
-      this.store.dispatch(new fromCategoryActions.Select(this.categories[this.currentTabIndex].id));  
+      this.store.dispatch(new fromCategoryActions.Select(this.categories[this.currentTabIndex].id));
+    }
   }
+
+  getQuantity(prodId: number): number {
+    let qty = undefined;
+    if (this.basketItems) {
+      qty = this.basketItems.find(item => item.id === prodId)
+      if (qty) {
+        return qty.quantity;
+      } else {
+        return 0;
+      }
+    }
   }
 }

@@ -16,16 +16,15 @@ export class BasketEffects {
   constructor(private actions$: Actions) {
     this.open  = window.indexedDB.open('onweb');
     this.open.onupgradeneeded = function(event) {
-        const db = event.target.result;
-        console.log('****  onupgradeneeded   ******  creating objecstore');
+        // const db = event.target.result;
+        const db = this.result;
         const store = db.createObjectStore('products');
         // const index = store.createIndex('idIndex', 'id');
-        console.log('****   onupgradeneeded  ******  objecstore created successfuly');
         
       };
       this.open.onsuccess = function (event) {
-        const db = event.target.result;
-        console.log('****   onsuccess  ******  objecstore created successfuly');
+        // const db = event.target.result;
+        const db = this.result;
     };
 }
 
@@ -41,7 +40,6 @@ export class BasketEffects {
         this.open  = window.indexedDB.open('onweb');
         this.open.onsuccess = function () {
           const db = this.result;
-          console.log('*** db opened successfully.');
           let store: IDBObjectStore;
           if (!db.objectStore('products')) {
             store = db.ceateObjectStore('products', {keyPath: 'id'});
@@ -68,7 +66,6 @@ export class BasketEffects {
       open.onsuccess = function () {
         const db = open.result;
         const tx = db.transaction('products', 'readwrite');
-        console.log('*** db opened successfully.');
         let store: IDBObjectStore;
         store = tx.objectStore('products');
         const products: IDBRequest = store.put(basketItem);
@@ -90,7 +87,6 @@ export class BasketEffects {
       open.onsuccess = function () {
         const db = open.result;
         const tx = db.transaction('products', 'readwrite');
-        console.log('*** db opened successfully.');
         let store: IDBObjectStore;
         store = tx.objectStore('products');
         const products: IDBRequest = store.delete(id);
@@ -112,7 +108,6 @@ export class BasketEffects {
       open.onsuccess = function () {
         const db = open.result;
         const tx = db.transaction('products', 'readwrite');
-        console.log('*** db opened successfully.');
         let store: IDBObjectStore;
         store = tx.objectStore('products');
         const products: IDBRequest = store.put(basketItem);
@@ -124,12 +119,4 @@ export class BasketEffects {
     }
   )
 );
-
-
-  // .ofType<UpdateBasketItem>(BasketActionTypes.UpdateBasketItem)
-  // .pipe (
-  //   map( action => {
-  //   const basketItem = action.payload;
-  //   const store = this.db.createObjectStore('products', {keyPath: 'id'});
-  //   )}
 }

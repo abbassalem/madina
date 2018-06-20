@@ -73,21 +73,23 @@ export class AppComponent {
 
     const open  = window.indexedDB.open('onweb', 4);
     open.onupgradeneeded = function(event) {
-        const db = event.target.result;
-        console.log('****  onupgradeneeded   ******  creating objecstore');
+        // const db = event.target.result;
+        const db = this.result;
+       
         const store = db.createObjectStore('products', { keyPath: "id" });
-        let tx = event.target.transaction;
+        // let tx = event.target.transaction;
+        let tx = this.transaction;
         // let tx = db.transaction(['products'], "readwrite");
-        const objectStore = tx.objectStore(['products'], 'readwrite');  
+        const objectStore = tx.objectStore('products');  
         // const index = store.createIndex('idIndex', 'id');
-        console.log('****   onupgradeneeded  ******  objecstore created successfuly');
         
       };
       open.onsuccess = function (event) {
-        const db = event.target.result;
-        let tx = event.target.transaction;
+        // const db = event.target.result;
+        const db = this.result;
+        // let tx = event.target.transaction;
+        let tx = this.transaction;
         // const store = db.createObjectStore('products');
-        console.log('****   onsuccess  ******  objecstore created successfuly');
     };
   }
 

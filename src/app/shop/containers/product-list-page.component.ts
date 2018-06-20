@@ -5,6 +5,7 @@ import * as fromCategoryActions from '../actions/category.actions';
 import { Category } from '../models/category.model';
 import * as fromCategories from '../reducers/categories.reducer';
 import * as index from './../reducers/index';
+import { BasketItem } from '../models/BasketItem.model';
 
 @Component({
   selector: 'app-product-list-page',
@@ -12,6 +13,7 @@ import * as index from './../reducers/index';
   template: `
     <app-list-product
         [categories]="categories$ | async"
+        [basketItems]="basketItems$ | async"
         [routeLinks]="routeLinks">
     </app-list-product>
   `,
@@ -39,9 +41,9 @@ import * as index from './../reducers/index';
 export class ProductListPageComponent implements OnInit {
 
   routeLinks: Array<{catId: number, label: string, path: string}> = new Array();
-
   categories$: Observable<Category[]>;
   selectedCategoryId$: Observable<number>;
+  basketItems$: Observable<BasketItem[]>;
   // loading$: Observable<boolean>;
   // error$: Observable<string>;
 
@@ -62,6 +64,6 @@ export class ProductListPageComponent implements OnInit {
         this.routeLinks.push({catId: cat.id, label: cat.name, path: '/shop/categories/' + i});
       });
     });
-  }
-
+    this.basketItems$ = this.store.pipe(select(index.getAllBasketItems));
+  }  
 }

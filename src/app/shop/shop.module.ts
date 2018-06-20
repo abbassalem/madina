@@ -24,8 +24,7 @@ import { reducers } from './reducers';
       { path: '', redirectTo: 'categories/0', pathMatch: 'full'},
       { path: 'categories/:id', component: ProductListPageComponent},
       { path: 'products/:productId', component: ProductViewPageComponent},
-      { path: 'basket', component: BasketPageComponent},
-      { path: 'basket', component: BasketPageComponent },
+      { path: 'basket', component: BasketPageComponent}
     ]),
 
     StoreModule.forFeature('shop', reducers),

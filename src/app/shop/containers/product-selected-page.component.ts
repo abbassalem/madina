@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, OnChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
@@ -8,6 +8,7 @@ import * as fromCategoryActions from '../actions/category.actions';
 import { Product } from '../models/product.model';
 import * as index from '../reducers/index';
 import { Location } from '@angular/common';
+import { BasketItem } from '../models/BasketItem.model';
 
 @Component({
   selector: 'app-product-selected-page',
@@ -15,17 +16,16 @@ import { Location } from '@angular/common';
   template: `
   <mat-card *ngIf="product">
     <mat-card-actions align="center" *ngIf="!(isSelectedProductInBasket$ | async)">
-          <form [formGroup]="productForm">
             <mat-form-field>
-              <input #qty formControlName="quantity" type="number" [value]="0" matInput placeholder="Quantity" min="1" max="100" required>
+                <input #qty [formControl]="quantityFormControl" type="number" [value]="0" matInput placeholder="Quantity" min="1" max="100" required>
             </mat-form-field>
-        </form>
         &nbsp;
         <p>€ <b>{{qty.value * product.price | number : '1.2-2'}}</b></p>
     </mat-card-actions>
   <mat-card-content>
         <app-product-detail
           [product]="product"
+          [quantity]="quantity$ | async"
           [inBasket] = "isSelectedProductInBasket$ | async"
           [valid]= "valid$ | async"
           (add)="addToBasket($event)"
@@ -85,36 +85,52 @@ import { Location } from '@angular/common';
 export class ProductSelectedPageComponent implements OnInit {
 
   @Input() product: Product;
-  // @Input() categoryTabIndex: number;
-
-  isSelectedProductInBasket$: Observable<boolean> ;
-  productForm: FormGroup;
+  quantity$: Observable<number>;
+  isSelectedProductInBasket$: Observable<boolean>;
+  quantityFormControl: FormControl;
   valid$: Observable<boolean>;
   selectedCategoryId$: Observable<number>;
+  basketItems: BasketItem[];
   // [routerLink]="['/shop/categories/'+ categoryTabIndex]"
 
   constructor(private store: Store<index.ShopState>, private route: ActivatedRoute, private location: Location) {
   }
 
   ngOnInit() {
-    this.productForm = new FormGroup({ 'quantity': new FormControl(1, [Validators.required]) });
+    this.quantityFormControl = new FormControl(0, [Validators.required]);
     this.isSelectedProductInBasket$ = this.store.pipe(select(index.isSelectedProductInBasket));
-    this.valid$ = this.productForm.controls['quantity'].valueChanges;
+    this.valid$ = this.quantityFormControl.valueChanges;
     this.selectedCategoryId$ = this.store.select(index.getSelectedCategoryId);
+    this.store.pipe(select(index.getAllBasketItems)).subscribe(values => {
+      this.basketItems = values;
+      this.quantity$ = of(this.getQuantity(values));
+    });
+
   }
 
   addToBasket(product: Product) {
-    const quantityValue = this.productForm.controls['quantity'].value;
-    this.store.dispatch(new fromBasketActions.AddProduct({ id: product.id, product: product, quantity: quantityValue}));
-    this.store.dispatch(new fromCategoryActions.UpdateProductQuantity({quantity: quantityValue}));
+    const quantityValue = this.quantityFormControl.value;
+    this.quantity$ = of(quantityValue);
+    this.store.dispatch(new fromBasketActions.AddProduct({ id: product.id, product: product, quantity: quantityValue }));
+
   }
 
   removeFromBasket(product: Product) {
     this.store.dispatch(new fromBasketActions.RemoveProduct(product.id));
-    this.store.dispatch(new fromCategoryActions.UpdateProductQuantity({quantity: 0}));
   }
 
   backToProducts() {
     this.location.back();
+  }
+  getQuantity(values): number {
+    let qty = undefined;
+    if (values) {
+      qty = values.find(item => item.id === this.product.id)
+      if (qty) {
+        return qty.quantity;
+      } else {
+        return 0;
+      }
+    }
   }
 }

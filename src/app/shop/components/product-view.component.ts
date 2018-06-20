@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { Product } from '../models/product.model';
 
 @Component({
   selector: 'app-product-view',
   template: `
-    <a [routerLink]="['/shop/products', id]">
+    <a [routerLink]="['/shop/products', id, {queryParams: {quantity:quantity}}]">
       <mat-card>
         <mat-card-title-group>
           <p *ngIf="quantity > 0">
@@ -78,6 +78,7 @@ import { Product } from '../models/product.model';
 export class ProductViewComponent {
   
   @Input() product: Product;
+  @Input() quantity: number;
 
   get id() {
     return this.product.id;
@@ -99,14 +100,11 @@ export class ProductViewComponent {
     return false;
   }
 
-  get quantity() {
-    return this.product.quantity;
-  }
-
   get price() {
     return this.product.price;
   }
 
   constructor() {
   }
+
 }

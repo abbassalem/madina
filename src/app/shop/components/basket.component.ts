@@ -97,7 +97,7 @@ export class BasketComponent implements OnInit, OnChanges {
     this.quantityControl.setValue( this.basketItems[this.selectedIndex].quantity) ;
     this.selectedIndex = -1;
     this.operation = OperationType.NONE;
-    // this.edit = false;
+    this.edit = false;
   }
 
   back() {
