@@ -71,26 +71,20 @@ export class AppComponent {
     this.showSidenav$ = this.store.pipe(select(fromRoot.getShowSidenav));
     this.loggedIn$ = this.store.pipe(select(fromAuth.getLoggedIn));
 
-    const open  = window.indexedDB.open('onweb', 4);
-    open.onupgradeneeded = function(event) {
-        // const db = event.target.result;
-        const db = this.result;
+    // const open  = window.indexedDB.open('onweb', 4);
+    // open.onupgradeneeded = function(event) {
+    //     const db = this.result;
        
-        const store = db.createObjectStore('products', { keyPath: "id" });
-        // let tx = event.target.transaction;
-        let tx = this.transaction;
-        // let tx = db.transaction(['products'], "readwrite");
-        const objectStore = tx.objectStore('products');  
-        // const index = store.createIndex('idIndex', 'id');
+    //     const store = db.createObjectStore('products', { keyPath: "id" });
+    //     const index = store.createIndex('id','id');
+    //     let tx = this.transaction;
+    //     const productStore = tx.objectStore('products');  
         
-      };
-      open.onsuccess = function (event) {
-        // const db = event.target.result;
-        const db = this.result;
-        // let tx = event.target.transaction;
-        let tx = this.transaction;
-        // const store = db.createObjectStore('products');
-    };
+    //   };
+    //   open.onsuccess = function (event) {
+    //     const db = this.result;
+    //     let tx = this.transaction;
+    // };
   }
 
   closeSidenav() {

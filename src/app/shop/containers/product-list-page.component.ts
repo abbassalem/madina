@@ -2,8 +2,10 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import * as fromCategoryActions from '../actions/category.actions';
+import * as fromBasketActions from '../actions/basket.actions';
 import { Category } from '../models/category.model';
 import * as fromCategories from '../reducers/categories.reducer';
+import * as fromBasket from '../reducers/basket.reducer';
 import * as index from './../reducers/index';
 import { BasketItem } from '../models/BasketItem.model';
 
@@ -55,6 +57,7 @@ export class ProductListPageComponent implements OnInit {
     this.store.select(index.isLoaded).subscribe( loaded => {
       if (!loaded) {
         this.store.dispatch(new fromCategoryActions.Load());
+        this.store.dispatch(new fromBasketActions.Load());
       } else {
         this.categories$ = this.store.pipe(select(index.getAllCategories));
       }
