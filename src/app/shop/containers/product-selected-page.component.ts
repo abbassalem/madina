@@ -111,12 +111,12 @@ export class ProductSelectedPageComponent implements OnInit {
   addToBasket(product: Product) {
     const quantityValue = this.quantityFormControl.value;
     this.quantity$ = of(quantityValue);
-    this.store.dispatch(new fromBasketActions.AddProduct({ id: product.id, product: product, quantity: quantityValue }));
+    this.store.dispatch(new fromBasketActions.AddBasketItem({ id: product.id, product: product, quantity: quantityValue }));
 
   }
 
   removeFromBasket(product: Product) {
-    this.store.dispatch(new fromBasketActions.RemoveProduct(product.id));
+    this.store.dispatch(new fromBasketActions.RemoveBasketItem(product.id));
   }
 
   backToProducts() {

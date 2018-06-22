@@ -2,12 +2,12 @@ import { Action } from '@ngrx/store';
 import { BasketItem } from '../models/BasketItem.model';
 
 export enum BasketActionTypes {
-  AddProduct = '[Basket] Add Product',
-  AddProductComplete = '[Basket] Add Product Complete',
-  AddProductError = '[Basket] Add Product Error',
-  RemoveProduct = '[Basket] Remove Product',
-  RemoveProductComplete = '[Basket] Remove Product Complete',
-  RemoveProductError = '[Basket] Remove Product Error',
+  AddBasketItem = '[Basket] Add BasketItem',
+  AddBasketItemComplete = '[Basket] Add BasketItem Complete',
+  AddBasketItemError = '[Basket] Add BasketItem Error',
+  RemoveBasketItem = '[Basket] Remove BasketItem',
+  RemoveBasketItemComplete = '[Basket] Remove BasketItem Complete',
+  RemoveBasketItemError = '[Basket] Remove BasketItem Error',
   Load = '[Basket] Load',
   LoadComplete = '[Basket] Load Complete',
   LoadError = '[Basket] Load Error',
@@ -17,34 +17,34 @@ export enum BasketActionTypes {
   UpdateBasketItemError = '[Basket] Update Basket Item Error'
 }
 
-export class AddProduct implements Action {
-  readonly type = BasketActionTypes.AddProduct;
+export class AddBasketItem implements Action {
+  readonly type = BasketActionTypes.AddBasketItem;
 
   constructor(public payload: BasketItem) { }
 }
 
-export class AddProductComplete implements Action {
-  readonly type = BasketActionTypes.AddProductComplete;
+export class AddBasketItemComplete implements Action {
+  readonly type = BasketActionTypes.AddBasketItemComplete;
   constructor(public payload: BasketItem) { }
 }
 
-export class AddProductError implements Action {
-  readonly type = BasketActionTypes.AddProductError;
+export class AddBasketItemError implements Action {
+  readonly type = BasketActionTypes.AddBasketItemError;
   constructor(public payload: BasketItem) { }
 }
 
-export class RemoveProduct implements Action {
-  readonly type = BasketActionTypes.RemoveProduct;
+export class RemoveBasketItem implements Action {
+  readonly type = BasketActionTypes.RemoveBasketItem;
   constructor(public payload: number) { }
 }
 
-export class RemoveProductComplete implements Action {
-  readonly type = BasketActionTypes.RemoveProductComplete;
+export class RemoveBasketItemComplete implements Action {
+  readonly type = BasketActionTypes.RemoveBasketItemComplete;
   constructor(public payload: number) { }
 }
 
-export class RemoveProductError implements Action {
-  readonly type = BasketActionTypes.RemoveProductError;
+export class RemoveBasketItemError implements Action {
+  readonly type = BasketActionTypes.RemoveBasketItemError;
   constructor(public payload: number ) { }
 }
 
@@ -83,12 +83,12 @@ export class UpdateBasketItemError implements Action {
 }
 
 export type BasketActionsUnion =
-  | AddProduct
-  | AddProductComplete
-  | AddProductError
-  | RemoveProduct
-  | RemoveProductComplete
-  | RemoveProductError
+  | AddBasketItem
+  | AddBasketItemComplete
+  | AddBasketItemError
+  | RemoveBasketItem
+  | RemoveBasketItemComplete
+  | RemoveBasketItemError
   | Load
   | LoadComplete
   | LoadError

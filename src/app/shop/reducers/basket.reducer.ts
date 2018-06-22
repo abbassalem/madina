@@ -30,15 +30,14 @@ export function reducer(state = initialState, action: BasketActionsUnion): Baske
     case BasketActionTypes.LoadComplete: {
       return adapter.addMany(action.payload, state);
     }
-
-    case BasketActionTypes.AddProductComplete: {
+    case BasketActionTypes.AddBasketItemComplete: {
       if (state.ids.indexOf(action.payload.id) > -1 ) {
         return state;
       } else {
         return adapter.addOne(action.payload, state);
       }
     }
-    case BasketActionTypes.RemoveProductComplete: {
+    case BasketActionTypes.RemoveBasketItemComplete: {
       return adapter.removeOne(action.payload, state);
     }
     case BasketActionTypes.Select: {
