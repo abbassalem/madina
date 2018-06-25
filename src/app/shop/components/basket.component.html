@@ -14,6 +14,18 @@
         font-size: 12px;
     }
 
+    .basket-buttons {
+        width: 80%;
+        border-spacing: 0;
+        border: 1px solid #ddd;
+        margin-top: 5px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        padding: 5px;
+        font-size: 10px;
+    }
+
     td {
         padding: 16px;
     }
@@ -71,31 +83,19 @@
         font-size: 14px;
     }
 </style>
-<br>
 
 <span style="padding-left: 80px" *ngIf="basketItems && basketItems.length === 0">Empty basket</span>
-
 <table *ngIf="basketItems && basketItems.length >0">
     <thead>
-        <tr style="color:grey">
-            <th colspan="8">
+        <tr style="color:grey; background-color: white">
+            <th colspan="8" class="footer">
                 <span style="color: darkblue"> Basket Item List</span>
             </th>
         </tr>
-        <tr class="footer">
-            <td class="footer"></td>
-            <td class="footer"></td>
-            <td class="footer"></td>
-            <td class="footer"></td>
-            <td class="footer"></td>
-            <td class="footer"></td>
-            <td class="footer"></td>
-            <td class="footer"></td>
-        </tr>
-        <tr style="color:grey">
+        <tr style="color:grey;">
             <th>#</th>
             <th *ngFor="let col of columns" class="mat-table" style="font-size: 12px;"> {{col.label}}</th>
-            <th colspan="2" class="mat-table" style="font-size: 12px;">
+            <th colspan="2" class="mat-table" style="font-size: 12px;" *ngIf="!showSteps">
                 <span *ngIf="operation === 'EDIT'" class="active">Editing</span>
                 <span *ngIf="operation === 'DELETE'" class="active">Deleting</span>
             </th>
@@ -127,13 +127,13 @@
                 </span>
             </td>
 
-            <td class="mat-header-cell" *ngIf="selectedIndex !== i">
+            <td class="mat-header-cell" *ngIf="selectedIndex !== i && !showSteps">
                 <span class="hand" (click)="modify(i)">
                     <mat-icon>edit</mat-icon>
                 </span>
 
             </td>
-            <td class="mat-header-cell" *ngIf="selectedIndex !== i">
+            <td class="mat-header-cell" *ngIf="selectedIndex !== i && !showSteps">
                 <span class="hand" (click)="delete(i)">
                     <mat-icon>delete_forever</mat-icon>
                 </span>
@@ -153,105 +153,112 @@
     </tbody>
     <tfoot *ngIf="basketItems && basketItems.length >0">
         <tr class="footer">
-            <td class="footer"></td>
+            <td class="footer">        <a style="padding-right: 5%" [routerLink]="['/shop/categories/0']">
+                <button mat-raised-button color="accent">
+                    <mat-icon>chevron_left</mat-icon>Back to products
+                </button>
+            </a></td>
             <td class="footer"></td>
             <td class="footer"></td>
             <td class="footer"></td>
             <td class="footer"></td>
             <td class="footer"> € {{getTotal() | number : '1.2-2'}}</td>
             <td class="footer"></td>
-            <td class="footer"></td>
+            <td class="footer" *ngIf="basketItems.length >0">    
+                <a *ngIf="!(loggedIn$ | async)" style="padding-right: 5%" >
+                    <button mat-raised-button [disabled]="showSteps"color="accent" [routerLink]="['/login']">Continue
+                        <mat-icon>chevron_right</mat-icon>
+                    </button>
+                </a>
+                <a *ngIf="loggedIn$ | async" style="padding-right: 5%" >
+                    <button mat-raised-button [disabled]="showSteps"color="accent" (click)="toggleShowSteps()">Continue
+                        <mat-icon>chevron_right</mat-icon>
+                    </button>
+                </a>
+            </td> 
         </tr>
     </tfoot>
 </table>
-
 <br>
-<p *ngIf="basketItems.length >0">
-    <a style="padding-right: 15%">
-        <button mat-raised-button color="accent" (click)= "toggleShowSteps()">Continue
-            <mat-icon>chevron_right</mat-icon>
-        </button>
-    </a>
-    <a style="padding-right: 15%">
-        <button mat-raised-button color="accent">Back to products
-            <mat-icon>chevron_right</mat-icon>
-        </button>
-    </a>
-</p>
-
-<div *ngIf="basketItems.length >0 && showSteps == true">
-<form [formGroup]="basketForm">
-<mat-card>
-    <mat-card-content>
-        <mat-horizontal-stepper #stepper>
-            <mat-step [stepControl]="deliveryGroup">
-                <div formGroupName="deliveryGroup">
-                    <mat-form-field>
-                        <input matInput [matDatepicker]="picker" placeholder="Choose delivery date" formControlName="deliveryDate" required>
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                    </mat-form-field>
-                    &nbsp;&nbsp;&nbsp;
-                    <mat-form-field>
-                        <mat-select placeholder="choose delivery time" formControlName="deliveryTime" required>
-                            <mat-option></mat-option>
-                            <mat-option *ngFor="let time of times" [value]="time">{{time}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                <button mat-button matStepperNext>Next</button>
-              </div>  
-            </mat-step>
-            <mat-step [stepControl]="addressGroup">
-                    <div formGroupName="addressGroup">
-                        <mat-radio-group fromControlName="addressOption">
-                            <mat-radio-button value="1">Pick up from shop</mat-radio-button>
-                            <mat-radio-button value="2">Deliver to your home</mat-radio-button>
-                            <mat-radio-button value="3">Deliver to another address</mat-radio-button>
-                        </mat-radio-group>
-
-                        <ng-template matStepLabel>Address Details</ng-template>
+<div *ngIf="basketItems.length >0 && showSteps">
+    <form [formGroup]="basketForm">
+        <mat-card>
+            <mat-card-content>
+                <mat-horizontal-stepper #stepper [linear]="isLinear" >
+                    <mat-step [completed]="false" formGroupName="deliveryGroup" [stepControl]="deliveryGroup" label="Delivery">
                             <mat-form-field>
-                                <input matInput placeholder="Street Number" formControlName="streetNumber" required>
+                                <input matInput [matDatepicker]="picker" placeholder="Choose delivery date" formControlName="deliveryDate" required>
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
                             </mat-form-field>
+                            &nbsp;&nbsp;&nbsp;
                             <mat-form-field>
-                                <input matInput placeholder="Street name" formControlName="streetName" required>
+                                <mat-select placeholder="choose delivery time" formControlName="deliveryTime" required>
+                                    <mat-option></mat-option>
+                                    <mat-option *ngFor="let time of deliveryTimes" [value]="time">{{time}}</mat-option>
+                                </mat-select>
                             </mat-form-field>
+                            <button mat-button  mat-raised-button color="accent" (click)="stepper.next()"
+                                [disabled]="!basketForm.controls['deliveryGroup'].valid">Next</button>
+                    </mat-step>
+                    <mat-step [completed]="false" formGroupName="addressGroup" [stepControl]="addressGroup" label="Address">
+                            <mat-radio-group fromControlName="addressOption">
+                                <mat-radio-button value="1">Pick up from shop</mat-radio-button>
+                                &nbsp;&nbsp;&nbsp;
+                                <mat-radio-button value="2">Deliver to your home</mat-radio-button>
+                                &nbsp;&nbsp;&nbsp;
+                                <mat-radio-button value="3">Deliver to another address</mat-radio-button>
+                            </mat-radio-group>
+                            <br><br>        
+                            <mat-form-field>
+                                <input matInput placeholder="Street" formControlName="street" required>
+                            </mat-form-field>
+                            &nbsp;&nbsp;&nbsp;
                             <mat-form-field>
                                 <input matInput placeholder="City" formControlName="city" required>
                             </mat-form-field>
+                            &nbsp;&nbsp;&nbsp;
                             <mat-form-field>
-                                <input matInput placeholder="Post Code" formControlName="postCode" required>
+                                <input matInput  placeholder="Post Code" formControlName="postCode" required>
                             </mat-form-field>
-                        <button mat-button matStepperPrevious>Back</button>
-                        <button mat-button matStepperNext>Next</button>
-                    </div>
-            </mat-step>
-            <mat-step  [stepControl]="confirmationGroup">
-                    <div formGroupName="confirmationGroup">
+                            <button mat-button matStepperPrevious>Back</button>
+                            <button mat-button matStepperNext mat-raised-button color="accent" 
+                                    [disabled]="!basketForm.controls['addressGroup'].valid">Next</button>
+                    </mat-step>
+                    <mat-step [completed]="false" formGroupName="contactGroup" [stepControl]="contactGroup" label="Contact">
                         <mat-form-field>
-                            <input matInput placeholder="Email confirmation" formControlName="email" required>
+                            <input matInput placeholder="Email" formControlName="email" required>
                         </mat-form-field>
+                        &nbsp;&nbsp;&nbsp;
                         <mat-form-field>
-                            <input matInput placeholder="Telephone confirmation" formControlName="telephone" required>
+                            <input matInput placeholder="Telephone" formControlName="telephone" required>
                         </mat-form-field>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
-                    </div>
-                </mat-step>
-            
-                <mat-step [completed]="true">
-                    <ng-template matStepLabel>Done</ng-template>
-                    You are now done.
-                    <div>
                         <button mat-button matStepperPrevious>Back</button>
-                        <button mat-button (click)="stepper.reset()">Reset</button>
-                    </div>
-               
-                </mat-step>
-            </mat-horizontal-stepper>
-        </mat-card-content>
-        <mat-card-actions align="end"></mat-card-actions>
-        
-    </mat-card>
-</form>   
+                        <button mat-button matStepperNext mat-raised-button color="accent" 
+                        [disabled]="!basketForm.valid">Next</button>
+                    </mat-step>
+
+                    <mat-step [completed]="true" formGroupName="costGroup" [stepControl]="costGroup" label="Cost">
+                            <mat-form-field>
+                                <input matInput placeholder="Products cost" readonly formControlName="orderCost" required>
+                            </mat-form-field>
+                            &nbsp;&nbsp;&nbsp;
+                            <mat-form-field>
+                                <input matInput placeholder="Delivery cost" readonly formControlName="deliveryCost" required>
+                            </mat-form-field>
+                            <button mat-button matStepperPrevious>Back</button>
+                            <button mat-button matStepperNext mat-raised-button color="accent" 
+                            [disabled]="!basketForm.valid">Confirm</button>
+                    </mat-step>
+                    <!-- <mat-step [completed]="true" [stepControl]="resume" label="Done">
+                        You are now done.
+                        <div>
+                        </div>
+                    </mat-step> -->
+                </mat-horizontal-stepper>
+            </mat-card-content>
+            <mat-card-actions align="end"></mat-card-actions>
+
+        </mat-card>
+    </form>
 </div>

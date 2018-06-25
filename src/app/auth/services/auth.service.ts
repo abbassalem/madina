@@ -1,22 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
-
 import { Authenticate, User } from '../models/user';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {
-  constructor() {}
 
-  login({ username, password }: Authenticate): Observable<User> {
-    /**
-     * Simulate a failed login to display the error
-     * message for the login form.
-     */
-    if (username !== 'test') {
-      return throwError('Invalid username or password');
-    }
+  endpoint = 'http://localhost:3000/users';
 
-    return of({ name: 'User' });
+  constructor(private http: HttpClient) {
+  }
+
+  login({ email, password }: Authenticate): Observable<User[]> {
+
+    const params = new HttpParams();
+    params.set('email', email);
+    params.set('password', password);
+    return this.http.get<User[]>(this.endpoint + '?email=' + email + '&password=' + password);
   }
 
   logout() {

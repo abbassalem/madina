@@ -24,6 +24,8 @@ import { CustomRouterStateSerializer } from './shared/utils';
 
 import { AppComponent } from './core/containers/app.component';
 import { environment } from '../environments/environment';
+import { AppConfigEffects } from './core/effects/app-config.effects';
+import { AppConfigService } from './core/services/app-config.service';
 
 @NgModule({
   imports: [
@@ -75,7 +77,7 @@ import { environment } from '../environments/environment';
      *
      * See: https://github.com/ngrx/platform/blob/master/docs/effects/api.md#forroot
      */
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([AppConfigEffects]),
 
     /**
      * `provideDB` sets up @ngrx/db with the provided schema and makes the Database
@@ -87,7 +89,7 @@ import { environment } from '../environments/environment';
 
     AuthModule.forRoot(),
   ],
-  providers: [
+  providers: [AppConfigService,
     /**
      * The `RouterStateSnapshot` provided by the `Router` is a large complex structure.
      * A custom RouterStateSerializer is used to parse the `RouterStateSnapshot` provided

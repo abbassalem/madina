@@ -4,26 +4,23 @@ import { User, Authenticate } from '../models/user';
 export enum AuthActionTypes {
   Login = '[Auth] Login',
   Logout = '[Auth] Logout',
-  LoginSuccess = '[Auth] Login Success',
-  LoginFailure = '[Auth] Login Failure',
+  LoginComplete = '[Auth] Login Success',
+  LoginError = '[Auth] Login Failure',
   LoginRedirect = '[Auth] Login Redirect',
 }
 
 export class Login implements Action {
   readonly type = AuthActionTypes.Login;
-
   constructor(public payload: Authenticate) {}
 }
 
-export class LoginSuccess implements Action {
-  readonly type = AuthActionTypes.LoginSuccess;
-
+export class LoginComplete implements Action {
+  readonly type = AuthActionTypes.LoginComplete;
   constructor(public payload: { user: User }) {}
 }
 
-export class LoginFailure implements Action {
-  readonly type = AuthActionTypes.LoginFailure;
-
+export class LoginError implements Action {
+  readonly type = AuthActionTypes.LoginError;
   constructor(public payload: any) {}
 }
 
@@ -37,7 +34,7 @@ export class Logout implements Action {
 
 export type AuthActionsUnion =
   | Login
-  | LoginSuccess
-  | LoginFailure
+  | LoginComplete
+  | LoginError
   | LoginRedirect
   | Logout;

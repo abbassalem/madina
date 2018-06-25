@@ -1,21 +1,50 @@
 {
+  "config": {
+    "deliveryTimes": [
+      "07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00"
+    ],
+    "addresses": [
+      {
+        "name": "Marie-Christine",
+        "street": "Rue Marie-Christine 201",
+        "postCode": "1020",
+        "city": "Brussels"
+      },
+      {
+        "name": "Roi Boudouin",
+        "street": "Rue des citronniers",
+        "postCode": "1020",
+        "city": "Brussels"
+      }
+    ]
+  },
   "orders": [],
   "users": [
     {
       "id": 1,
       "email": "abbas.salem.water@gmail.com",
+      "telephone": "0473 32 12 12",
       "password": "password",
       "firstName": "Adam",
       "lastName": "Salem",
-      "address": {
-        "streeName": "Rue Marie-Christine 201",
-        "postCode": "1020",
-        "city": "Brussels"
-      },
+      "addresses": [
+        {
+          "name": "home",
+          "street": "Rue Marie-Christine 201",
+          "postCode": "1020",
+          "city": "Brussels"
+        },
+        {
+          "name": "work",
+          "street": "Rue de la couronne",
+          "postCode": "1050",
+          "city": "Brussels"
+        }
+      ],
       "iban": "BE00252121522",
       "paymentMethod": "bank",
       "language": "en",
-      "level": 1
+      "level": "LEVEL-1"
     }
   ],
   "categories": [

@@ -6,6 +6,7 @@ import * as AuthActions from '../../auth/actions/auth.actions';
 import * as fromAuth from '../../auth/reducers';
 import * as fromRoot from '../../reducers';
 import * as LayoutActions from '../actions/layout.actions';
+import * as ConfigActions from '../actions/app-config.actions';
 
 @Component({
   selector: 'app-app',
@@ -18,7 +19,7 @@ import * as LayoutActions from '../actions/layout.actions';
         hint="Find products">
           Browse Products
         </app-nav-item>
-        
+
         <app-nav-item (navigate)="closeSidenav()" routerLink="/shop/basket" icon="shopping_cart" 
             hint="View basket">
                 Basket
@@ -29,22 +30,22 @@ import * as LayoutActions from '../actions/layout.actions';
             History
       </app-nav-item>
 
-        <app-nav-item (navigate)="closeSidenav()" routerLink="/account" icon="account_circle" 
+        <app-nav-item (navigate)="closeSidenav()" routerLink="/account" icon="account_circle"
             hint="View account">
                 Account
         </app-nav-item>
 
-        <app-nav-item (navigate)="closeSidenav()" icon="perm_identity" >
+        <app-nav-item (navigate)="closeSidenav()"  *ngIf="!(loggedIn$ | async)" routerLink="/login" icon="perm_identity" >
           Sign In
         </app-nav-item>
 
-        <app-nav-item (navigate)="logout()" *ngIf="loggedIn$ | async">
+        <app-nav-item (navigate)="logout()" *ngIf="loggedIn$ | async"  icon="account_circle">
           Sign Out
         </app-nav-item>
-      
+
         </app-sidenav>
-     
-      <app-toolbar (openMenu)="openSidenav()">
+
+        <app-toolbar (openMenu)="openSidenav()">
         OnWeb
       </app-toolbar>
 
@@ -53,48 +54,19 @@ import * as LayoutActions from '../actions/layout.actions';
   `,
 })
 
-// <app-nav-item (navigate)="closeSidenav()" *ngIf="loggedIn$ | async" routerLink="/books/find" 
-// icon="search" hint="Find your next book">
-//   Browse Books
-// </app-nav-item>
-
 
 export class AppComponent {
   showSidenav$: Observable<boolean>;
   loggedIn$: Observable<boolean>;
 
   constructor(private store: Store<fromRoot.State>) {
-    /**
-     * Selectors can be applied with the `select` operator which passes the state
-     * tree to the provided selector
-     */
     this.showSidenav$ = this.store.pipe(select(fromRoot.getShowSidenav));
     this.loggedIn$ = this.store.pipe(select(fromAuth.getLoggedIn));
-
-    // const open  = window.indexedDB.open('onweb', 4);
-    // open.onupgradeneeded = function(event) {
-    //     const db = this.result;
-       
-    //     const store = db.createObjectStore('products', { keyPath: "id" });
-    //     const index = store.createIndex('id','id');
-    //     let tx = this.transaction;
-    //     const productStore = tx.objectStore('products');  
-        
-    //   };
-    //   open.onsuccess = function (event) {
-    //     const db = this.result;
-    //     let tx = this.transaction;
-    // };
   }
 
   closeSidenav() {
-    /**
-     * All state updates are handled through dispatched actions in 'container'
-     * components. This provides a clear, reproducible history of state
-     * updates and user interaction through the life of our
-     * application.
-     */
     this.store.dispatch(new LayoutActions.CloseSidenav());
+    this.store.dispatch(new ConfigActions.LoadDeliveryTimes());
   }
 
   openSidenav() {
@@ -103,7 +75,6 @@ export class AppComponent {
 
   logout() {
     this.closeSidenav();
-
     this.store.dispatch(new AuthActions.Logout());
   }
 }

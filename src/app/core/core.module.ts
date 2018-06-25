@@ -11,6 +11,7 @@ import { ToolbarComponent } from './components/toolbar.component';
 import { MaterialModule } from '../material';
 
 import { ProductService } from './services/product.service';
+import { BasketService } from './services/basket.service';
 
 export const COMPONENTS = [
   AppComponent,
@@ -30,7 +31,7 @@ export class CoreModule {
   static forRoot() {
     return {
       ngModule: CoreModule,
-      providers: [ProductService],
+      providers: [ProductService, BasketService],
     };
   }
 }

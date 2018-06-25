@@ -20,7 +20,7 @@ export function reducer(state = initialState, action: AuthActionsUnion): State {
       };
     }
 
-    case AuthActionTypes.LoginSuccess: {
+    case AuthActionTypes.LoginComplete: {
       return {
         ...state,
         error: null,
@@ -28,7 +28,7 @@ export function reducer(state = initialState, action: AuthActionsUnion): State {
       };
     }
 
-    case AuthActionTypes.LoginFailure: {
+    case AuthActionTypes.LoginError: {
       return {
         ...state,
         error: action.payload,

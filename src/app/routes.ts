@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './auth/services/auth-guard.service';
 import { NotFoundPageComponent } from './core/containers/not-found-page.component';
+import { LoginPageComponent } from './auth/containers/login-page.component';
 
 export const routes: Routes = [
   {
@@ -12,7 +13,10 @@ export const routes: Routes = [
     path: 'shop',
     loadChildren: './shop/shop.module#ShopModule'
   },
-
+  {
+    path: 'login',
+    component: LoginPageComponent
+  },
   {
     path: '**',
     component: NotFoundPageComponent

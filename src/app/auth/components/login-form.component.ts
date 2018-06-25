@@ -11,7 +11,7 @@ import { Authenticate } from '../models/user';
         <form [formGroup]="form" (ngSubmit)="submit()">
           <p>
             <mat-form-field>
-              <input type="text" matInput placeholder="Username" formControlName="username">
+              <input type="text" matInput placeholder="Email" formControlName="email">
             </mat-form-field>
           </p>
 
@@ -82,7 +82,7 @@ export class LoginFormComponent implements OnInit {
   @Output() submitted = new EventEmitter<Authenticate>();
 
   form: FormGroup = new FormGroup({
-    username: new FormControl(''),
+    email: new FormControl(''),
     password: new FormControl(''),
   });
 

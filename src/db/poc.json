@@ -41,12 +41,12 @@
   "authors": [
     {
       "id": 1,
-      "username": "Adam",
+      "email": "Adam",
       "title": "Romain Pierlot"
     },
     {
       "id": 2,
-      "username": "Abbas",
+      "email": "Abbas",
       "title": "Quentin Neyrat"
     }
   ]

@@ -7,10 +7,10 @@ import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 import {
   AuthActionTypes,
   Login,
-  LoginFailure,
-  LoginSuccess,
+  LoginError,
+  LoginComplete,
 } from '../actions/auth.actions';
-import { Authenticate } from '../models/user';
+import { Authenticate, User } from '../models/user';
 import { AuthService } from '../services/auth.service';
 
 @Injectable()
@@ -23,16 +23,19 @@ export class AuthEffects {
       this.authService
         .login(auth)
         .pipe(
-          map(user => new LoginSuccess({ user })),
-          catchError(error => of(new LoginFailure(error)))
+          map( (users: User[]) => {
+            const user = users[0];
+            return new LoginComplete({ user});
+          }),
+          catchError(error => of(new LoginError(error)))
         )
     )
   );
 
   @Effect({ dispatch: false })
-  loginSuccess$ = this.actions$.pipe(
-    ofType(AuthActionTypes.LoginSuccess),
-    tap(() => this.router.navigate(['/']))
+  LoginComplete$ = this.actions$.pipe(
+    ofType(AuthActionTypes.LoginComplete),
+    tap(() => this.router.navigate(['/shop/basket']))
   );
 
   @Effect({ dispatch: false })

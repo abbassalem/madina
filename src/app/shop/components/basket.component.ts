@@ -1,10 +1,14 @@
 import { Location } from '@angular/common';
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Store } from '@ngrx/store';
+import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Store, select } from '@ngrx/store';
 import * as fromBasketActions from '../actions/basket.actions';
 import { BasketItem } from '../models/BasketItem.model';
 import { BasketState } from '../reducers/basket.reducer';
+import { MatHorizontalStepper, MatStep } from '@angular/material';
+import * as fromRoot from '../../reducers';
+import { Observable } from 'rxjs';
+import * as fromAuth from '../../auth/reducers';
 
 @Component({
   selector: 'app-basket',
@@ -13,14 +17,18 @@ import { BasketState } from '../reducers/basket.reducer';
 export class BasketComponent implements OnInit, OnChanges {
 
   @Input() basketItems: BasketItem[];
+  @Input() deliveryTimes: Array<string>;
   edit = false;
   operation: OperationType = OperationType.NONE;
   selectedIndex = -1;
   quantityControl: FormControl;
   quantityInitialValue = 0;
-
   basketForm: FormGroup;
   showSteps = false;
+  isLinear = false;
+  stepperSelectedIndex = 0;
+
+
   columns = [
     { field: 'name', label: 'Name', visible: true },
     { field: 'description', label: 'Description', visible: true },
@@ -29,15 +37,30 @@ export class BasketComponent implements OnInit, OnChanges {
     { field: 'subtotal', label: 'Subtotal', visible: true },
   ];
 
-  times = ['07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
+  @ViewChild('stepper')  stepper: MatHorizontalStepper;
 
-  constructor(private store: Store<BasketState>, private location: Location, private fb: FormBuilder) {
+  loggedIn$: Observable<boolean>;
+
+  constructor(private store: Store<BasketState>,
+              private location: Location,
+            private fb: FormBuilder,  private rootStore: Store<fromRoot.State> ) {
   }
+
+
+  next() {
+    this.stepper.next();
+  }
+
 
   ngOnChanges() {
   }
 
   ngOnInit() {
+
+    // TODO: load from json
+  // times = ['07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
+
+    this.loggedIn$ = this.store.pipe(select(fromAuth.getLoggedIn));
     this.quantityControl = this.fb.control(null, [Validators.required]);
     this.basketForm = this.fb.group({
         deliveryGroup: this.fb.group({
@@ -45,15 +68,18 @@ export class BasketComponent implements OnInit, OnChanges {
             deliveryDate: this.fb.control('', Validators.required)
         }),
         addressGroup: this.fb.group({
-            addressOption: this.fb.control('1', Validators.required),
-            streetNumber: this.fb.control('stree number'),
-            streetName: this.fb.control('stree name'),
-            city: this.fb.control('city'),
-            postCode: this.fb.control('post code')
+            addressOption: this.fb.control(2, Validators.required),
+            street: this.fb.control('', Validators.required),
+            city: this.fb.control('', Validators.required),
+            postCode: this.fb.control('', Validators.required)
         }),
-        confirmationGroup: this.fb.group({
+        contactGroup: this.fb.group({
             email: this.fb.control('', Validators.required),
             telephone: this.fb.control('', Validators.required)
+        }),
+        costGroup: this.fb.group({
+            orderCost: this.fb.control(''),
+            deliveryCost: this.fb.control('')
         })
     });
   }
@@ -70,7 +96,7 @@ export class BasketComponent implements OnInit, OnChanges {
       .reduce((acc, value) => acc + value, 0);
   }
 
-  toggleShowSteps(){
+  toggleShowSteps() {
     this.showSteps = !this.showSteps;
   }
 
@@ -94,7 +120,6 @@ export class BasketComponent implements OnInit, OnChanges {
   }
 
   save() {
-
     switch (this.operation) {
       case OperationType.EDIT: {
         this.basketItems[this.selectedIndex].quantity = this.quantityControl.value;

@@ -16,8 +16,7 @@ export class ProductEffects {
     switchMap( () => {
         return this.productService.getCategories()
           .pipe(
-            map((categories: Category[]) => { 
-              return new fromCategoryActions.LoadComplete(categories)}),
+            map((categories: Category[]) => new fromCategoryActions.LoadComplete(categories)),
             catchError(err => of(new fromCategoryActions.LoadError(err)))
           );
     })

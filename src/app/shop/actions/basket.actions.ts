@@ -19,7 +19,6 @@ export enum BasketActionTypes {
 
 export class AddBasketItem implements Action {
   readonly type = BasketActionTypes.AddBasketItem;
-
   constructor(public payload: BasketItem) { }
 }
 

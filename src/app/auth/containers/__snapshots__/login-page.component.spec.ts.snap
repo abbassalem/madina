@@ -52,13 +52,13 @@ exports[`Login Page should compile 1`] = `
                       aria-invalid="false"
                       aria-required="false"
                       class="mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored ng-untouched ng-pristine ng-valid"
-                      formcontrolname="username"
+                      formcontrolname="email"
                       id="mat-input-0"
                       matinput=""
-                      ng-reflect-name="username"
-                      ng-reflect-placeholder="Username"
+                      ng-reflect-name="email"
+                      ng-reflect-placeholder="email"
                       ng-reflect-type="text"
-                      placeholder="Username"
+                      placeholder="email"
                       type="text"
                     />
                     <span
@@ -73,7 +73,7 @@ exports[`Login Page should compile 1`] = `
                       >
                         
                         
-                        Username
+                        email
                         
                         
                       </label>

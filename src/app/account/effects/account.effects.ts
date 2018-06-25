@@ -12,8 +12,8 @@ export class AccountEffects {
   //     this.authService
   //       .login(auth)
   //       .pipe(
-  //         map(user => new LoginSuccess({ user })),
-  //         catchError(error => of(new LoginFailure(error)))
+  //         map(user => new LoginComplete({ user })),
+  //         catchError(error => of(new LoginError(error)))
   //       )
   //   )
   // );

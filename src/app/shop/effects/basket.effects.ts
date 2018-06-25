@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { map, switchMap, timeout } from 'rxjs/operators';
-import * as fromBasketActions from './../actions/basket.actions';
+import { map, switchMap } from 'rxjs/operators';
 import { BasketItem } from '../models/BasketItem.model';
+import * as fromBasketActions from './../actions/basket.actions';
 
 
 @Injectable()
@@ -18,7 +18,7 @@ export class BasketEffects {
       if (!this.products) {
           this.products = [];
           window.localStorage.setItem('products', JSON.stringify(this.products));
-      }  
+      }
     } else {
       console.log('locaStorage not supported');
     }
@@ -27,7 +27,7 @@ export class BasketEffects {
 @Effect()
 loadBasket$: Observable<Action> = this.actions$
 .ofType<fromBasketActions.Load>(fromBasketActions.BasketActionTypes.Load).pipe(
-  switchMap( () => {   
+  switchMap( () => {
     this.products = JSON.parse(window.localStorage.getItem('products'));
     return Observable.create (observer => {
       const timeoutId = setTimeout(() => {
@@ -63,7 +63,7 @@ loadBasket$: Observable<Action> = this.actions$
     switchMap( (id: number) =>  {
       const index = this.products.findIndex(product => product.id === id);
       // if (index > 0) {
-      this.products.splice(index,1); 
+      this.products.splice(index, 1);
       window.localStorage.setItem('products', JSON.stringify(this.products)); 
       return of(new fromBasketActions.RemoveBasketItemComplete(id));
     }

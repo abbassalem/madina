@@ -13,7 +13,7 @@ export const initialState: State = {
 
 export function reducer(state = initialState, action: AuthActionsUnion): State {
   switch (action.type) {
-    case AuthActionTypes.LoginSuccess: {
+    case AuthActionTypes.LoginComplete: {
       return {
         ...state,
         loggedIn: true,

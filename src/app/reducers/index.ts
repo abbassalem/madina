@@ -7,9 +7,8 @@ import { ActionReducer, ActionReducerMap, createFeatureSelector, createSelector,
  * notation packages up all of the exports into a single object.
  */
 import * as fromLayout from '../core/reducers/layout.reducer';
+import * as fromConfigActions from '../core/reducers/app-config.reducer';
 import { RouterStateUrl } from '../shared/utils';
-
-
 
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
@@ -17,6 +16,7 @@ import { RouterStateUrl } from '../shared/utils';
  */
 export interface State {
   layout: fromLayout.State;
+  config: fromConfigActions.State;
   router: fromRouter.RouterReducerState<RouterStateUrl>;
 }
 
@@ -27,6 +27,7 @@ export interface State {
  */
 export const reducers: ActionReducerMap<State> = {
   layout: fromLayout.reducer,
+  config: fromConfigActions.reducer,
   router: fromRouter.routerReducer,
 };
 
@@ -52,8 +53,14 @@ export const metaReducers: MetaReducer<State>[] = [logger];
  * Layout Reducers
  */
 export const getLayoutState = createFeatureSelector<fromLayout.State>('layout');
+export const getConfigState = createFeatureSelector<fromConfigActions.State>('config');
 
 export const getShowSidenav = createSelector(
   getLayoutState,
   fromLayout.getShowSidenav
+);
+
+export const getDeliveryTimes = createSelector(
+  getConfigState,
+  fromConfigActions.getDeliveryTimes
 );
