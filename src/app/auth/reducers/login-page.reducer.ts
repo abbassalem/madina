@@ -31,7 +31,6 @@ export function reducer(state = initialState, action: AuthActionsUnion): State {
     case AuthActionTypes.LoginError: {
       return {
         ...state,
-        error: action.payload,
         pending: false,
       };
     }

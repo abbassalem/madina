@@ -7,12 +7,14 @@ import * as fromAuth from '../../auth/reducers';
 import * as fromRoot from '../../reducers';
 import * as LayoutActions from '../actions/layout.actions';
 import * as ConfigActions from '../actions/app-config.actions';
+import { User } from '../../auth/models/user';
 
 @Component({
   selector: 'app-app',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <app-layout>
+      
       <app-sidenav [open]="showSidenav$ | async">
 
         <app-nav-item (navigate)="closeSidenav()" routerLink="/shop" icon="view_list" 
@@ -45,23 +47,36 @@ import * as ConfigActions from '../actions/app-config.actions';
 
         </app-sidenav>
 
-        <app-toolbar (openMenu)="openSidenav()">
-        OnWeb
+      <app-toolbar (openMenu)="openSidenav()">
+
+        <div style="flex: 1 1 auto;flex-direction: row">
+          <span style="align-self: flex-start">OnWeb</span>
+          <span class="login" *ngIf="loggedIn$ | async">
+              <span style="color:white">LoggedIn as: </span> <b>{{(user$ | async)?.firstName + ' ' + (user$ | async)?.lastName}}</b>
+          </span>
+        </div>  
       </app-toolbar>
 
       <router-outlet></router-outlet>
     </app-layout>
   `,
+  styles: [`.login {
+    font-size: 10px;
+    color: yellow;
+    float: right;
+  }`]
 })
 
 
 export class AppComponent {
   showSidenav$: Observable<boolean>;
   loggedIn$: Observable<boolean>;
+  user$: Observable<User>;
 
   constructor(private store: Store<fromRoot.State>) {
     this.showSidenav$ = this.store.pipe(select(fromRoot.getShowSidenav));
     this.loggedIn$ = this.store.pipe(select(fromAuth.getLoggedIn));
+    this.user$ = store.pipe(select(fromAuth.getUser));
   }
 
   closeSidenav() {

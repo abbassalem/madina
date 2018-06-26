@@ -21,7 +21,7 @@ export class LoginComplete implements Action {
 
 export class LoginError implements Action {
   readonly type = AuthActionTypes.LoginError;
-  constructor(public payload: any) {}
+  constructor() {}
 }
 
 export class LoginRedirect implements Action {

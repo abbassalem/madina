@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 
 import {
@@ -25,18 +25,25 @@ export class AuthEffects {
         .pipe(
           map( (users: User[]) => {
             const user = users[0];
-            return new LoginComplete({ user});
+            return new LoginComplete({ user });
           }),
-          catchError(error => of(new LoginError(error)))
+          catchError(error => of(new LoginError()))
         )
     )
   );
 
-  @Effect({ dispatch: false })
+  @Effect({ dispatch: false })  @Effect({ dispatch: false })
   LoginComplete$ = this.actions$.pipe(
     ofType(AuthActionTypes.LoginComplete),
     tap(() => this.router.navigate(['/shop/basket']))
   );
+
+  @Effect({ dispatch: false })
+  LoginError$ = this.actions$.pipe(
+    ofType(AuthActionTypes.LoginError),
+    tap(() => this.router.navigate(['/login']))
+  );
+
 
   @Effect({ dispatch: false })
   loginRedirect$ = this.actions$.pipe(

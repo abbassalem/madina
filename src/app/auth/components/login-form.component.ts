@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Authenticate } from '../models/user';
 
 @Component({
@@ -82,8 +82,8 @@ export class LoginFormComponent implements OnInit {
   @Output() submitted = new EventEmitter<Authenticate>();
 
   form: FormGroup = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
+    email: new FormControl('', Validators.email),
+    password: new FormControl('', Validators.required),
   });
 
   constructor() {}

@@ -198,7 +198,7 @@
                                     <mat-option *ngFor="let time of deliveryTimes" [value]="time">{{time}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
-                            <button mat-button  mat-raised-button color="accent" (click)="stepper.next()"
+                            <button mat-button matStepperNext mat-raised-button color="accent"
                                 [disabled]="!basketForm.controls['deliveryGroup'].valid">Next</button>
                     </mat-step>
                     <mat-step [completed]="false" formGroupName="addressGroup" [stepControl]="addressGroup" label="Address">
@@ -235,7 +235,7 @@
                         </mat-form-field>
                         <button mat-button matStepperPrevious>Back</button>
                         <button mat-button matStepperNext mat-raised-button color="accent" 
-                        [disabled]="!basketForm.valid">Next</button>
+                        [disabled]="!basketForm.controls['contactGroup'].valid">Next</button>
                     </mat-step>
 
                     <mat-step [completed]="true" formGroupName="costGroup" [stepControl]="costGroup" label="Cost">

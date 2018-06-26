@@ -13,6 +13,7 @@ import { ProductViewPageComponent } from './containers/product-view-page.compone
 import { BasketEffects } from './effects/basket.effects';
 import { ProductEffects } from './effects/product.effects';
 import { reducers } from './reducers';
+import { AuthGuard } from '../auth/services/auth-guard.service';
 
 @NgModule({
   imports: [
