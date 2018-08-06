@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Order } from '../../shop/models/order.model';
+import { environment } from '../../../environments/environment';
 
 
 @Injectable()
 export class BasketService implements OnInit {
 
-  endpoint =  'http://localhost:3000/orders';
+  endpoint =  environment.endpoint;
   order: Order;
   order$: BehaviorSubject<Order> = new BehaviorSubject<Order>(this.order);
   userId: string;
@@ -66,7 +67,7 @@ export class BasketService implements OnInit {
   saveOrder(): void {
     console.log('calling saveOrder()');
     console.dir(this.order);
-    this.http.post(this.endpoint, this.order).subscribe(
+    this.http.post(this.endpoint+ '/orders', this.order).subscribe(
       (value) => {
         console.log('after post');
         console.dir(value);

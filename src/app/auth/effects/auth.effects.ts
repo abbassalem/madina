@@ -27,8 +27,11 @@ export class AuthEffects {
             const user = users[0];
             return new LoginComplete({ user });
           }),
-          catchError(error => of(new LoginError()))
+          catchError( error => {
+            return of(new LoginError());
+          }
         )
+      )
     )
   );
 

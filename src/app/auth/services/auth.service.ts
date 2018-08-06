@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
-import { Authenticate, User } from '../models/user';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { Authenticate, User } from '../models/user';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class AuthService {
 
-  endpoint = 'http://localhost:3000/users';
+  endpoint = environment.endpoint;
 
   constructor(private http: HttpClient) {
   }
@@ -17,7 +17,7 @@ export class AuthService {
     const params = new HttpParams();
     params.set('email', email);
     params.set('password', password);
-    return this.http.get<User[]>(this.endpoint + '?email=' + email + '&password=' + password);
+    return this.http.get<User[]>(this.endpoint + '/users'+ '?email=' + email + '&password=' + password);
   }
 
   logout() {
