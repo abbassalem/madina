@@ -17,9 +17,9 @@ export function sortByBasket(ob1: BasketItem, ob2: BasketItem): number {
 }
 
 export const adapter: EntityAdapter<BasketItem> = createEntityAdapter<BasketItem>({
-   selectId: (basket: BasketItem) => basket.id,
-   sortComparer: sortByBasket,
- });
+  selectId: (basket: BasketItem) => basket.id,
+  sortComparer: sortByBasket,
+});
 export const initialState: BasketState = adapter.getInitialState({
   selectedBasketItemId: null,
 });
@@ -31,11 +31,14 @@ export function reducer(state = initialState, action: BasketActionsUnion): Baske
       return adapter.addMany(action.payload, state);
     }
     case BasketActionTypes.AddBasketItemComplete: {
-      if (state.ids.indexOf(action.payload.id) > -1 ) {
+      if (state.ids.indexOf(<number>action.payload.id) > -1) {
         return state;
       } else {
         return adapter.addOne(action.payload, state);
       }
+    }
+    case BasketActionTypes.AddOrderItemsComplete: {
+      return adapter.addMany(action.payload, state);
     }
     case BasketActionTypes.RemoveBasketItemComplete: {
       return adapter.removeOne(action.payload, state);
@@ -49,7 +52,7 @@ export function reducer(state = initialState, action: BasketActionsUnion): Baske
 
     case BasketActionTypes.UpdateBasketItemComplete: {
       const basketItem = state.entities[action.payload.id];
-      return adapter.updateOne({id: action.payload.id, changes: basketItem}, state);
+      return adapter.updateOne({ id: action.payload.id, changes: basketItem }, state);
     }
     default: {
       return state;

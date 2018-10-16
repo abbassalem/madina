@@ -7,7 +7,8 @@ import { ActionReducer, ActionReducerMap, createFeatureSelector, createSelector,
  * notation packages up all of the exports into a single object.
  */
 import * as fromLayout from '../core/reducers/layout.reducer';
-import * as fromConfigActions from '../core/reducers/app-config.reducer';
+import * as fromConfig from '../core/reducers/configuration.reducer';
+import * as fromAuth from '../auth/reducers/auth.reducer';
 import { RouterStateUrl } from '../shared/utils';
 
 /**
@@ -16,8 +17,9 @@ import { RouterStateUrl } from '../shared/utils';
  */
 export interface State {
   layout: fromLayout.State;
-  config: fromConfigActions.State;
+  config: fromConfig.State;
   router: fromRouter.RouterReducerState<RouterStateUrl>;
+  auth: fromAuth.State;
 }
 
 /**
@@ -27,8 +29,9 @@ export interface State {
  */
 export const reducers: ActionReducerMap<State> = {
   layout: fromLayout.reducer,
-  config: fromConfigActions.reducer,
+  config: fromConfig.reducer,
   router: fromRouter.routerReducer,
+  auth: fromAuth.reducer
 };
 
 // console.log all actions
@@ -53,7 +56,8 @@ export const metaReducers: MetaReducer<State>[] = [logger];
  * Layout Reducers
  */
 export const getLayoutState = createFeatureSelector<fromLayout.State>('layout');
-export const getConfigState = createFeatureSelector<fromConfigActions.State>('config');
+export const getConfigState = createFeatureSelector<fromConfig.State>('config');
+export const getAuthState = createFeatureSelector<fromAuth.State>('auth');
 
 export const getShowSidenav = createSelector(
   getLayoutState,
@@ -62,5 +66,11 @@ export const getShowSidenav = createSelector(
 
 export const getDeliveryTimes = createSelector(
   getConfigState,
-  fromConfigActions.getDeliveryTimes
+  fromConfig.getDeliveryTimes
 );
+
+export const isLoggedIn = createSelector(
+  getAuthState,
+  fromAuth.getLoggedIn
+);
+

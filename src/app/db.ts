@@ -7,10 +7,6 @@ export const schema: DBSchema = {
   version: 1,
   name: 'onweb',
   stores: {
-    books: {
-      autoIncrement: true,
-      primaryKey: 'id',
-    },
     categories: {
       autoIncrement: true,
       primaryKey: 'id',
@@ -21,5 +17,3 @@ export const schema: DBSchema = {
     },
   },
 };
-
-// books_app

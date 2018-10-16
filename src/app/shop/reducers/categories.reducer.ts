@@ -43,7 +43,7 @@ export function reducer(state = initialState, action: CategoryActionsUnion ): Ca
 }
 
 export function findCategory(entities: {[id: number]: Category}, ids, productId): number {
-  let foundId = -1;  
+  let foundId = -1;
   const result = ids.forEach( catId => {
      entities[catId].products.forEach( product => {
        if (product.id === productId) {

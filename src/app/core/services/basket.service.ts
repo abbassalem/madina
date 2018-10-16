@@ -64,10 +64,10 @@ export class BasketService implements OnInit {
 //   // }
 
 
-  saveOrder(): void {
+  saveOrder(order: Order): void {
     console.log('calling saveOrder()');
-    console.dir(this.order);
-    this.http.post(this.endpoint+ '/orders', this.order).subscribe(
+    console.dir(order);
+    this.http.post(this.endpoint + '/orders', order).subscribe(
       (value) => {
         console.log('after post');
         console.dir(value);

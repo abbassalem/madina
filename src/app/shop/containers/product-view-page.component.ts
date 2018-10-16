@@ -32,7 +32,7 @@ export class ProductViewPageComponent implements OnInit, OnDestroy {
       });
       this.route.queryParamMap.subscribe(( params => {
         this.quantity = +params.get('quantity');
-      })); 
+      }));
   }
 
   ngOnDestroy() {

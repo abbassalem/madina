@@ -14,6 +14,10 @@ export const routes: Routes = [
     loadChildren: './shop/shop.module#ShopModule'
   },
   {
+    path: 'orders',
+    loadChildren: './orders/orders.module#OrdersModule'
+  },
+  {
     path: 'login',
     component: LoginPageComponent
   },
@@ -22,16 +26,3 @@ export const routes: Routes = [
     component: NotFoundPageComponent
   },
 ];
-
-
-// export const routes: Routes = [
-//   { path: '', redirectTo: 'product-list', pathMatch: 'full' },
-//   { path: 'product-list', component: ProductList },
-//   { path: 'product-details/:id', component: ProductDetails,
-//     children: [
-//       { path: '', redirectTo: 'overview', pathMatch: 'full' },
-//       { path: 'overview', component: Overview },
-//       { path: 'specs', component: Specs }
-//     ]
-//   }
-// ];

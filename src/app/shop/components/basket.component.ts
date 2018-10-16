@@ -9,15 +9,24 @@ import { MatHorizontalStepper, MatStep } from '@angular/material';
 import * as fromRoot from '../../reducers';
 import { Observable } from 'rxjs';
 import * as fromAuth from '../../auth/reducers';
+import * as fromConfig from '../../reducers/index';
+import * as fromConfigActions from './../../core/actions/configuration.actions';
+import { Order, OrderStatus } from '../models/order.model';
+import { BasketService } from '../../core/services/basket.service';
+import { User } from '../../auth/models/user';
 
 @Component({
   selector: 'app-basket',
-  templateUrl: './basket.component.html'
+  templateUrl: './basket.component.html',
+  styleUrls: ['./basket.component.scss']
 })
-export class BasketComponent implements OnInit, OnChanges {
+export class BasketComponent implements OnInit {
 
   @Input() basketItems: BasketItem[];
   @Input() deliveryTimes: Array<string>;
+
+  order: Order;
+  user$: Observable<User>;
   edit = false;
   operation: OperationType = OperationType.NONE;
   selectedIndex = -1;
@@ -26,9 +35,6 @@ export class BasketComponent implements OnInit, OnChanges {
   basketForm: FormGroup;
   showSteps = false;
   isLinear = false;
-  stepperSelectedIndex = 0;
-
-
   columns = [
     { field: 'name', label: 'Name', visible: true },
     { field: 'description', label: 'Description', visible: true },
@@ -37,30 +43,18 @@ export class BasketComponent implements OnInit, OnChanges {
     { field: 'subtotal', label: 'Subtotal', visible: true },
   ];
 
-  @ViewChild('stepper')  stepper: MatHorizontalStepper;
-
   loggedIn$: Observable<boolean>;
 
   constructor(private store: Store<BasketState>,
               private location: Location,
-            private fb: FormBuilder,  private rootStore: Store<fromRoot.State> ) {
-  }
-
-
-  next() {
-    this.stepper.next();
-  }
-
-
-  ngOnChanges() {
+              private fb: FormBuilder,
+              private rootStore: Store<fromRoot.State>,
+              private basketService: BasketService ) {
   }
 
   ngOnInit() {
-
-    // TODO: load from json
-  // times = ['07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
-
     this.loggedIn$ = this.store.pipe(select(fromAuth.getLoggedIn));
+    this.user$ = this.store.pipe(select(fromAuth.getUser));
     this.quantityControl = this.fb.control(null, [Validators.required]);
     this.basketForm = this.fb.group({
         deliveryGroup: this.fb.group({
@@ -76,12 +70,29 @@ export class BasketComponent implements OnInit, OnChanges {
         contactGroup: this.fb.group({
             email: this.fb.control('', Validators.required),
             telephone: this.fb.control('', Validators.required)
-        }),
-        costGroup: this.fb.group({
-            orderCost: this.fb.control(''),
-            deliveryCost: this.fb.control('')
         })
+        // ,
+        // costGroup: this.fb.group({
+        //     orderCost: this.fb.control(''),
+        //     deliveryCost: this.fb.control('')
+        // })
     });
+  }
+
+  saveOrder(): void {
+      let userId: number;
+      this.user$.subscribe (user => {userId = user.id;});
+      this.order = {
+        id: 1,
+        deliveryDate: this.basketForm.controls['deliveryGroup'].get('deliveryDate').value,
+        deliveryTime: this.basketForm.controls['deliveryGroup'].get('deliveryTime').value,
+        deliveryAddress: this.basketForm.controls['addressGroup'].value,
+        orderDate: new Date(),
+        status: OrderStatus.OPEN,
+        items: this.basketItems,
+        userId: userId
+      };
+      this.basketService.saveOrder(this.order);
   }
 
   getTotal() {
@@ -110,6 +121,7 @@ export class BasketComponent implements OnInit, OnChanges {
     this.selectedIndex = index;
     this.quantityControl.setValue(this.basketItems[index].quantity);
   }
+
   delete(index: number) {
     if (this.edit) {
       return;

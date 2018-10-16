@@ -71,11 +71,11 @@ export const isSelectedProductInBasket = createSelector(
   getAllBasketItems,
   (prodId, items) => {
      const found = items.findIndex( item =>
-       item.id === prodId)
+       item.id === prodId);
      if (found > -1) {
        return true;
      } else {
         return false;
-     } 
+     }
     }
-)
+);

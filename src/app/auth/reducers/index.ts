@@ -12,7 +12,7 @@ export interface AuthState {
   loginPage: fromLoginPage.State;
 }
 
-export interface State extends fromRoot.State {
+export interface State extends fromAuth.State {
   auth: AuthState;
 }
 

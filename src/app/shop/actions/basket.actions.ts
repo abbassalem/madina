@@ -5,6 +5,9 @@ export enum BasketActionTypes {
   AddBasketItem = '[Basket] Add BasketItem',
   AddBasketItemComplete = '[Basket] Add BasketItem Complete',
   AddBasketItemError = '[Basket] Add BasketItem Error',
+  AddOrderItems = '[Basket] Add OrderItems',
+  AddOrderItemsComplete = '[Basket] Add OrderItems Complete',
+  AddOrderItemsError = '[Basket] Add OrderItems Error',
   RemoveBasketItem = '[Basket] Remove BasketItem',
   RemoveBasketItemComplete = '[Basket] Remove BasketItem Complete',
   RemoveBasketItemError = '[Basket] Remove BasketItem Error',
@@ -30,6 +33,21 @@ export class AddBasketItemComplete implements Action {
 export class AddBasketItemError implements Action {
   readonly type = BasketActionTypes.AddBasketItemError;
   constructor(public payload: BasketItem) { }
+}
+
+export class AddOrderItems implements Action {
+  readonly type = BasketActionTypes.AddOrderItems;
+  constructor(public payload: BasketItem[]) { }
+}
+
+export class AddOrderItemsComplete implements Action {
+  readonly type = BasketActionTypes.AddOrderItemsComplete;
+  constructor(public payload: BasketItem[]) { }
+}
+
+export class AddOrderItemsError implements Action {
+  readonly type = BasketActionTypes.AddOrderItemsError;
+  constructor(public payload: BasketItem[]) { }
 }
 
 export class RemoveBasketItem implements Action {
@@ -85,6 +103,9 @@ export type BasketActionsUnion =
   | AddBasketItem
   | AddBasketItemComplete
   | AddBasketItemError
+  | AddOrderItems
+  | AddOrderItemsComplete
+  | AddOrderItemsError
   | RemoveBasketItem
   | RemoveBasketItemComplete
   | RemoveBasketItemError

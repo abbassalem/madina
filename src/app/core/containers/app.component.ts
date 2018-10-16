@@ -3,10 +3,10 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import * as AuthActions from '../../auth/actions/auth.actions';
-import * as fromAuth from '../../auth/reducers';
+import * as fromAuth from '../../auth/reducers/index';
 import * as fromRoot from '../../reducers';
 import * as LayoutActions from '../actions/layout.actions';
-import * as ConfigActions from '../actions/app-config.actions';
+import * as ConfigActions from '../actions/configuration.actions';
 import { User } from '../../auth/models/user';
 
 @Component({
@@ -14,22 +14,21 @@ import { User } from '../../auth/models/user';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <app-layout>
-      
-      <app-sidenav [open]="showSidenav$ | async">
+          <app-sidenav [open]="showSidenav$ | async">
 
-        <app-nav-item (navigate)="closeSidenav()" routerLink="/shop" icon="view_list" 
+        <app-nav-item (navigate)="closeSidenav()" routerLink="/shop" icon="view_list"
         hint="Find products">
           Browse Products
         </app-nav-item>
 
-        <app-nav-item (navigate)="closeSidenav()" routerLink="/shop/basket" icon="shopping_cart" 
+        <app-nav-item (navigate)="closeSidenav()" routerLink="/shop/basket" icon="shopping_cart"
             hint="View basket">
                 Basket
         </app-nav-item>
 
-        <app-nav-item (navigate)="closeSidenav()" routerLink="/history" icon="history" 
-        hint="View history">
-            History
+        <app-nav-item (navigate)="closeSidenav()" routerLink="/orders" icon="storage"
+        hint="View Orders">
+            Orders
       </app-nav-item>
 
         <app-nav-item (navigate)="closeSidenav()" routerLink="/account" icon="account_circle"
@@ -50,11 +49,12 @@ import { User } from '../../auth/models/user';
       <app-toolbar (openMenu)="openSidenav()">
 
         <div style="flex: 1 1 auto;flex-direction: row">
-          <span style="align-self: flex-start">OnWeb</span>
+          <span style="align-self: flex-s
+          tart">OnWeb</span>
           <span class="login" *ngIf="loggedIn$ | async">
               <span style="color:white">LoggedIn as: </span> <b>{{(user$ | async)?.firstName + ' ' + (user$ | async)?.lastName}}</b>
           </span>
-        </div>  
+        </div>
       </app-toolbar>
 
       <router-outlet></router-outlet>
@@ -81,7 +81,6 @@ export class AppComponent {
 
   closeSidenav() {
     this.store.dispatch(new LayoutActions.CloseSidenav());
-    this.store.dispatch(new ConfigActions.LoadDeliveryTimes());
   }
 
   openSidenav() {

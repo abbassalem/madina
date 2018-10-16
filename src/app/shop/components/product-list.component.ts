@@ -13,7 +13,7 @@ import { BasketItem } from '../models/BasketItem.model';
   <mat-toolbar>
   <span class="toolbar-flex">
       <nav mat-tab-nav-bar >
-        <a mat-tab-link 
+        <a mat-tab-link
             *ngFor="let routeLink of routeLinks; let i=index"
               [routerLink]="routeLink.path"
               routerLinkActive #rla="routerLinkActive"
@@ -21,7 +21,7 @@ import { BasketItem } from '../models/BasketItem.model';
               {{routeLink.label}}
         </a>
       </nav>
-    </span>  
+    </span>
 </mat-toolbar>
 
 <app-product-view  *ngFor="let product of products" [product]="product" [quantity]="getQuantity(product.id)"> </app-product-view>
@@ -47,7 +47,7 @@ export class ProductListComponent implements OnInit, OnChanges {
   @Input() basketItems: BasketItem[];
   @Input() routeLinks: Array<{ catId: number, label: string, path: string }>;
   products: Product[];
-  currentTabIndex: number = 0;
+  currentTabIndex = 0;
 
   constructor(private store: Store<fromCategories.CategoryState>, private route: ActivatedRoute) {
   }

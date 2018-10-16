@@ -9,7 +9,7 @@ export interface Order {
    deliveryAddress: string;
    status: OrderStatus;
    items: Array<BasketItem>;
-   accountId: number;
+   userId: number;
 }
 
 export enum OrderStatus {

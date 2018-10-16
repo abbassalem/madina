@@ -17,7 +17,7 @@ export class AuthService {
     const params = new HttpParams();
     params.set('email', email);
     params.set('password', password);
-    return this.http.get<User[]>(this.endpoint + '/users'+ '?email=' + email + '&password=' + password);
+    return this.http.get<User[]>(this.endpoint + '/users' + '?email=' + email + '&password=' + password);
   }
 
   logout() {

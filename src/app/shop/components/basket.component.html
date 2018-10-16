@@ -1,89 +1,3 @@
-<style>
-    table {
-        width: 80%;
-        border-collapse: collapse;
-        border-spacing: 0;
-        border: 1px solid #ddd;
-        margin-top: 16px;
-        margin-left: auto;
-        margin-right: auto;
-        text-align: left;
-        box-shadow: 5px 5px 5px grey;
-        border-style: inset;
-        padding: 40px;
-        font-size: 12px;
-    }
-
-    .basket-buttons {
-        width: 80%;
-        border-spacing: 0;
-        border: 1px solid #ddd;
-        margin-top: 5px;
-        margin-left: auto;
-        margin-right: auto;
-        text-align: center;
-        padding: 5px;
-        font-size: 10px;
-    }
-
-    td {
-        padding: 16px;
-    }
-
-    th {
-        background-color: #a09e99;
-        /* background-color:#ffd740; */
-        padding: 16px;
-        color: black;
-    }
-
-    tr:nth-child(even) {
-        background-color: lightgrey;
-        color: blue;
-    }
-
-    tr:nth-child(odd) {
-        background-color: rgb(235, 211, 211);
-        color: blue;
-    }
-
-    tr:nth-last-child() {
-        background-color: white;
-        color: blue;
-    }
-
-    .footer {
-        font-size: 14px;
-        font-weight: bold;
-        background-color: white;
-    }
-
-    .hand {
-        cursor: pointer;
-    }
-
-    .active {
-        font-weight: bold;
-        color: #ffd740;
-    }
-
-    .rowSelected {
-        font-weight: bold;
-        color: black;
-        background-color: #ffd740;
-    }
-
-    .blinking {
-        color: orange;
-        font-weight: bold;
-        font-style: oblique
-    }
-
-    tbody {
-        font-size: 14px;
-    }
-</style>
-
 <span style="padding-left: 80px" *ngIf="basketItems && basketItems.length === 0">Empty basket</span>
 <table *ngIf="basketItems && basketItems.length >0">
     <thead>
@@ -166,12 +80,12 @@
             <td class="footer"></td>
             <td class="footer" *ngIf="basketItems.length >0">    
                 <a *ngIf="!(loggedIn$ | async)" style="padding-right: 5%" >
-                    <button mat-raised-button [disabled]="showSteps"color="accent" [routerLink]="['/login']">Continue
+                    <button mat-raised-button [disabled]="showSteps"color="accent" [routerLink]="['/login']">Login to continue
                         <mat-icon>chevron_right</mat-icon>
                     </button>
                 </a>
-                <a *ngIf="loggedIn$ | async" style="padding-right: 5%" >
-                    <button mat-raised-button [disabled]="showSteps"color="accent" (click)="toggleShowSteps()">Continue
+                <a  *ngIf="(loggedIn$ | async)" style="padding-right: 5%" >
+                    <button mat-raised-button [disabled]="showSteps"color="accent" (click)="toggleShowSteps()">Order
                         <mat-icon>chevron_right</mat-icon>
                     </button>
                 </a>
@@ -225,7 +139,7 @@
                             <button mat-button matStepperNext mat-raised-button color="accent" 
                                     [disabled]="!basketForm.controls['addressGroup'].valid">Next</button>
                     </mat-step>
-                    <mat-step [completed]="false" formGroupName="contactGroup" [stepControl]="contactGroup" label="Contact">
+                    <mat-step [completed]="true" formGroupName="contactGroup" [stepControl]="contactGroup" label="Contact">
                         <mat-form-field>
                             <input matInput placeholder="Email" formControlName="email" required>
                         </mat-form-field>
@@ -234,11 +148,14 @@
                             <input matInput placeholder="Telephone" formControlName="telephone" required>
                         </mat-form-field>
                         <button mat-button matStepperPrevious>Back</button>
-                        <button mat-button matStepperNext mat-raised-button color="accent" 
-                        [disabled]="!basketForm.controls['contactGroup'].valid">Next</button>
-                    </mat-step>
+                        <button mat-button matStepperNext mat-raised-button color="accent" (click)="saveOrder()" 
+                        [disabled]="!basketForm.valid">Confirm Order</button>
+                </mat-step>
+                        <!-- <button mat-button matStepperNext mat-raised-button color="accent"  -->
+                        <!-- [disabled]="!basketForm.controls['contactGroup'].valid">Next</button> -->
+                    <!-- </mat-step> -->
 
-                    <mat-step [completed]="true" formGroupName="costGroup" [stepControl]="costGroup" label="Cost">
+                    <!-- <mat-step [completed]="true" formGroupName="costGroup" [stepControl]="costGroup" label="Cost">
                             <mat-form-field>
                                 <input matInput placeholder="Products cost" readonly formControlName="orderCost" required>
                             </mat-form-field>
@@ -247,9 +164,9 @@
                                 <input matInput placeholder="Delivery cost" readonly formControlName="deliveryCost" required>
                             </mat-form-field>
                             <button mat-button matStepperPrevious>Back</button>
-                            <button mat-button matStepperNext mat-raised-button color="accent" 
-                            [disabled]="!basketForm.valid">Confirm</button>
-                    </mat-step>
+                            <button mat-button matStepperNext mat-raised-button color="accent" (click)="saveOrder()" 
+                            [disabled]="!basketForm.valid">Confirm Order</button>
+                    </mat-step> -->
                     <!-- <mat-step [completed]="true" [stepControl]="resume" label="Done">
                         You are now done.
                         <div>

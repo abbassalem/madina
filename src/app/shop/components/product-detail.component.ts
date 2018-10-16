@@ -15,7 +15,6 @@ import { Product } from '../models/product.model';
       <mat-card-content>
         <p [innerHtml]="description"></p>
       </mat-card-content>
-      
       <mat-card-actions>
         <button mat-raised-button color="warn" *ngIf="inBasket" (click)="remove.emit(product)">
         Remove Product from Basket
@@ -64,7 +63,7 @@ export class ProductDetailComponent {
   @Input() product: Product;
   @Input() quantity: number;
   @Input() inBasket: boolean;
-  @Input() valid: boolean = false;
+  @Input() valid = false;
   @Output() add = new EventEmitter<Product>();
   @Output() remove = new EventEmitter<Product>();
 
@@ -85,7 +84,7 @@ export class ProductDetailComponent {
 
   get thumbnail() {
     return (
-       'assets/imgs/'+ `${this.product.image}`
+       'assets/imgs/app/' + `${this.product.image}`
     );
   }
 

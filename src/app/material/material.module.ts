@@ -15,14 +15,14 @@ import {
   MatCheckboxModule,
   MatOptionModule,
   MatSelectModule,
-  MatGridList,
-  MatDivider,
+  MatSnackBarModule,
   MatGridListModule,
   MatDividerModule,
   MatDatepickerModule,
   MatNativeDateModule,
   MatStepperModule,
-  MatRadioModule
+  MatRadioModule,
+  MatExpansionModule,
 
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
@@ -48,7 +48,8 @@ import { CdkTableModule } from '@angular/cdk/table';
     MatDatepickerModule,
     MatNativeDateModule,
     MatStepperModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSnackBarModule
   ],
   exports: [
     MatInputModule,
@@ -60,6 +61,7 @@ import { CdkTableModule } from '@angular/cdk/table';
     MatToolbarModule,
     MatTabsModule,
     MatProgressSpinnerModule,
+    MatExpansionModule,
     MatBadgeModule,
     MatTableModule,
     MatCheckboxModule,

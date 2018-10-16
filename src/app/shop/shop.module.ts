@@ -26,10 +26,10 @@ import { AuthGuard } from '../auth/services/auth-guard.service';
       { path: 'categories/:id', component: ProductListPageComponent},
       { path: 'products/:productId', component: ProductViewPageComponent},
       { path: 'basket', component: BasketPageComponent}
+      // { path: 'basket', component: BasketPageComponent, canActivate: [AuthGuard]}
     ]),
 
     StoreModule.forFeature('shop', reducers),
-
     EffectsModule.forFeature([ProductEffects, BasketEffects]),
   ],
   declarations: [

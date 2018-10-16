@@ -16,9 +16,10 @@ import { BasketItem } from '../models/BasketItem.model';
   template: `
   <mat-card *ngIf="product">
     <mat-card-actions align="center" *ngIf="!(isSelectedProductInBasket$ | async)">
-            <mat-form-field>
-                <input #qty [formControl]="quantityFormControl" type="number" [value]="0" matInput placeholder="Quantity" min="1" max="100" required>
-            </mat-form-field>
+          <mat-form-field>
+              <input #qty [formControl]="quantityFormControl" type="number" [
+                value]="0" matInput placeholder="Quantity" min="1" max="100" required>
+          </mat-form-field>
         &nbsp;
         <p>€ <b>{{qty.value * product.price | number : '1.2-2'}}</b></p>
     </mat-card-actions>

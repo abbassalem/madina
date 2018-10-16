@@ -16,12 +16,12 @@ export class Login implements Action {
 
 export class LoginComplete implements Action {
   readonly type = AuthActionTypes.LoginComplete;
-  constructor(public payload: { user: User }) {}
+  constructor(public payload: User) {}
 }
 
 export class LoginError implements Action {
   readonly type = AuthActionTypes.LoginError;
-  constructor() {}
+  constructor(public payload: string) {}
 }
 
 export class LoginRedirect implements Action {

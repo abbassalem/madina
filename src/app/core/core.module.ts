@@ -12,6 +12,7 @@ import { MaterialModule } from '../material';
 
 import { ProductService } from './services/product.service';
 import { BasketService } from './services/basket.service';
+import { OrderService } from '../orders/services/orders.service';
 
 export const COMPONENTS = [
   AppComponent,
@@ -31,7 +32,7 @@ export class CoreModule {
   static forRoot() {
     return {
       ngModule: CoreModule,
-      providers: [ProductService, BasketService],
+      providers: [ProductService, BasketService, OrderService],
     };
   }
 }

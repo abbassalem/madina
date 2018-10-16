@@ -24,8 +24,9 @@ import { CustomRouterStateSerializer } from './shared/utils';
 
 import { AppComponent } from './core/containers/app.component';
 import { environment } from '../environments/environment';
-import { AppConfigEffects } from './core/effects/app-config.effects';
-import { AppConfigService } from './core/services/app-config.service';
+import { ConfigEffects } from './core/effects/configuration.effects';
+import { ConfigService } from './core/services/config.service';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -77,7 +78,7 @@ import { AppConfigService } from './core/services/app-config.service';
      *
      * See: https://github.com/ngrx/platform/blob/master/docs/effects/api.md#forroot
      */
-    EffectsModule.forRoot([AppConfigEffects]),
+    EffectsModule.forRoot([ConfigEffects]),
 
     /**
      * `provideDB` sets up @ngrx/db with the provided schema and makes the Database
@@ -89,13 +90,14 @@ import { AppConfigService } from './core/services/app-config.service';
 
     AuthModule.forRoot(),
   ],
-  providers: [AppConfigService,
+  providers: [ConfigService,
     /**
      * The `RouterStateSnapshot` provided by the `Router` is a large complex structure.
      * A custom RouterStateSerializer is used to parse the `RouterStateSnapshot` provided
      * by `@ngrx/router-store` to include only the desired pieces of the snapshot.
      */
     { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}}
   ],
   bootstrap: [AppComponent],
 })

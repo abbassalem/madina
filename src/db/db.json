@@ -1,24 +1,140 @@
 {
-  "config": {
-    "deliveryTimes": [
-      "07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00"
-    ],
-    "addresses": [
-      {
-        "name": "Marie-Christine",
-        "street": "Rue Marie-Christine 201",
-        "postCode": "1020",
-        "city": "Brussels"
+  "deliveryTimes": [
+    "07:00",
+    "08:00",
+    "09:00",
+    "10:00",
+    "11:00",
+    "12:00",
+    "13:00",
+    "14:00",
+    "15:00",
+    "16:00",
+    "17:00",
+    "18:00",
+    "19:00",
+    "20:00"
+  ],
+  "addresses": [
+    {
+      "name": "Marie-Christine",
+      "street": "Rue Marie-Christine 201",
+      "postCode": "1020",
+      "city": "Brussels"
+    },
+    {
+      "name": "Roi Boudouin",
+      "street": "Rue des citronniers",
+      "postCode": "1020",
+      "city": "Brussels"
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "deliveryDate": "2018-08-20T23:00:00.000Z",
+      "deliveryTime": "09:00",
+      "deliveryAddress": {
+        "addressOption": 2,
+        "street": "10 Stillingfleet Road",
+        "city": "London",
+        "postCode": "SW13 9AE"
       },
-      {
-        "name": "Roi Boudouin",
-        "street": "Rue des citronniers",
-        "postCode": "1020",
-        "city": "Brussels"
-      }
-    ]
-  },
-  "orders": [],
+      "orderDate": "2018-08-31T14:00:00.000Z",
+      "status": "OPEN",
+      "items": [
+        {
+          "id": 30,
+          "product": {
+            "id": 30,
+            "name": "Couque au Raisin",
+            "description": "Couque au Raisin description",
+            "reference": "x21",
+            "image": "raisin.jpg",
+            "price": "0.70"
+          },
+          "quantity": 2
+        },
+        {
+          "id": 31,
+          "product": {
+            "id": 31,
+            "name": "Couque Huit",
+            "description": "Couque Huit description",
+            "reference": "x21",
+            "image": "8.jpg",
+            "price": "0.80"
+          },
+          "quantity": 4
+        },
+        {
+          "id": 33,
+          "product": {
+            "id": 33,
+            "name": "Couque a la Creme",
+            "description": "Couque a la Creme description",
+            "reference": "x21",
+            "image": "couque-creme.jpg",
+            "price": "0.90"
+          },
+          "quantity": 2
+        },
+        {
+          "id": 45,
+          "product": {
+            "id": 45,
+            "name": "Gaussette",
+            "description": "Gausette description",
+            "reference": "x21",
+            "image": "gausette.jpg",
+            "price": "1.00"
+          },
+          "quantity": 4
+        }
+      ],
+      "userId": 1
+    },
+    {
+      "id": 2,
+      "deliveryDate": "2018-10-16T23:00:00.000Z",
+      "deliveryTime": "12:00",
+      "deliveryAddress": {
+        "addressOption": 2,
+        "street": "10 Stillingfleet Road",
+        "city": "London",
+        "postCode": "SW13 9AE"
+      },
+      "orderDate": "2018-10-16T10:00:00.000Z",
+      "status": "ARCHIVED",
+      "items": [
+        {
+          "id": 30,
+          "product": {
+            "id": 30,
+            "name": "Couque au Raisin",
+            "description": "Couque au Raisin description",
+            "reference": "x21",
+            "image": "raisin.jpg",
+            "price": "0.70"
+          },
+          "quantity": 20
+        },
+        {
+          "id": 31,
+          "product": {
+            "id": 31,
+            "name": "Couque Huit",
+            "description": "Couque Huit description",
+            "reference": "x21",
+            "image": "8.jpg",
+            "price": "0.80"
+          },
+          "quantity": 10
+        }
+      ],
+      "userId": 1
+    }
+  ],
   "users": [
     {
       "id": 1,
