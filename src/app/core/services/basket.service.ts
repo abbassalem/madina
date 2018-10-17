@@ -3,6 +3,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Order } from '../../shop/models/order.model';
 import { environment } from '../../../environments/environment';
+import { Observable } from 'rxjs';
 
 
 @Injectable()
@@ -64,21 +65,10 @@ export class BasketService implements OnInit {
 //   // }
 
 
-  saveOrder(order: Order): void {
+  saveOrder(order: Order): Observable<Order> {
     console.log('calling saveOrder()');
     console.dir(order);
-    this.http.post(this.endpoint + '/orders', order).subscribe(
-      (value) => {
-        console.log('after post');
-        console.dir(value);
-        console.log('order array = ');
-        console.dir(this.orders);
-      },
-      (error) => {
-        console.log('error');
-        console.dir(error);
-      }
-    );
+    return this.http.post<Order>(this.endpoint + '/orders', order);
   }
 
 //   addOrderLine(orderLine:OrderLine): void {

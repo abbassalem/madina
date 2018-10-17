@@ -11,16 +11,17 @@ import { ShopState } from '../../shop/reducers';
 <br>
   <mat-expansion-panel  (opened)="open(id)" (closed)="panelOpenState = false"  style="min-width: 70%">
       <mat-expansion-panel-header>
-      <mat-panel-title style="float:right">
+      <mat-panel-title>
           <img mat-card-sm-image style="width:25px;height:25px" *ngIf="thumbnail" [src]="thumbnail"/>
-          &nbsp;&nbsp;
-          {{ orderDate | date: 'EEEE dd/MM/yyyy  &nbsp;&nbsp; &nbsp;&nbsp;   hh:mm' }}
+          &nbsp;&nbsp; Order Date:
+          <b>{{ orderDate | date: 'EEEE dd/MM/yyyy:hh:mm' }}</b>
       </mat-panel-title>
       <mat-panel-description>
-          Amount: &nbsp;&nbsp; &nbsp;&nbsp;   <b>{{ amount | currency : 'EUR':'symbol':'1.2-2'}} </b>
+          Amount: &nbsp;<b>{{ amount | currency : 'EUR':'symbol':'1.2-2'}} </b>
+          &nbsp;&nbsp;&nbsp;&nbsp;Delivery Date:
+          {{ deliveryDate | date: 'EEEE dd/MM/yyyy'}}:{{ deliveryTime }}
       </mat-panel-description>
     </mat-expansion-panel-header>
-
     <mat-action-row>
     <button mat-raised-button color="accent" (click) = "addToBasket('Items added to basket successfully')">
       <mat-icon>add_to_photos</mat-icon>Add to basket
@@ -108,6 +109,14 @@ export class OrderViewComponent {
 
   get orderDate() {
     return this.order.orderDate;
+  }
+
+  get deliveryDate() {
+    return this.order.deliveryDate;
+  }
+
+  get deliveryTime() {
+    return this.order.deliveryTime;
   }
 
   get status() {
