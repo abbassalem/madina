@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Order } from '../../shop/models/order.model';
 
 @Component({
@@ -24,20 +24,22 @@ import { Order } from '../../shop/models/order.model';
   ],
 })
 
-export class OrderListComponent implements OnInit {
+export class OrderListComponent implements OnChanges {
 
   @Input() orders: Order[];
+  nonFilteredOrders: Order[];
 
   constructor() {
   }
 
-  ngOnInit() {
+  ngOnChanges(changes: SimpleChanges) {
+      this.nonFilteredOrders = <Order[]>changes.orders.currentValue;
   }
 
   search(event) {
     const start = event.startDate;
     const end = event.endDate;
-    this.orders = this.orders.filter ( order => this.filterDate(order, start, end));
+    this.orders = this.nonFilteredOrders.filter ( order => this.filterDate(order, start, end));
   }
 
   filterDate(order: Order, start: Date, end: Date) {

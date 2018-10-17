@@ -26,7 +26,7 @@ import { AppComponent } from './core/containers/app.component';
 import { environment } from '../environments/environment';
 import { ConfigEffects } from './core/effects/configuration.effects';
 import { ConfigService } from './core/services/config.service';
-import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MAT_DATE_LOCALE } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -97,7 +97,8 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
      * by `@ngrx/router-store` to include only the desired pieces of the snapshot.
      */
     { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}}
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}},
+    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
   ],
   bootstrap: [AppComponent],
 })

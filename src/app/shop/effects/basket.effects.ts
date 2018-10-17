@@ -51,9 +51,9 @@ export class BasketEffects {
     )
   );
 
-  Effect()
+  @Effect()
   addProductToBasket$: Observable<Action> = this.actions$.pipe(
-    ofType<fromBasketActions.AddOrderItems>(fromBasketActions.BasketActionTypes.AddOrderItems),
+    ofType<fromBasketActions.AddBasketItem>(fromBasketActions.BasketActionTypes.AddBasketItem),
     map(action => action.payload),
     switchMap((basketItem: BasketItem) => {
       const index = this.products.findIndex(product => product.id === basketItem.id);

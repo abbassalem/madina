@@ -10,18 +10,18 @@ import { FormBuilder, FormGroup } from '@angular/forms';
         <mat-card-title>Find an Order</mat-card-title>
         <mat-card-content>
             <mat-form-field>
-                  <input matInput [matDatepicker]="picker1" placeholder="Choose start date" formControlName="startDate" >
+                  <input matInput [matDatepicker]="picker1" placeholder="Choose start date" formControlName="startDate" required>
                   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                   <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
             &nbsp;&nbsp;&nbsp;&nbsp;
             <mat-form-field>
-                  <input matInput [matDatepicker]="picker2" placeholder="Choose end date" formControlName="endDate">
+                  <input matInput [matDatepicker]="picker2" placeholder="Choose end date" formControlName="endDate" required>
                   <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                   <mat-datepicker #picker2></mat-datepicker>
             </mat-form-field>
             <mat-spinner [class.show]="searching" [diameter]="30" [strokeWidth]="3"></mat-spinner>
-            <button mat-raised-button color="accent" (click) = "executeSearch()">
+            <button mat-raised-button color="accent" [disabled]="!searchGroup.valid" (click) = "executeSearch()">
                 <mat-icon>search</mat-icon>Search
             </button>
         </mat-card-content>
