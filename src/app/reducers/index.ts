@@ -74,3 +74,7 @@ export const isLoggedIn = createSelector(
   fromAuth.getLoggedIn
 );
 
+export const getUser = createSelector(
+  getAuthState,
+  fromAuth.getUser
+);

@@ -7,8 +7,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   <br>
   <form [formGroup]="searchGroup">
     <mat-card>
-        <mat-card-title>Find an Order</mat-card-title>
         <mat-card-content>
+            <small><b>Search order</b></small>
             <mat-form-field>
                   <input matInput [matDatepicker]="picker1" placeholder="Choose start date" formControlName="startDate" required>
                   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>

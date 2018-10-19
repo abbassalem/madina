@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import * as AuthActions from '../../auth/actions/auth.actions';
-import * as fromAuth from '../../auth/reducers/index';
+import * as fromAuth from '../../auth/reducers/auth.reducer';
 import * as fromRoot from '../../reducers';
 import * as LayoutActions from '../actions/layout.actions';
 import * as ConfigActions from '../actions/configuration.actions';
@@ -75,8 +75,8 @@ export class AppComponent {
 
   constructor(private store: Store<fromRoot.State>) {
     this.showSidenav$ = this.store.pipe(select(fromRoot.getShowSidenav));
-    this.loggedIn$ = this.store.pipe(select(fromAuth.getLoggedIn));
-    this.user$ = store.pipe(select(fromAuth.getUser));
+    this.loggedIn$ = this.store.pipe(select(fromRoot.isLoggedIn));
+    this.user$ = store.pipe(select(fromRoot.getUser));
   }
 
   closeSidenav() {

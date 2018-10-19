@@ -1,20 +1,17 @@
 import { Location } from '@angular/common';
-import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Store, select } from '@ngrx/store';
+import { MatSnackBar } from '@angular/material';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { User } from '../../auth/models/user';
+import * as fromAuth from '../../auth/reducers/old-index';
+import { BasketService } from '../../core/services/basket.service';
+import * as fromRoot from '../../reducers';
 import * as fromBasketActions from '../actions/basket.actions';
 import { BasketItem } from '../models/BasketItem.model';
-import { BasketState } from '../reducers/basket.reducer';
-import { MatHorizontalStepper, MatStep, MatSnackBarRef, MatSnackBar } from '@angular/material';
-import * as fromRoot from '../../reducers';
-import { Observable } from 'rxjs';
-import * as fromAuth from '../../auth/reducers';
-import * as fromConfig from '../../reducers/index';
-import * as fromConfigActions from './../../core/actions/configuration.actions';
 import { Order, OrderStatus } from '../models/order.model';
-import { BasketService } from '../../core/services/basket.service';
-import { User } from '../../auth/models/user';
-import { filter, map } from 'rxjs/operators';
+import { BasketState } from '../reducers/basket.reducer';
 
 @Component({
   selector: 'app-basket',
@@ -27,8 +24,7 @@ export class BasketComponent implements OnInit {
   @Input() deliveryTimes: Array<string>;
 
   order: Order;
-  // user$: Observable<User>;
-  userId: number;
+  user$: Observable<User>;
   edit = false;
   operation: OperationType = OperationType.NONE;
   selectedIndex = -1;
@@ -50,20 +46,16 @@ export class BasketComponent implements OnInit {
   constructor(private store: Store<BasketState>,
               private location: Location,
               private fb: FormBuilder,
-              private rootStore: Store<fromRoot.State>,
+              private rootStore: Store<fromAuth.State>,
               private basketService: BasketService,
               private snakBar: MatSnackBar ) {
   }
 
   ngOnInit() {
-    this.loggedIn$ = this.store.pipe(select(fromAuth.getLoggedIn));
-    this.store.select(fromAuth.getUser).pipe(
-      filter(Boolean),
-      map(user => user.id)
-    ).subscribe ( id => {
-      console.log('userId = ' + id);
-      this.userId = id;
-    }) ;
+
+    this.loggedIn$ = this.rootStore.pipe(select(fromRoot.isLoggedIn));
+    this.user$ = this.rootStore.pipe(select(fromRoot.getUser));
+
     this.quantityControl = this.fb.control(null, [Validators.required]);
     this.basketForm = this.fb.group({
         deliveryGroup: this.fb.group({
@@ -89,17 +81,17 @@ export class BasketComponent implements OnInit {
   }
 
   saveOrder(): void {
-      // let userId: number;
-      // this.user$.subscribe (user => { userId = user.id; });
+      let userId: number;
+      this.user$.subscribe (user => { userId = user.id; });
       this.order = {
-        id: 5,
+        id: 6,
         deliveryDate: this.basketForm.controls['deliveryGroup'].get('deliveryDate').value,
         deliveryTime: this.basketForm.controls['deliveryGroup'].get('deliveryTime').value,
         deliveryAddress: this.basketForm.controls['addressGroup'].value,
         orderDate: new Date(),
         status: OrderStatus.OPEN,
         items: this.basketItems,
-        userId: this.userId
+        userId: userId
       };
       this.basketService.saveOrder(this.order).subscribe(
         (value) => {

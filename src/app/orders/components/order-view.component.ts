@@ -12,7 +12,7 @@ import { ShopState } from '../../shop/reducers';
   <mat-expansion-panel  (opened)="open(id)" (closed)="panelOpenState = false"  style="min-width: 70%">
       <mat-expansion-panel-header>
       <mat-panel-title>
-          <img mat-card-sm-image style="width:25px;height:25px" *ngIf="thumbnail" [src]="thumbnail"/>
+          <img mat-card-sm-image style="width:20px;height:20px" *ngIf="thumbnail" [src]="thumbnail"/>
           &nbsp;&nbsp; Order Date:
           <b>{{ orderDate | date: 'EEEE dd/MM/yyyy:hh:mm' }}</b>
       </mat-panel-title>

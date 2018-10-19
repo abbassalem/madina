@@ -10,7 +10,7 @@ import { LoginFormComponent } from './components/login-form.component';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { AuthEffects } from './effects/auth.effects';
-import { reducers } from './reducers/index';
+import { reducer } from './reducers/auth.reducer';
 import { MaterialModule } from '../material';
 
 export const COMPONENTS = [LoginPageComponent, LoginFormComponent];
@@ -33,7 +33,7 @@ export class AuthModule {
   imports: [
     AuthModule,
     RouterModule.forChild([{ path: 'login', component: LoginPageComponent }]),
-    StoreModule.forFeature('auth', reducers),
+    StoreModule.forFeature('auth', reducer),
     EffectsModule.forFeature([AuthEffects]),
   ],
 })

@@ -17,8 +17,8 @@ import { BasketItem } from '../models/BasketItem.model';
   <mat-card *ngIf="product">
     <mat-card-actions align="center" *ngIf="!(isSelectedProductInBasket$ | async)">
           <mat-form-field>
-              <input #qty [formControl]="quantityFormControl" type="number" [
-                value]="0" matInput placeholder="Quantity" min="1" max="100" required>
+              <input #qty [formControl]="quantityFormControl" type="number" [value]="0"
+                    matInput placeholder="Quantity" min="1" max="100" required>
           </mat-form-field>
         &nbsp;
         <p>€ <b>{{qty.value * product.price | number : '1.2-2'}}</b></p>
@@ -124,9 +124,9 @@ export class ProductSelectedPageComponent implements OnInit {
     this.location.back();
   }
   getQuantity(values): number {
-    let qty = undefined;
+    let qty;
     if (values) {
-      qty = values.find(item => item.id === this.product.id)
+      qty = values.find(item => item.id === this.product.id);
       if (qty) {
         return qty.quantity;
       } else {

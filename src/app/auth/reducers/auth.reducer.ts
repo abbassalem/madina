@@ -1,5 +1,6 @@
 import { AuthActionsUnion, AuthActionTypes } from './../actions/auth.actions';
 import { User } from '../models/user';
+import { createFeatureSelector } from '@ngrx/store';
 
 export interface State {
   loggedIn: boolean;
@@ -11,9 +12,13 @@ export const initialState: State = {
   user: null,
 };
 
+export const selectAuthState = createFeatureSelector<State>('auth');
+
 export function reducer(state = initialState, action: AuthActionsUnion): State {
   switch (action.type) {
     case AuthActionTypes.LoginComplete: {
+      console.log('auth reducer');
+      console.dir(action.payload);
       return {
         ...state,
         loggedIn: true,

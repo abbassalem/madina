@@ -15,6 +15,13 @@ import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class AuthEffects {
+
+  constructor(
+    private actions$: Actions,
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
   @Effect()
   login$ = this.actions$.pipe(
     ofType<Login>(AuthActionTypes.Login),
@@ -23,7 +30,11 @@ export class AuthEffects {
       this.authService
         .login(auth)
         .pipe(
-          map( (users: Array<User>) => new LoginComplete( users[0])),
+          map( (users: Array<User>) => {
+            console.log('auth effect: ');
+            console.dir(users);
+            return new LoginComplete( users[0]);
+          }),
           catchError(error => of(new LoginError(error)))
         )
     )
@@ -42,10 +53,4 @@ export class AuthEffects {
       this.router.navigate(['/login']);
     })
   );
-
-  constructor(
-    private actions$: Actions,
-    private authService: AuthService,
-    private router: Router
-  ) {}
 }
