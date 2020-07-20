@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-devkit/schematics": "^10.0.3",
     "@angular/animations": "^6.0.3",
     "@angular/bazel": "^6.0.3",
     "@angular/cdk": "^6.2.0",
