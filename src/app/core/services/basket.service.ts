@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 import { Order } from '../../shop/models/order.model';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';

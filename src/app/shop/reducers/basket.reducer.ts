@@ -31,7 +31,8 @@ export function reducer(state = initialState, action: BasketActionsUnion): Baske
       return adapter.addMany(action.payload, state);
     }
     case BasketActionTypes.AddBasketItemComplete: {
-      if (state.ids.indexOf(<number>action.payload.id) > -1) {
+      const ids = state.ids as number[];
+      if (ids.filter(id => <number>id === action.payload.id).length > 0) {
         return state;
       } else {
         return adapter.addOne(action.payload, state);

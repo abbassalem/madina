@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MatSnackBar, MatSnackBarRef } from '@angular/material';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
 import { AddOrderItems } from '../../shop/actions/basket.actions';
 import { Order } from '../../shop/models/order.model';

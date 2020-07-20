@@ -18,8 +18,8 @@ export class OrdersEffects {
 
 
   @Effect()
-  getAllOrders$: Observable<Action> = this.actions$
-    .ofType<fromOrdersActions.Load>(fromOrdersActions.OrderActionTypes.Load).pipe(
+  getAllOrders$: Observable<Action> = this.actions$.pipe(
+    ofType<fromOrdersActions.Load>(fromOrdersActions.OrderActionTypes.Load),
     switchMap( () => {
         return this.orderService.getOrders()
           .pipe(

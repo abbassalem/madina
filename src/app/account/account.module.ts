@@ -18,7 +18,7 @@ export const COMPONENTS = [];
   exports: COMPONENTS,
 })
 export class AccountModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<NgModule> {
     return {
       ngModule: RootAccountModule,
       providers: [AccountService],

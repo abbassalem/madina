@@ -24,20 +24,21 @@ export class BasketEffects {
     }
   }
 
-  @Effect()
-  loadBasket$: Observable<Action> = this.actions$
-    .ofType<fromBasketActions.Load>(fromBasketActions.BasketActionTypes.Load).pipe(
-      switchMap(() => {
-        this.products = JSON.parse(window.localStorage.getItem('products'));
-        return Observable.create(observer => {
-          const timeoutId = setTimeout(() => {
-            observer.next(new fromBasketActions.LoadComplete(this.products));
-            observer.error(of(new fromBasketActions.LoadError('error in loading product from localStorage')));
-            observer.complete();
-          }, 200);
-          return () => clearTimeout(timeoutId);
-        });
-      }));
+  // @Effect()
+  // loadBasket$: Observable<Action> = this.actions$.pipe(
+  //     ofType<fromBasketActions.Load>(fromBasketActions.BasketActionTypes.Load),
+  //     switchMap(() => {
+  //       this.products = JSON.parse(window.localStorage.getItem('products'));
+  //       return Observable.create(observer => {
+  //         // const timeoutId = setTimeout(() => {
+  //           observer.next(new fromBasketActions.LoadComplete(this.products));
+  //           observer.error(new fromBasketActions.LoadError('error in loading product from localStorage'));
+  //           observer.complete();
+  //         // }, 200);
+  //         // return () => clearTimeout(timeoutId);
+  //       });
+  //     })
+  // );
 
   @Effect()
   addOrderItemsToBasket$: Observable<Action> = this.actions$.pipe(

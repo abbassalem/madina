@@ -26,7 +26,8 @@ import { AppComponent } from './core/containers/app.component';
 import { environment } from '../environments/environment';
 import { ConfigEffects } from './core/effects/configuration.effects';
 import { ConfigService } from './core/services/config.service';
-import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MAT_DATE_LOCALE } from '@angular/material';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
   imports: [

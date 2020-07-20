@@ -22,10 +22,8 @@ import {
   MatNativeDateModule,
   MatStepperModule,
   MatRadioModule,
-  MatExpansionModule,
-
+  MatExpansionModule
 } from '@angular/material';
-import { CdkTableModule } from '@angular/cdk/table';
 
 @NgModule({
   imports: [
