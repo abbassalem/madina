@@ -26,7 +26,8 @@ export const initialState: CategoryState = adapter.getInitialState({
 export function reducer(state = initialState, action: CategoryActionsUnion ): CategoryState {
   switch (action.type) {
     case CategoryActionTypes.LoadComplete: {
-      state.isLoaded = true;
+      //TODO: uncomment 
+      // state.isLoaded = true;
       return adapter.addMany(action.payload, state);
     }
     case CategoryActionTypes.Select: {

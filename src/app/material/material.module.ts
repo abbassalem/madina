@@ -1,77 +1,69 @@
 import { NgModule } from '@angular/core';
-
-import {
-  MatInputModule,
-  MatCardModule,
-  MatButtonModule,
-  MatSidenavModule,
-  MatListModule,
-  MatIconModule,
-  MatToolbarModule,
-  MatTabsModule,
-  MatProgressSpinnerModule,
-  MatBadgeModule,
-  MatTableModule,
-  MatCheckboxModule,
-  MatOptionModule,
-  MatSelectModule,
-  MatSnackBarModule,
-  MatGridListModule,
-  MatDividerModule,
-  MatDatepickerModule,
-  MatNativeDateModule,
-  MatStepperModule,
-  MatRadioModule,
-  MatExpansionModule
-} from '@angular/material';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   imports: [
-    MatInputModule,
-    MatCardModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatListModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatTabsModule,
-    MatProgressSpinnerModule,
-    MatBadgeModule,
-    MatTableModule,
-    MatCheckboxModule,
-    MatOptionModule,
-    MatSelectModule,
-    MatGridListModule,
+    MatInputModule ,
+    MatCardModule ,
+    MatButtonModule ,
+    MatSidenavModule ,
     MatDividerModule,
+    MatListModule ,
+    MatIconModule ,
+    MatToolbarModule ,
+    MatTabsModule ,
+    MatProgressSpinnerModule ,
+    MatBadgeModule ,
+    MatTableModule ,
+    MatCheckboxModule ,
+    MatSelectModule ,
+    MatGridListModule ,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatStepperModule,
-    MatRadioModule,
-    MatSnackBarModule,
+    MatStepperModule ,
+    MatRadioModule ,
+    MatSnackBarModule ,
     MatGridListModule
   ],
   exports: [
-    MatInputModule,
-    MatCardModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatListModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatTabsModule,
-    MatProgressSpinnerModule,
-    MatExpansionModule,
-    MatBadgeModule,
-    MatTableModule,
-    MatCheckboxModule,
-    MatOptionModule,
-    MatSelectModule,
-    MatGridListModule,
-    MatDividerModule,
+    MatInputModule ,
+    MatCardModule ,
+    MatButtonModule ,
+    MatSidenavModule ,
+    MatListModule ,
+    MatIconModule ,
+    MatToolbarModule ,
+    MatTabsModule ,
+    MatProgressSpinnerModule ,
+    MatBadgeModule ,
+    MatTableModule ,
+    MatCheckboxModule ,
+    MatSelectModule ,
+    MatGridListModule ,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatStepperModule,
-    MatRadioModule,
+    MatStepperModule ,
+    MatRadioModule ,
+    MatSnackBarModule ,
     MatGridListModule
   ],
 })

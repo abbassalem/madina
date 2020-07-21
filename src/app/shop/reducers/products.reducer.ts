@@ -1,6 +1,7 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { ProductActionsUnion, ProductActionTypes } from '../actions/product.actions';
 import { Product } from '../models/product.model';
+// import * as fromAdapter from './index';
 
 export interface ProductState extends EntityState<Product> {
   selectedProductId: number | null;
@@ -26,7 +27,7 @@ export function reducer(state = initialState, action: ProductActionsUnion): Prod
     }
 
     // case ProductActionTypes.Load: {
-    //   return fromAdapter.adapter.addOne(action.payload, {
+    //   return adapter.addOne(action.payload, {
     //     ...state,
     //     selectedProductId: state.selectedProductId,
     //   });
@@ -48,6 +49,3 @@ export function reducer(state = initialState, action: ProductActionsUnion): Prod
 export const getProductState = ( (state: ProductState) => state);
 export const getCurrentProductId = (state: ProductState) => state.selectedProductId;
 
-
-// http://www.tomsguide.com/answers/id-2820328/sony-vaio-laptop-switch-battery-light-flashes-constantly-orange.html
-// https://www.youtube.com/watch?v=PGYD6AQxTSs

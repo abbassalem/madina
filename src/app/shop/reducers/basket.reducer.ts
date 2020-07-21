@@ -1,6 +1,7 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { BasketActionsUnion, BasketActionTypes } from '../actions/basket.actions';
-import { BasketItem } from '../models/basketItem.model';
+import { BasketItem } from '../models/BasketItem.model';
+// import { BasketItem } from '../models/basketItem.model';
 
 export interface BasketState extends EntityState<BasketItem> {
   selectedBasketItemId: number | null;
@@ -31,8 +32,9 @@ export function reducer(state = initialState, action: BasketActionsUnion): Baske
       return adapter.addMany(action.payload, state);
     }
     case BasketActionTypes.AddBasketItemComplete: {
-      const ids = state.ids as number[];
-      if (ids.filter(id => <number>id === action.payload.id).length > 0) {
+      const ids: number[] = state.ids as number[];
+      const id = action.payload.id as number;
+      if (ids.indexOf(id) > -1) {
         return state;
       } else {
         return adapter.addOne(action.payload, state);
