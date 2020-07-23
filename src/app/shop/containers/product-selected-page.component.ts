@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, OnChanges } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import * as fromBasketActions from '../actions/basket.actions';
-import * as fromCategoryActions from '../actions/category.actions';
 import { Product } from '../models/product.model';
 import * as index from '../reducers/index';
 import { Location } from '@angular/common';
@@ -34,23 +33,12 @@ import { BasketItem } from '../models/BasketItem.model';
         </app-product-detail>
     </mat-card-content>
     <mat-card-footer>
-        <mat-grid-list cols="2">
-            <mat-grid-tile>
-              <a  style="margin-left:10px">
-                <button   mat-raised-button color="accent" (click)="backToProducts()">
-                <mat-icon>chevron_left</mat-icon>Back to products
-                </button>
-              </a>
-          </mat-grid-tile>
-          <mat-grid-tile>
-              <a [routerLink]="['/shop/basket']" style="padding-right:10px">
-                <button   mat-raised-button color="accent">
-                  Go to basket<mat-icon>chevron_right</mat-icon>
-                </button>
-              </a>
-          </mat-grid-tile>
-        </mat-grid-list>
-    </mat-card-footer>
+    <p style="padding:5px;margin:5px">
+           <button mat-raised-button  (click)="back()">
+             Close <mat-icon>close</mat-icon>
+           </button>
+    </p>
+  </mat-card-footer>
 </mat-card>
   `,
   styles: [`
@@ -134,4 +122,29 @@ export class ProductSelectedPageComponent implements OnInit {
       }
     }
   }
+
+  back() {
+    history.back();
+  }
 }
+
+
+
+// <mat-card-footer>
+    //     <mat-grid-list cols="2">
+    //         <mat-grid-tile>
+    //           <a  style="margin-left:10px">
+    //             <button   mat-raised-button color="accent" (click)="backToProducts()">
+    //             <mat-icon>chevron_left</mat-icon>Back to products
+    //             </button>
+    //           </a>
+    //       </mat-grid-tile>
+    //       <mat-grid-tile>
+    //           <a [routerLink]="['/shop/basket']" style="padding-right:10px">
+    //             <button   mat-raised-button color="accent">
+    //               Go to basket<mat-icon>chevron_right</mat-icon>
+    //             </button>
+    //           </a>
+    //       </mat-grid-tile>
+    //     </mat-grid-list>
+    // </mat-card-footer>

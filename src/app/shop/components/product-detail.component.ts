@@ -4,27 +4,34 @@ import { Product } from '../models/product.model';
 @Component({
   selector: 'app-product-detail',
   template: `
+    
     <mat-card *ngIf="product">
-      <mat-card-title-group>
-        <p *ngIf="quantity > 0">
+      <mat-card-title>
+        <span style="float: right" *ngIf="quantity > 0">
            <span matBadge="{{quantity}}" matBadgeOverlap="false"></span>
-        </p>
-        <mat-card-title>{{ name }}</mat-card-title>
-        <img mat-card-sm-image *ngIf="thumbnail" [src]="thumbnail"/>
-      </mat-card-title-group>
-      <mat-card-content>
-        <p [innerHtml]="description"></p>
+      </span>
+      <span>{{ name }}
+           <img mat-card-sm-image *ngIf="thumbnail" [src]="thumbnail"/>
+      </span> 
+       
+      </mat-card-title>
+      <mat-card-content> 
+          <span style="font-size: 11px" [innerHtml]="description"> </span>
       </mat-card-content>
       <mat-card-actions>
         <button mat-raised-button color="warn" *ngIf="inBasket" (click)="remove.emit(product)">
-        Remove Product from Basket
+            Remove from Basket
+            <mat-icon>cancel</mat-icon>
         </button>
         <p  *ngIf="valid">
-        <button   mat-raised-button color="primary" *ngIf="!inBasket" (click)="add.emit(product)">
-        Add Product to Basket
-        </button>
+            <button mat-raised-button color="primary" *ngIf="!inBasket" (click)="add.emit(product)">
+                Add to Basket
+                <mat-icon>loupe</mat-icon>
+            </button>
         </p>
+      
       </mat-card-actions>
+   
     </mat-card>
   `,
   styles: [
@@ -87,5 +94,6 @@ export class ProductDetailComponent {
        'assets/imgs/app/' + `${this.product.image}`
     );
   }
+
 
 }

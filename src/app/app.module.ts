@@ -1,33 +1,24 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-
-import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { DBModule } from '@ngrx/db';
-import {
-  StoreRouterConnectingModule,
-  RouterStateSerializer,
-} from '@ngrx/router-store';
+import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-
-import { CoreModule } from './core/core.module';
-import { AuthModule } from './auth/auth.module';
-
-import { routes } from './routes';
-import { reducers, metaReducers } from './reducers';
-import { schema } from './db';
-import { CustomRouterStateSerializer } from './shared/utils';
-
-import { AppComponent } from './core/containers/app.component';
 import { environment } from '../environments/environment';
+import { AuthModule } from './auth/auth.module';
+import { AppComponent } from './core/containers/app.component';
+import { CoreModule } from './core/core.module';
 import { ConfigEffects } from './core/effects/configuration.effects';
 import { ConfigService } from './core/services/config.service';
-import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { metaReducers, reducers } from './reducers';
+import { routes } from './routes';
+import { CustomRouterStateSerializer } from './shared/utils';
 
 @NgModule({
   imports: [

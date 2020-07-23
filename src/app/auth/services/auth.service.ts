@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Authenticate, User } from '../models/user';
 import { environment } from '../../../environments/environment';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {
@@ -13,7 +14,6 @@ export class AuthService {
   }
 
   login({ email, password }: Authenticate): Observable<User[]> {
-
     const params = new HttpParams();
     params.set('email', email);
     params.set('password', password);

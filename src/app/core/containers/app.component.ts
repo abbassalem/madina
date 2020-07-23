@@ -50,7 +50,7 @@ import { User } from '../../auth/models/user';
 
         <div style="flex: 1 1 auto;flex-direction: row">
           <span style="align-self: flex-s
-          tart">OnWeb</span>
+          tart">Madina</span>
           <span class="login" *ngIf="loggedIn$ | async">
               <span style="color:white">LoggedIn as: </span> <b>{{(user$ | async)?.firstName + ' ' + (user$ | async)?.lastName}}</b>
           </span>

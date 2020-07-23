@@ -24,7 +24,8 @@ import { BasketItem } from '../models/BasketItem.model';
     </span>
 </mat-toolbar>
 
-<app-product-view  *ngFor="let product of products" [product]="product" [quantity]="getQuantity(product.id)"> </app-product-view>
+<app-product-view  *ngFor="let product of products" [product]="product" [quantity]="getQuantity(product.id)">
+</app-product-view>
 `,
   styles: [
     `

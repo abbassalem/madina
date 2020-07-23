@@ -1,13 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
-import * as fromCategoryActions from '../actions/category.actions';
+import { Observable } from 'rxjs';
 import * as fromBasketActions from '../actions/basket.actions';
+import * as fromCategoryActions from '../actions/category.actions';
+import { BasketItem } from '../models/BasketItem.model';
 import { Category } from '../models/category.model';
 import * as fromCategories from '../reducers/categories.reducer';
-import * as fromBasket from '../reducers/basket.reducer';
 import * as index from './../reducers/index';
-import { BasketItem } from '../models/BasketItem.model';
 
 @Component({
   selector: 'app-product-list-page',

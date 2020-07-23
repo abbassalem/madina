@@ -7,6 +7,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
       <button mat-icon-button (click)="openMenu.emit()">
         <mat-icon>menu</mat-icon>
       </button>
+      <img src="/assets/icon/favicon.png" width="90" height="60" style="padding-right:4px">
       <ng-content></ng-content>
     </mat-toolbar>
   `,

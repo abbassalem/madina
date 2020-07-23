@@ -676,9 +676,9 @@
   "users": [
     {
       "id": 1,
-      "email": "adam@gmail.com",
+      "email": "abbas.salem.water@gmail.com",
       "telephone": "0473 32 12 12",
-      "password": "adam",
+      "password": "adam24092001",
       "firstName": "Adam",
       "lastName": "Salem",
       "addresses": [
@@ -699,6 +699,9 @@
       "paymentMethod": "bank",
       "language": "en",
       "level": "LEVEL-1"
+    },
+    {
+      "id": 2
     }
   ],
   "categories": [

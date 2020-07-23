@@ -13,12 +13,12 @@ export interface User {
   password: string;
   firstName: string;
   lastName: string;
-  addresses: Array<Address>;
-  iban: string;
-  name: string;
-  paymentMethod: PaymentMothodType;
-  level: LevelType;
-  language: LanguageType;
+  addresses?: Array<Address>;
+  iban?: string;
+  name?: string;
+  paymentMethod?: PaymentMothodType;
+  level?: LevelType;
+  language?: LanguageType;
 }
 
 export enum LanguageType {

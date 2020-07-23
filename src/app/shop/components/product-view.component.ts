@@ -7,15 +7,16 @@ import { Product } from '../models/product.model';
     <a [routerLink]="['/shop/products', id, {queryParams: {quantity:quantity}}]">
       <mat-card>
         <mat-card-title-group>
-          <p *ngIf="quantity > 0">
-            <span matBadge="{{quantity}}" matBadgeOverlap="false"></span>
-          </p>
           <img mat-card-sm-image *ngIf="thumbnail" [src]="thumbnail"/>
           <mat-card-title>{{ name }}</mat-card-title>
         </mat-card-title-group>
+        
         <mat-card-footer align="end">
+        <p style="float:left" *ngIf="quantity > 0">
+          <span  [matBadge]="quantity" style="font-size:10px" matBadgeOverlap="true"></span>
+        </p>
           <p>Price: <b>{{ price | number : '1.2-2'}} </b></p>
-          <p *ngIf="description">{{ description }}</p>
+          <p style="font-size:10px" *ngIf="description">{{ description }}</p>
         </mat-card-footer>
       </mat-card>
     </a>
@@ -31,8 +32,9 @@ import { Product } from '../models/product.model';
     }
 
     mat-card {
-      width: 400px;
-      margin: 15px;
+      width: 300px;
+      height: 180px;
+      margin: 10px;
       display: flex;
       flex-flow: column;
       justify-content: space-between;
@@ -80,6 +82,9 @@ export class ProductViewComponent {
   @Input() product: Product;
   @Input() quantity: number;
 
+  constructor() {
+  }
+  
   get id() {
     return this.product.id;
   }
@@ -102,9 +107,6 @@ export class ProductViewComponent {
 
   get price() {
     return this.product.price;
-  }
-
-  constructor() {
   }
 
 }

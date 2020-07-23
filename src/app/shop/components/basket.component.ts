@@ -147,6 +147,8 @@ export class BasketComponent implements OnInit {
   save() {
     switch (this.operation) {
       case OperationType.EDIT: {
+        console.log('quantity control');
+        console.dir(this.quantityControl);
         this.basketItems[this.selectedIndex].quantity = this.quantityControl.value;
         this.store.dispatch(new fromBasketActions
           .UpdateBasketItem(this.basketItems[this.selectedIndex]));
