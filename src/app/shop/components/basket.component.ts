@@ -147,11 +147,10 @@ export class BasketComponent implements OnInit {
   save() {
     switch (this.operation) {
       case OperationType.EDIT: {
-        console.log('quantity control');
-        console.dir(this.quantityControl);
-        this.basketItems[this.selectedIndex].quantity = this.quantityControl.value;
+        const clone = Object.assign({}, this.basketItems[this.selectedIndex]);
+        clone.quantity = this.quantityControl.value;
         this.store.dispatch(new fromBasketActions
-          .UpdateBasketItem(this.basketItems[this.selectedIndex]));
+          .UpdateBasketItem(clone));
         break;
       }
       case OperationType.DELETE: {

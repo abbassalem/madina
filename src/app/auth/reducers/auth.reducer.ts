@@ -4,7 +4,7 @@ import { createFeatureSelector } from '@ngrx/store';
 
 export interface State {
   loggedIn: boolean;
-  user: User | null;
+  user: User ;
 }
 
 export const initialState: State = {

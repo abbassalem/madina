@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Authenticate, User } from '../models/user';
 import { environment } from '../../../environments/environment';
-import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {
@@ -17,7 +16,10 @@ export class AuthService {
     const params = new HttpParams();
     params.set('email', email);
     params.set('password', password);
-    return this.http.get<User[]>(this.endpoint + '/users' + '?email=' + email + '&password=' + password);
+    const url = this.endpoint + '/users' + '?email=' + email + '&password=' + password;
+    console.log('url => ' + url);
+    return this.http.get<User[]>(this.endpoint + '/users');
+    // return this.http.get<User[]>(this.endpoint + '/users' + '?email=' + email + '&password=' + password);
   }
 
   logout() {
