@@ -19,6 +19,25 @@ import { ConfigService } from './core/services/config.service';
 import { metaReducers, reducers } from './reducers';
 import { routes } from './routes';
 import { CustomRouterStateSerializer } from './shared/utils';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireFunctionsModule } from '@angular/fire/functions';
+import { firestore } from 'firebase';
+
+// const firebaseConfig = {
+//   apiKey: "AIzaSyD9rYmW5yDFCdFyym8R8Uy71PPdpkDg6M0",
+//   authDomain: "madina-cafe.firebaseapp.com",
+//   databaseURL: "https://madina-cafe.firebaseio.com",
+//   projectId: "madina-cafe",
+//   storageBucket: "madina-cafe.appspot.com",
+//   messagingSenderId: "710715879487",
+//   appId: "1:710715879487:web:01bfd9dda3d35fe3e0088a",
+//   measurementId: "G-V9GBFS69W0"
+// };
 
 @NgModule({
   imports: [
@@ -27,7 +46,14 @@ import { CustomRouterStateSerializer } from './shared/utils';
     BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot(routes, { useHash: true }),
-
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule,
+    AngularFireMessagingModule,
+    AngularFireDatabaseModule,
+    AngularFireFunctionsModule,
+    AngularFirestoreModule
     /**
      * StoreModule.forRoot is imported once in the root module, accepting a reducer
      * function or object map of reducer functions. If passed an object of

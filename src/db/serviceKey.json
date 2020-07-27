@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "madina-cafe",
+  "private_key_id": "3c1c8dd85d774e175b590fb9bcae6d4113fecd44",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCzry3X45NGf+ZD\njidSW+IJpGxeJ1ibLvbaa3iFAuVR3XA58zZzrBfW4ON24x4asuIpUxos54DiLQjP\nrnykosOdP5UtrfaqaFAC0ZBO3JZPI0E1554mWH1pOPs9+VzYPn8kOCEuMuh5qK85\nY7W8lboNOskXJWUL+oDT0515nIhgNiF1O7msx0FEbWetwI1iO2tEpSd+eBC/fASu\ndjGAKeMV99JC0eyoZggKCZYiig5oJ6ZiewcqvGRZst16moq12ArUuaCBJcpTmW/U\nE4gnzquwgmlX6vrdnZrszYoMBMaVLUpRXut6IXIkWmFdwwzXmCFW44ZBtGU3F+NB\nHGlB9zxbAgMBAAECggEAICepPIktQeCBhHVb9BEdUjxqaC8CXEL7SfsRhjwObagC\n/VvY0rppSbrU+eGK8ZwxfNOyS3biSZdljETdaVj3SJyoRZRsH/Kq3tZBzNsMyvy0\nHsFkO9h6GOppi52kT85fUkv5JBtYHu1g7hQ54ZWpxdRPSCUZABvEEiQ8ehbZEN5S\nLc/sKIN+Q6IRWvxLYVpiHuB90aKCTwEoreoO3oHJZoIFEniejihgrPr7h5xAhX6E\nCw38OaWbjnjiAN4GBwBMfKB0igBe3X2F86iShtAL23oYpflsuemOimE/HlaRt4YM\nLlXbzK9fv/gUB8iP741PxbQB+Cn89lpR90Iyapp4gQKBgQDej5UGk7HQIXl9pZar\nGEfXnqUa97bCixqe5qV6RS9Ayj0yqrsXSuBQKur9rn4hnf/uiP0YCkUE/pBR1uum\n+J2JuP8DQQ3g4/W6geGb/JMhYAXJ92WjSUIFhSHgecf+bnTfjKFTUj3ZcbtMwYE6\nSAERg6X0a59ZQn6Y+IxkefLMNwKBgQDOrmyBq21ODlb+AOFzR2GDuuXtZZG4sVYN\nyjNGPFyZu5a/Rx0Y+Ml/hoE/VootA3P+4zoFT+ybVn9vfJENihmZRg4POgyK1gxo\nddnG0AWyk2msTDgZVxoW5AIRqB2yihZIy65a+0pai68PBoDeQh3jDi5ia/+hbUe7\nwU/lEcbm/QKBgQCCcg2ayT5TCwu2RTPGHHkfO/DxmXcZF4cG05Dx1VMY2nB8He2C\nfXR0CHOrNHbhJUY4fTo6uOozPzE/hoSgXN+ZNUDim2KTCYmhQzcEwklKKom6ErMT\nvYBg0+NDOp2p1vvRew+jUnTF2g85scEYc9OMfGjslZfULVEeP6+pxIA2iQKBgQC4\nD2XaZMxHA0Y9lpMwkpUpNzykmhuYG3XDehsHpaHh1sl9NtuW7Zik1SgtO+h6BeU7\nTSjSqkbQX8vFgW28XQxHD7hdnxikW9NZA/sZrxAj5FvrcUVUa9l0IUImb01jPs5x\nrdJse/XPhS41d1k0ljT/jBWK2Rsiq6uCbbm1CovUEQKBgGXacn7G/qKAjW6RJbqc\nLNiHMhD0YLIblf1D8/YZRWoAis+F3FjQ6EEKorwRNSRnsuZWzgbrIDYmMqy+Vtwd\nyUGSs0RVDdxJDnxtEigPmwj2Z+h6/XojVVxR2FlpWtYyJ5q5JHfIaVrm+q7tbsbS\nhb0l4Ql4iOgWh6baWFtcP+/B\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-tta62@madina-cafe.iam.gserviceaccount.com",
+  "client_id": "111427720150097744473",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-tta62%40madina-cafe.iam.gserviceaccount.com"
+}

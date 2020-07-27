@@ -20,56 +20,47 @@ export class BasketService implements OnInit {
   constructor(private http: HttpClient) {
   }
 
-  ngOnInit():  void {
-    // this.http.get(this.endpoint).pipe( map ( (data) => {
-    //   return data.json();
-    // }).subscribe( (v) => {
-    //   this.orders = v;
-    // })
-    // );
+ 
+  ngOnInit(): void {
+    if (firebase.database().ref('/users').key) {
+      firebase.database().ref().push('/users');
+      firebase.database().ref('/users/' + this.userId).once('value').then(function(snapshot) {
+        console.log('email');
+        console.log(snapshot.val().s);
+        firebase.database().ref().push('/orders')
+      })
+    };
   }
 
-//   ngOnInit(): void {
-//     // TODO: change to use json-server
-//     // if (firebase.database().ref('/users').key) {
-//     //   firebase.database().ref().push('/users');
-//     //   firebase.database().ref('/users/' + this.userId).once('value').then(function(snapshot) {
-//     //     console.log('email');
-//     //     console.log(snapshot.val().s);
-//     //     firebase.database().ref().push('/orders')
-//     //   })
-//     // };
-//   }
-
-//   // saveOrder() {
-//     // const orderKey = firebase.database().ref('/users/' + firebase.auth().currentUser.uid  + '/orders').push(this.order).then(
-//     //   (success) => {
-//     //     console.log('after save');
-//     //     console.dir(success);
-//     //     this.order = {id: 0, orderDate: new Date(), amount: 0, orderLines: new Array<OrderLine>(), delivered: false};
-//     //     this.order$.next({id: 0, orderDate: new Date(), amount: 0, orderLines: new Array<OrderLine>(), delivered: false});
-//     //     this.placedOrderSuccess = true;
-//     //   },
-//     //   (error) => {
-//     //   }
-//     // );
-//     //
-//     // function productAlreadyAddedToBasket(): void {
-//     //   for ( let catIndex = 0; catIndex < self.categories.length; catIndex++) {
-//     //     const cat = self.categories[catIndex];
-//     //     for ( let prodIndex = 0; prodIndex < cat.products.length; prodIndex++) {
-//     //       cat.products[prodIndex].addedToBasket = false;
-//     //     }
-//     //   }
-//     // }
-//   // }
-
-
-  saveOrder(order: Order): Observable<Order> {
-    console.log('calling saveOrder()');
-    console.dir(order);
-    return this.http.post<Order>(this.endpoint + '/orders', order);
+  saveOrder() {
+    const orderKey = firebase.database().ref('/users/' + firebase.auth().currentUser.uid  + '/orders').push(this.order).then(
+      (success) => {
+        console.log('after save');
+        console.dir(success);
+        this.order = {id: 0, orderDate: new Date(), amount: 0, orderLines: new Array<OrderLine>(), delivered: false};
+        this.order$.next({id: 0, orderDate: new Date(), amount: 0, orderLines: new Array<OrderLine>(), delivered: false});
+        this.placedOrderSuccess = true;
+      },
+      (error) => {
+      }
+    );
+    
+    function productAlreadyAddedToBasket(): void {
+      for ( let catIndex = 0; catIndex < self.categories.length; catIndex++) {
+        const cat = self.categories[catIndex];
+        for ( let prodIndex = 0; prodIndex < cat.products.length; prodIndex++) {
+          cat.products[prodIndex].addedToBasket = false;
+        }
+      }
+    }
   }
+
+
+  // saveOrder(order: Order): Observable<Order> {
+  //   console.log('calling saveOrder()');
+  //   console.dir(order);
+  //   return this.http.post<Order>(this.endpoint + '/orders', order);
+  // }
 
 //   addOrderLine(orderLine:OrderLine): void {
 //      orderLine.id = orderLine.product.id;
