@@ -13,17 +13,18 @@ export class ConfigEffects {
   constructor(private actions$: Actions, private configService: ConfigService) {
   }
 
-@Effect()
-loadDeliveryTimes$: Observable<Action> = this.actions$.pipe(
-  ofType<fromConfigActions.LoadDeliveryTimes>(fromConfigActions.ConfigActionTypes.LoadDeliveryTimes),
-  switchMap( () => {
-    return this.configService.getDeliveryTimes().pipe(
-      map( (deliveryTimes: Array<string>) => {
-        return new fromConfigActions.LoadDeliveryTimesComplete(deliveryTimes);
-      }),
-      catchError(err => of(new fromConfigActions.LoadDeliveryTimesError(err)))
-    );
-  })
-);
+  // TODO: 
+// @Effect()
+// loadDeliveryTimes$: Observable<Action> = this.actions$.pipe(
+//   ofType<fromConfigActions.LoadDeliveryTimes>(fromConfigActions.ConfigActionTypes.LoadDeliveryTimes),
+//   switchMap( () => {
+//     return this.configService.getDeliveryTimes().pipe(
+//       map( (deliveryTimes: Array<string>) => {
+//         return new fromConfigActions.LoadDeliveryTimesComplete(deliveryTimes);
+//       }),
+//       catchError(err => of(new fromConfigActions.LoadDeliveryTimesError(err)))
+//     );
+//   })
+// );
 
 }

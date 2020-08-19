@@ -7,20 +7,20 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class AuthService {
 
-  endpoint = environment.endpoint;
+  // endpoint = environment.endpoint;
 
   constructor(private http: HttpClient) {
   }
 
-  login({ email, password }: Authenticate): Observable<User[]> {
-    const params = new HttpParams();
-    params.set('email', email);
-    params.set('password', password);
-    const url = this.endpoint + '/users' + '?email=' + email + '&password=' + password;
-    console.log('url => ' + url);
-    return this.http.get<User[]>(this.endpoint + '/users');
-    // return this.http.get<User[]>(this.endpoint + '/users' + '?email=' + email + '&password=' + password);
-  }
+  // login({ email, password }: Authenticate): Observable<User[]> {
+  //   const params = new HttpParams();
+  //   params.set('email', email);
+  //   params.set('password', password);
+  //   const url = this.endpoint + '/users' + '?email=' + email + '&password=' + password;
+  //   console.log('url => ' + url);
+  //   return this.http.get<User[]>(this.endpoint + '/users');
+  //   // return this.http.get<User[]>(this.endpoint + '/users' + '?email=' + email + '&password=' + password);
+  // }
 
   logout() {
     return of(true);

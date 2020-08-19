@@ -38,6 +38,6 @@ import { AuthGuard } from '../auth/services/auth-guard.service';
     ProductListPageComponent,
     BasketPageComponent
   ],
-  providers: [],
+  providers: []
 })
 export class ShopModule {}

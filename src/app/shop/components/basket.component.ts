@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { User } from '../../auth/models/user';
-import * as fromAuth from '../../auth/reducers/old-index';
+import * as fromAuth from '../../auth/reducers/auth.reducer';
 import { BasketService } from '../../core/services/basket.service';
 import * as fromRoot from '../../reducers';
 import * as fromBasketActions from '../actions/basket.actions';
@@ -93,19 +93,19 @@ export class BasketComponent implements OnInit {
         items: this.basketItems,
         userId: userId
       };
-      this.basketService.saveOrder(this.order).subscribe(
-        (value) => {
-            this.snakBar.open('Order saved successfully. Delivery Date on: ' +
-                                       value.deliveryDate + ' at: ' + value.deliveryTime );
-            console.log('after post');
-            console.dir(value);
-        },
-        (error) => {
-          this.snakBar.open('Order failed with error: ' + error.toString());
-          console.log('error');
-          console.dir(error);
-        }
-      );
+      // this.basketService.saveOrder(this.order).subscribe(
+      //   (value) => {
+      //       this.snakBar.open('Order saved successfully. Delivery Date on: ' +
+      //                                  value.deliveryDate + ' at: ' + value.deliveryTime );
+      //       console.log('after post');
+      //       console.dir(value);
+      //   },
+      //   (error) => {
+      //     this.snakBar.open('Order failed with error: ' + error.toString());
+      //     console.log('error');
+      //     console.dir(error);
+      //   }
+      // );
   }
 
   getTotal() {

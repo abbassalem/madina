@@ -98,6 +98,8 @@ export class OrderViewComponent {
 
   orderItems: Array<OrderItem> = [];
 
+  panelOpenState = false;
+  
   displayedColumns: string[] = ['name', 'price', 'quantity', 'subTotal'];
 
   constructor(private store: Store<ShopState>, private snackBar: MatSnackBar) {
@@ -183,7 +185,7 @@ export class OrderViewComponent {
   open(id) {
     console.log('order Id: ' + id);
     this.loadItems();
-    // panelOpenState = true
+    this.panelOpenState = true;
   }
 }
 

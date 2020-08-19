@@ -19,9 +19,11 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   imports: [
+    MatExpansionModule,
     MatInputModule ,
     MatCardModule ,
     MatButtonModule ,
@@ -45,6 +47,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatGridListModule
   ],
   exports: [
+    MatExpansionModule,
     MatInputModule ,
     MatCardModule ,
     MatButtonModule ,

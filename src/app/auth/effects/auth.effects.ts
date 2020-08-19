@@ -21,17 +21,18 @@ export class AuthEffects {
     private router: Router
   ) {}
 
-  @Effect()
-  login$ = this.actions$.pipe(
-    ofType<Login>(AuthActionTypes.Login),
-    switchMap( action => this.authService.login(action.payload).pipe(
-        map ( users => {
-            return new LoginComplete(users[0]);
-        }), 
-        catchError(error => of(new LoginError(error)))
-      )
-    )
-  );
+  // TODO:
+  // @Effect()
+  // login$ = this.actions$.pipe(
+  //   ofType<Login>(AuthActionTypes.Login),
+  //   switchMap( action => this.authService.login(action.payload).pipe(
+  //       map ( users => {
+  //           return new LoginComplete(users[0]);
+  //       }), 
+  //       catchError(error => of(new LoginError(error)))
+  //     )
+  //   )
+  // );
 
   @Effect({ dispatch: false })
   loginSuccess$ = this.actions$.pipe(

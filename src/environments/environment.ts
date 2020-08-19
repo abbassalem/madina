@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  endpoint: 'http://localhost:3000',
+  // endpoint: 'http://localhost:3000',
   firebase: {
     apiKey: "AIzaSyD9rYmW5yDFCdFyym8R8Uy71PPdpkDg6M0",
     authDomain: "madina-cafe.firebaseapp.com",

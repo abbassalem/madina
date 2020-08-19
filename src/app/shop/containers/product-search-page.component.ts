@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import * as ProductActions from '../actions/product.actions';
@@ -11,10 +11,12 @@ import * as fromProducts from '../reducers';
   selector: 'app-product-search-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <app-list-product [products]="products$ | async"></app-list-product>
+  <app-list-product [products]="products$ | async"></app-list-product>
   `,
 })
 
+   
+  
 export class ProductSearchPageComponent {
   searchQuery$: Observable<string>;
   products$: Observable<Product[]>;
