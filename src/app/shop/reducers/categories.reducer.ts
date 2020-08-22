@@ -31,7 +31,7 @@ export function reducer(state = initialState, action: CategoryActionsUnion ): Ca
 
     case CategoryActionTypes.LoadComplete: {
       //TODO: uncomment 
-      state.isLoaded = true;
+      state = Object.assign({ ...state, isLoaded:true});
       return adapter.addMany(action.payload, state);
     }
     case CategoryActionTypes.Select: {

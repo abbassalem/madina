@@ -90,6 +90,7 @@ export class ProductDetailComponent {
   }
 
   get thumbnail() {
+    console.log('insides docs => ' + 'assets/imgs/app/' + `${this.product.image}`);
     return (
        'assets/imgs/app/' + `${this.product.image}`
     );
