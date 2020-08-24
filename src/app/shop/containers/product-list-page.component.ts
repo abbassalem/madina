@@ -53,7 +53,6 @@ export class ProductListPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('product-list-page.component.ts - ngOnInit()');
     this.store.select(index.isLoaded).subscribe( loaded => {
       if (!loaded) {
         this.store.dispatch(new fromCategoryActions.Load());

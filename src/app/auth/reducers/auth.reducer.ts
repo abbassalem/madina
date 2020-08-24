@@ -17,8 +17,7 @@ export const selectAuthState = createFeatureSelector<State>('auth');
 export function reducer(state = initialState, action: AuthActionsUnion): State {
   switch (action.type) {
     case AuthActionTypes.LoginComplete: {
-      console.log('auth reducer');
-      console.dir(action.payload);
+      // console.dir(action.payload);
       return {
         ...state,
         loggedIn: true,

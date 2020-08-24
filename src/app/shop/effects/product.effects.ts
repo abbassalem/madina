@@ -18,8 +18,6 @@ export class ProductEffects {
           return this.productService.getCategories()
           .pipe(
             map( (cats: Array<Category>) => {
-                console.log('categories');
-                console.dir(cats);
                 return new fromCategoryActions.LoadComplete(cats);
             }),
             catchError(err => of(new fromCategoryActions.LoadError(err)))
