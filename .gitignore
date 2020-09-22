@@ -4,6 +4,7 @@ _gitignore.txt
 node_modules/
 package-lock.json
 .history/
+.firebase/
 docs/
 dist/
 firebase-debug.log

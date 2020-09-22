@@ -84,7 +84,7 @@ export class BasketComponent implements OnInit {
       let userId: number;
       this.user$.subscribe (user => { userId = user.id; });
       this.order = {
-        id: 6,
+        // id: 6,
         deliveryDate: this.basketForm.controls['deliveryGroup'].get('deliveryDate').value,
         deliveryTime: this.basketForm.controls['deliveryGroup'].get('deliveryTime').value,
         deliveryAddress: this.basketForm.controls['addressGroup'].value,
@@ -93,7 +93,9 @@ export class BasketComponent implements OnInit {
         items: this.basketItems,
         userId: userId
       };
-      // this.basketService.saveOrder(this.order).subscribe(
+      this.store.dispatch(new fromBasketActions.SaveBasket(this.order));
+      // this.basketService.saveOrder(this.order);
+      // .subscribe(
       //   (value) => {
       //       this.snakBar.open('Order saved successfully. Delivery Date on: ' +
       //                                  value.deliveryDate + ' at: ' + value.deliveryTime );

@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { BasketItem } from '../models/BasketItem.model';
+import { Order } from '../models/order.model';
 
 export enum BasketActionTypes {
   AddBasketItem = '[Basket] Add BasketItem',
@@ -17,7 +18,25 @@ export enum BasketActionTypes {
   Select = '[Basket] Select Basket Item',
   UpdateBasketItem = '[Basket] Update Basket Item',
   UpdateBasketItemComplete = '[Basket] Update Basket Item Complete',
-  UpdateBasketItemError = '[Basket] Update Basket Item Error'
+  UpdateBasketItemError = '[Basket] Update Basket Item Error',
+  SaveBasket = '[Basket] Save Basket',
+  SaveBasketComplete = '[Basket] Save Basket Complete',
+  SaveBasketError = '[Basket] Save Basket Error',
+}
+
+export class SaveBasket implements Action {
+  readonly type = BasketActionTypes.SaveBasket;
+  constructor(public payload: Order) { }
+}
+
+export class SaveBasketComplete implements Action {
+  readonly type = BasketActionTypes.SaveBasketComplete;
+  constructor(public payload: string) { }
+}
+
+export class SaveBasketError implements Action {
+  readonly type = BasketActionTypes.SaveBasketError;
+  constructor(public payload: string) { }
 }
 
 export class AddBasketItem implements Action {
@@ -115,4 +134,7 @@ export type BasketActionsUnion =
   | UpdateBasketItem
   | UpdateBasketItemComplete
   | UpdateBasketItemError
-  | Select;
+  | Select
+  | SaveBasket
+  | SaveBasketComplete
+  | SaveBasketError

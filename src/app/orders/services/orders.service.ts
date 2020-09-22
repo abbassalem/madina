@@ -14,7 +14,8 @@ export class OrderService {
   }
 
   getOrders(): Observable<Array<Order>> {
-    return null;
+     return null;
+    //return this.db.collection('orders').add()
     // return this.http.get<Array<Order>>(`${this.endpoint}/orders`);
   }
 

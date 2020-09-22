@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
+import { Observable, of, ObservableInput } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { BasketItem } from '../models/BasketItem.model';
 import * as fromBasketActions from './../actions/basket.actions';
+import { Order } from '../models/order.model';
+import { BasketService } from 'src/app/core/services/basket.service';
 
 
 @Injectable()
@@ -12,7 +14,7 @@ export class BasketEffects {
 
   products: BasketItem[];
 
-  constructor(private actions$: Actions) {
+  constructor(private actions$: Actions, private basketService: BasketService) {
     if (window.localStorage) {
       this.products = JSON.parse(window.localStorage.getItem('products'));
       if (!this.products) {
@@ -23,6 +25,20 @@ export class BasketEffects {
       console.log('locaStorage not supported');
     }
   }
+
+  @Effect()
+  saveOrder$: Observable<Action> = this.actions$.pipe(
+    ofType<fromBasketActions.SaveBasket>(fromBasketActions.BasketActionTypes.SaveBasket),
+    map(action => action.payload),
+    switchMap( (order: Order) => {
+      return this.basketService.saveOrder(order).then( result => { 
+      console.log('saveOrder => ');
+      console.dir(result);
+      return new fromBasketActions.SaveBasketComplete('success')
+    })
+     .catch (error => new fromBasketActions.SaveBasketError(error))
+    })
+  );
 
   // @Effect()
   // loadBasket$: Observable<Action> = this.actions$.pipe(
@@ -57,14 +73,14 @@ export class BasketEffects {
     ofType<fromBasketActions.AddBasketItem>(fromBasketActions.BasketActionTypes.AddBasketItem),
     map(action => action.payload),
     switchMap((basketItem: BasketItem) => {
-      const index = this.products.findIndex(product => product.id === basketItem.id);
-      if (index > 0) {
-        this.products[index] = basketItem;
-      } else {
-        this.products.push(basketItem);
-      }
-      window.localStorage.setItem('products', JSON.stringify(this.products));
-      return of(new fromBasketActions.AddBasketItemComplete(basketItem));
+        const index = this.products.findIndex(product => product.id === basketItem.id);
+        if (index > 0) {
+          this.products[index] = basketItem;
+        } else {
+          this.products.push(basketItem);
+        }
+        window.localStorage.setItem('products', JSON.stringify(this.products));
+        return of(new fromBasketActions.AddBasketItemComplete(basketItem));
     }
     )
   );

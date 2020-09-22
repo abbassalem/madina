@@ -2,7 +2,7 @@ import { Product } from './product.model';
 import { BasketItem } from './BasketItem.model';
 
 export interface Order {
-   id: number;
+   id?: number;
    orderDate: Date;
    deliveryDate: Date;
    deliveryTime: string;
